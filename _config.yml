@@ -2,7 +2,8 @@
 
 name: Notes from a coder
 paginate: 25
-url: 'http://betogrun.github.io/nfc-blog/' # add your site url (format: http://example.com/)
+url: betogrun.github.io/nfc-blog/ # add your site url (format: http://example.com/)
+baseurl: /nfc-blog
 blog_theme: light # Or use dark
 
 # Optional settings
