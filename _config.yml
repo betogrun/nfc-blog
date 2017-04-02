@@ -3,7 +3,7 @@
 name: Notes from a coder
 paginate: 25
 url: albertorocha.me # add your site url (format: http://example.com/)
-baseurl: /nfc-blog
+
 blog_theme: light # Or use dark
 
 # Optional settings
