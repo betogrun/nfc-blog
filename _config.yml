@@ -1,15 +1,15 @@
 # Mandatory settings
 
 name: Notes from a coder
-paginate: 25
+paginate: 2
 url: albertorocha.me # add your site url (format: http://example.com/)
-
+description: description
 blog_theme: light # Or use dark
 
 # Optional settings
 
-about_enabled: false # Change to true if you wish to show an icon in the navigation that redirects to the about page
-discus_identifier: # Add your Disqus identifier
+about_enabled: true # Change to true if you wish to show an icon in the navigation that redirects to the about page
+discus_identifier: notesfromacoder
 ga_analytics: # Add your GA Tracking Id
 local_fonts: false # Change to true if you wish to use local fonts
 rss_enabled: true # Change to false if not
@@ -17,10 +17,10 @@ social:
   dribbble: # Add your Dribbble handle
   facebook: # Add your Facebook handle
   flickr: # Add your Flickr handle
-  github: # Add your GitHub handle
-  linkedin: # Add your LinkedIn handle
+  github: betogrun # Add your GitHub handle
+  linkedin: betogrun # Add your LinkedIn handle
   twitter: # Add your Twitter handle
-  email: # Add your Email address
+  email: betogrun@gmail.com # Add your Email address
   bitcoin: # Add your Bitcoin link or address
 
 # Important settings (change at own risk)
