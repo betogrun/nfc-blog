@@ -9,28 +9,35 @@ Assuming the project was already initiazed and it is integrated with a remote re
 
 ### Create a new branch
 {% highlight bash %}
-git checkout -b new_feature
+$ git checkout -b new_feature
 {% endhighlight %}
 
 ### Perform the commits
 {% highlight bash %}
 touch new_file.txt #Create or modify a file
-git add new_file.txt
-git commit -m "Add new file to the project"
+$ git add new_file.txt
+$ git commit -m "Add new file to the project"
 {% endhighlight %}
 
 ### Push the new branch to origin
 {% highlight bash %}
-git push origin new_feature
+$ git push origin new_feature
 {% endhighlight %}
 
-### Github operations
-Go to `https://github.com/your_repository/your_project/branches` and click in "New Pull Request button"
-Merge the changes in the master branch
+### Operations on Github
+1. Go to [https://github.com/your_repository/your_project/branches](https://github.com/your_repository/your_project/branches) and click in "New Pull Request button".
+{% include image.html path="post_1/branches_new_pr" path-detail="post_1/branches_new_pr" alt="New PR" %}
 
-## Update the local master branch
+2. Create a new Pull Request.
+{% include image.html path="post_1/create_pr" path-detail="post_1/create_pr" alt="Create PR" %}
+
+
+3. Merge the changes in the master branch.
+{% include image.html path="post_1/merge_pr" path-detail="post_1/merge_pr" alt="Merge PR" %}
+
+### Update the local master branch
 {% highlight bash %}
-git pull
+$ git pull
 {% endhighlight %}
 
-Now the changes done in new_feature branch are available in the local master.
+Now the changes done in `new_feature` branch are available in the local master.
