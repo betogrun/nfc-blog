@@ -46,6 +46,16 @@ $ git remote add origin git@github.com:YOUR_USER_NAME/YOUR_REPOSITORY_NAME.git
 $ git push origin master
 {% endhighlight %}
 
+It is also possible to enhance the command by making it responsible for add a new remote automatically:
+{% highlight bash %}
+$ git config --global alias.gh-create-repo '!sh -c "cURL -u \"YOUR_USER_NAME:YOUR_TOKEN\" https://api.github.com/user/repos -d \"{\\\"name\\\":\\\"$1\\\"}\" && git remote add origin git@github.com:YOUR_USER_NAME/$1.git" -'
+{% endhighlight %}
+
+Using this option you just need to create the repository and push the changes:
+{% highlight bash %}
+$ git gh-create-repo my_new_repo
+$ git push origin master
+{% endhighlight %}
 
 # 3. Using a Ruby Gem
 <br>
