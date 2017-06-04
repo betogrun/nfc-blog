@@ -41,6 +41,7 @@ $ git config --global alias.gh-create-repo '!sh -c "cURL -u \"YOUR_USER_NAME:YOU
 
 From now on you only need to use the alias created above:
 {% highlight bash %}
+$ git init
 $ git gh-create-repo my_new_repo
 $ git remote add origin git@github.com:YOUR_USER_NAME/YOUR_REPOSITORY_NAME.git
 $ git push origin master
@@ -53,9 +54,12 @@ $ git config --global alias.gh-create-repo '!sh -c "cURL -u \"YOUR_USER_NAME:YOU
 
 Using this option you just need to create the repository and push the changes:
 {% highlight bash %}
+$ git init
 $ git gh-create-repo my_new_repo
 $ git push origin master
 {% endhighlight %}
+
+PS: For a silent output you can use: `cURL -s -o /dev/null`
 
 # 3. Using a Ruby Gem
 <br>
