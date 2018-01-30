@@ -138,10 +138,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   html-proofer
-<<<<<<< HEAD
-=======
   image_optim
->>>>>>> update-blog
   jekyll
   jekyll-assets
   jekyll-paginate
@@ -149,15 +146,8 @@ DEPENDENCIES
   jemoji
   mini_magick
   sass
-<<<<<<< HEAD
-  uglifier
-
-BUNDLED WITH
-   1.14.6
-=======
   sprockets (= 4.0.0.beta6)
   uglifier
 
 BUNDLED WITH
    1.16.1
->>>>>>> update-blog
