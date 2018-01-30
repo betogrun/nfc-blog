@@ -4,10 +4,12 @@ title: "Alberto Rocha"
 description: "About me"
 ---
 <h1>{{ page.title }}</h1>
-<div class="about reveal">
+
+<div class="about {% if site.scrollappear_enabled %}scrollappear{% endif %}">
 
   <center>
-  <img src="{% asset_path 'photo4.jpg' %}" alt="About Alberto Rocha header image" />
+ 
+  <img src="{% asset 'photo4.jpg' @path %}" alt="About Alberto Rocha header image" />
 </center>
   <h1>{{ page.description }}</h1>
   <p>

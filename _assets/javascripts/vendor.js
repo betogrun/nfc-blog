@@ -1,6 +1,5 @@
 //= require jquery
-//= require vendor/jquery-throttle-debounce.js
+//= require throttle-debounce-fn/dist/throttle-debounce-fn.js
 //= require fluidbox
-//= require scrollreveal
-//= require turbolinks5/dist/turbolinks.js
-//= require vendor/retina.js
+//= require retinajs/dist/retina.js
+//= require svgxuse/svgxuse.js
