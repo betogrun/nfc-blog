@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Notes from a coder | Creating a Github repository from CLI</title>
+  <meta name="description" content="How to initialize a github repo using the Github API">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Creating a Github repository from CLI">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:4000/posts/git-repo-via-cmd">
+  <meta property="og:description" content="How to initialize a github repo using the Github API">
+  <meta property="og:site_name" content="Notes from a coder">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="http://localhost:4000/posts/git-repo-via-cmd">
+  <meta name="twitter:title" content="Creating a Github repository from CLI">
+  <meta name="twitter:description" content="How to initialize a github repo using the Github API">
+
+  
+    <meta property="og:image" content="http://localhost:4000/assets/og-image-7a22d2317bfe2938542700eb3660268c8bc01435e4bbfd59cd9fe1cc38e5d6df.jpg">
+    <meta name="twitter:image" content="http://localhost:4000/assets/og-image-7a22d2317bfe2938542700eb3660268c8bc01435e4bbfd59cd9fe1cc38e5d6df.jpg">
+  
+
+  <link href="http://localhost:4000/feed.xml" type="application/rss+xml" rel="alternate" title="Notes from a coder Last 10 blog posts" />
+
+  
+
+  
+    <link rel="icon" type="image/x-icon" href="/assets/favicon-light-a98c41efc5ed9fcc06ac664c9e2f7a9b3c3b2e0a52357d221fe382f6f4abc8fc.ico">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon-light-87d1f2a3a19b1500e5c1626a0492025ca5f7f97d24540dc5900288e92112925a.png">
+    <link rel="stylesheet" type="text/css" href="/assets/light-dd81b21ab090e25ca3de9c7f8a04c3ed3092374c826eb42b9fb7cac72c5f41e7.css">
+  
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="Notes from a coder">Notes from a coder</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/betogrun" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/betogrun" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:betogrun@gmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="/feed.xml" rel="noreferrer noopener" target="_blank" title="RSS">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-rss">
+  <use href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss" xlink:href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Creating a Github repository from CLI</h1>
+            <p>How to initialize a github repo using the Github API</p>
+            <div class="article-list-footer">
+              <span class="article-list-date">
+                May 6, 2017
+              </span>
+              <span class="article-list-divider">-</span>
+              <span class="article-list-minutes">
+                
+                
+                  2 minute read
+                
+              </span>
+              <span class="article-list-divider">-</span>
+              <div class="article-list-tags">
+                
+                  <a href="/tag/git">git</a>
+                
+                  <a href="/tag/github">github</a>
+                
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <p>Whenever I’m creating a new project from console I always need to leave it and go to github webpage to create a new repository and come back to console to push the changes.<br />
+There some ways to create the repository via CLI.</p>
+
+<h1 id="1-via-curl">1. Via cURL</h1>
+<p><br />
+By using the github API and cURL it is really easy to create a new repository:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>cURL <span class="nt">-u</span> <span class="s1">'YOUR_USER_NAME'</span> https://api.github.com/user/repos <span class="nt">-d</span> <span class="s1">'{"name":"YOUR_REPOSITORY_NAME"}'</span></code></pre></figure>
+
+<p>From the response is possible to get the git url to add a remote and push the changes:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git remote add origin git@github.com:YOUR_USER_NAME/YOUR_REPOSITORY_NAME.git
+<span class="nv">$ </span>git push origin master</code></pre></figure>
+
+<p>By default a public repository is created, if you wish to create a private one you need to use:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>cURL <span class="nt">-u</span> <span class="s1">'YOUR_USER_NAME'</span> https://api.github.com/user/repos <span class="nt">-d</span> <span class="s1">'{"name":"YOUR_REPOSITORY_NAME", "description":"This is a private repo" "private":"true", }'</span></code></pre></figure>
+
+<h1 id="2-adding-a-alias-to-git">2. Adding a alias to git</h1>
+<p><br />
+It is cumbersome to type the same commands every time, so a git alias make this task pretty straightforward:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git config <span class="nt">--global</span> alias.gh-create-repo <span class="s1">'!sh -c "cURL -u \"YOUR_USER_NAME\" https://api.github.com/user/repos -d \"{\\\"name\\\":\\\"$1\\\"}\"" -'</span></code></pre></figure>
+
+<p>You can generate a <a href="https://github.com/settings/tokens/new">personal access token</a> and add it to the command above, otherwise cURL will prompt you to enter your password.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git config <span class="nt">--global</span> alias.gh-create-repo <span class="s1">'!sh -c "cURL -u \"YOUR_USER_NAME:YOUR_TOKEN\" https://api.github.com/user/repos -d \"{\\\"name\\\":\\\"$1\\\"}\"" -'</span></code></pre></figure>
+
+<p>From now on you only need to use the alias created above:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git init
+<span class="nv">$ </span>git gh-create-repo my_new_repo
+<span class="nv">$ </span>git remote add origin git@github.com:YOUR_USER_NAME/YOUR_REPOSITORY_NAME.git
+<span class="nv">$ </span>git push origin master</code></pre></figure>
+
+<p>It is also possible to enhance the command by making it responsible for add a new remote automatically:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git config <span class="nt">--global</span> alias.gh-create-repo <span class="s1">'!sh -c "cURL -u \"YOUR_USER_NAME:YOUR_TOKEN\" https://api.github.com/user/repos -d \"{\\\"name\\\":\\\"$1\\\"}\" &amp;&amp; git remote add origin git@github.com:YOUR_USER_NAME/$1.git" -'</span></code></pre></figure>
+
+<p>Using this option you just need to create the repository and push the changes:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git init
+<span class="nv">$ </span>git gh-create-repo my_new_repo
+<span class="nv">$ </span>git push origin master</code></pre></figure>
+
+<p>PS: For a silent output you can use: <code class="highlighter-rouge">cURL -s -o /dev/null</code></p>
+
+<h1 id="3-using-a-ruby-gem">3. Using a Ruby Gem</h1>
+<p><br />
+There are some gems out there that not only make it easy to create repository but to perform all the operations provided by Github API.</p>
+<ul>
+  <li><a href="https://github.com/defunkt/github-gem">github-gem</a></li>
+  <li><a href="https://github.com/piotrmurach/github_cli">github-cli</a></li>
+</ul>
+
+<h6 id="sources">Sources</h6>
+<ul>
+  <li><a href="https://robinwinslow.uk/2013/06/07/create-github-repositories-from-the-command-line/">https://robinwinslow.uk/2013/06/07/create-github-repositories-from-the-command-line/</a></li>
+  <li><a href="http://stackoverflow.com/questions/2423777/is-it-possible-to-create-a-remote-repo-on-github-from-the-cli-without-opening-br/10325316#10325316">http://stackoverflow.com/questions/2423777/is-it-possible-to-create-a-remote-repo-on-github-from-the-cli-without-opening-br/10325316#10325316</a></li>
+</ul>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Creating+a+Github+repository+from+CLI%20-%20http://localhost:4000/posts/git-repo-via-cmd" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/posts/git-repo-via-cmd" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+            <a href="https://plus.google.com/share?url=http://localhost:4000/posts/git-repo-via-cmd" title="Share on Google+" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 128 128"><path d="M40.7 55.9v16.1c0 0 15.6 0 22 0C59.2 82.5 53.8 88.2 40.7 88.2c-13.3 0-23.7-10.8-23.7-24.2s10.4-24.2 23.7-24.2c7.1 0 11.6 2.5 15.8 5.9 3.3-3.3 3.1-3.8 11.6-11.9 -7.2-6.6-16.8-10.6-27.4-10.6C18.2 23.3 0 41.5 0 64c0 22.5 18.2 40.7 40.7 40.7 33.6 0 41.8-29.3 39-48.8H40.7zM113.9 56.7V42.6h-10.1v14.1H89.4v10.1h14.5v14.5h10.1V66.8H128V56.7H113.9z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://notesfromacoder.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    Notes, tips and tricks by
+    <a href="/about" title="About me">Alberto Rocha</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96604674-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-96604674-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2e5becc015a837c852edabccbc32f5a390d4afa7a2ca601db948ea5b9e50292a.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-e3010885de8c083c4b2935d463b1649e8796191a66a1b43bb87ef04bbcce420d.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cd43a7f9bd8a08997bb19229cd040e7129ede0a1adf77c693b5835c9f8c2a4b1.js"></script>
+
+</body>
+</html>

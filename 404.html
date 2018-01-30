@@ -1,5 +1,5 @@
 ---
-permalink: /404.html
+permalink: /404.html 
 sitemap: false
 ---
 
@@ -10,19 +10,19 @@ sitemap: false
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>{{ site.name }} | Page not found</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  {% if site.local_fonts %}
-    {% stylesheet fonts %}
+  
+  {% if site.local_fonts %} 
+    {% asset fonts.css %}
   {% endif %}
   
-  {% if site.blog_theme == "light" %}
-    {% stylesheet notfound-light %}
+  {% if site.blog_theme == "light" %} 
+    {% asset notfound-light.css%}
   {% else %}
-    {% stylesheet notfound-dark %}
+    {% asset notfound-dark.css %} 
   {% endif %}
 </head>
 <body>
-  <main role="main" class="notfound-wrapper">
+  <main class="notfound-wrapper">
     <div class="notfound-content">
       <h1><a href="{{ '/' | relative_url }}" title="Back to homepage">{{ site.name }}</a></h1>
       <p>
@@ -32,14 +32,7 @@ sitemap: false
   </main>
 
   {% unless site.local_fonts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-    <script>
-      WebFont.load({
-        google: {
-          families: ['Cormorant Garamond:700', 'Lato:300,400,700']
-        }
-      });
-    </script>
+   {% asset webfonts.js %} 
   {% endunless %}
 </body>
 </html>
