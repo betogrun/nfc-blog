@@ -1,8 +1,8 @@
 # Mandatory settings
 
 name: Notes from a coder
-paginate: 3
-url: albertorocha.me # add your site url (format: http://example.com/)
+paginate: 4
+url: blog.albertorocha.me # add your site url (format: http://example.com/)
 description: description
 blog_theme: light # Or use dark
 
