@@ -75,7 +75,7 @@ volumes:
   postgres:
 {% endhighlight %}
 
-The steps bellow assumes you have docker installed:
+The commands bellow assumes you have docker installed:
 
 
 {% highlight console %}
@@ -84,7 +84,7 @@ $ docker-compose run --rm web bin/setup
 $ docker-compose up
 {% endhighlight %}
 
-Access <http://localhost:5000>
+Access: <http://localhost:5000>
 
 Application used in this example: <https://github.com/hacker-sessions/mySelfie>
 
