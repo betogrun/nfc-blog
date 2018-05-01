@@ -1,0 +1,4 @@
+---
+slug: rubocop
+name: Rubocop
+---
