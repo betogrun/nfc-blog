@@ -4,7 +4,7 @@ name: Notes from a coder
 paginate: 4
 url: blog.albertorocha.me # add your site url (format: http://example.com/)
 description: description
-blog_theme: light # Or use dark
+blog_theme: dark # Or use ligth
 
 # Optional settings
 
@@ -14,6 +14,8 @@ ga_analytics: UA-96604674-1
 local_fonts: false # Change to true if you wish to use local fonts
 rss_enabled: true # Change to false if not
 scrollappear_enabled: true # Change to false to disable
+tag_nav_enabled: false # Change to true if you wish to show an additional 'tag-list' navigation below the header
+theme_toggle: true # Change to true if you wish to show an icon in the navigation for dynamic theme toggling
 social:
   dribbble: # Add your Dribbble handle
   facebook: # Add your Facebook handle
@@ -68,6 +70,7 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - package.json
+  - package-lock.json
   - README.md
   - vendor/
   - yarn.lock
