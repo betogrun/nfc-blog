@@ -169,5 +169,26 @@
         </a>
       </li>
     {% endif %}
+    {% if site.theme_toggle == true %}
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          {% include svg-icon.html icon="theme" %}
+        </a>
+      </li>
+    {% endif %}
   </ul>
 </nav>
+
+{% if site.tag_nav_enabled %}
+  <ul class="header-tags {% if site.scrollappear_enabled %}scrollappear{% endif %}">
+    {% assign tags = site.tags | sort %}
+    {% for tag in tags %}
+      {% if forloop.index > 10 %}
+        <li>...</li>
+        <li><a href="/tags">Show all</a></li>
+        {% break %}
+      {% endif %}
+        <li><a href="{{ 'tag/' | relative_url }}{{ tag[0] }}">{{ tag[0] | capitalize }}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}
