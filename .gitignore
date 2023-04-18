@@ -13,3 +13,4 @@ Gemfile.lock
 package-lock.json
 yarn.lock
 Session.vim
+node_modules
