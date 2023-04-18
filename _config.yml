@@ -1,10 +1,10 @@
 # Mandatory settings
 
+blog_theme: dark # Or use light
 name: Notes from a coder
 paginate: 4
 url: blog.albertorocha.me # add your site url (format: http://example.com/)
 description: description
-blog_theme: dark # Or use ligth
 
 # Optional settings
 
