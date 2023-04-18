@@ -11,7 +11,7 @@
     "retinajs@^2.1.1",
     "svgxuse@^1.2.4",
     "webfontloader@^1.6.28",
-    "zooming@^2.0.0"
+    "zooming@^2.1.1"
   ],
   "lockfileEntries": {
     "@iarna/cli@^2.1.0": "https://registry.yarnpkg.com/@iarna/cli/-/cli-2.1.0.tgz#f830356d54c72c804bd7afc43999de31e40fc3d6",
@@ -625,7 +625,7 @@
     "yallist@^3.1.1": "https://registry.yarnpkg.com/yallist/-/yallist-3.1.1.tgz#dbb7daf9bfd8bac9ab45ebf602b8cbad0d5d08fd",
     "yargs-parser@^15.0.1": "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-15.0.3.tgz#316e263d5febe8b38eef61ac092b33dfcc9b1115",
     "yargs@^14.2.3": "https://registry.yarnpkg.com/yargs/-/yargs-14.2.3.tgz#1a1c3edced1afb2a2fea33604bc6d1d8d688a414",
-    "zooming@^2.0.0": "https://registry.yarnpkg.com/zooming/-/zooming-2.1.1.tgz#3e05006b4e10335235ca626244d053d90a9c7e72"
+    "zooming@^2.1.1": "https://registry.yarnpkg.com/zooming/-/zooming-2.1.1.tgz#3e05006b4e10335235ca626244d053d90a9c7e72"
   },
   "files": [],
   "artifacts": {}
