@@ -52,6 +52,7 @@ assets:
     - _assets/javascripts
     - _assets/stylesheets
     - _assets/yarn
+    - node_modules
 collections:
   my_tags:
     output: true
