@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
   include Pagy::Backend
 
   def index
-    @pagy, @items = pagy(Item.all, items: 9)
+    @pagy, @items = pagy(Item.all, items: 10)
   end
 end
 {% endhighlight %}
@@ -39,7 +39,7 @@ end
 Now, in the view file, we can use the `pagy_nav` helper to render the pagination component:
 
 {% highlight html %}
-<%= pagy_nav(@pagy) if @pagy.pages > 0 %>
+<%= pagy_nav(@pagy) if @pagy.pages > 1 %>
 {% endhighlight %}
 
 ### DaisyUI Pagination component
@@ -51,11 +51,11 @@ From the [DaisyUI documentation](https://daisyui.com/docs/components/pagination)
 
 {% highlight html %}
 <div class="join">
-  <button class="join-item btn">0</button>
   <button class="join-item btn">1</button>
+  <button class="join-item btn">2</button>
   <button class="join-item btn btn-disabled">...</button>
-  <button class="join-item btn">98</button>
   <button class="join-item btn">99</button>
+  <button class="join-item btn">100</button>
 </div>
 {% endhighlight %}
 
@@ -68,19 +68,19 @@ The Pagy object offers methods to get the current page and the series of pages. 
 
 {% highlight ruby %}
 #current page
-pagy.page #=> 0
+pagy.page #=> 1
 
 #series of pages
-pagy.series #=> [0, :gap, 3, 4, 5, :gap, 10]
+pagy.series #=> [1, 2, :gap, 99, 100]
 
 #previous page
-pagy.prev #=> 0
+pagy.prev #=> 1
 
 #next page
 pagy.next #=> 2
 
 #url for the page
-pagy_url_for(pagy, 2) #=> "/items?page=3"
+pagy_url_for(pagy, 3) #=> "/items?page=3"
 {% endhighlight %}
 
 ### Overwriting the Pagy navigation helper
