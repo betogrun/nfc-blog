@@ -2,6 +2,9 @@
 	"name": "Ruby",
 	"dockerFile": "Dockerfile",
 	"context": ".",
+	"mounts": [
+		"source=${localWorkspaceFolder},target=/workspace,type=bind"
+	],
 	// Set *default* container specific settings.json values on container create.
 	"customizations": {
 		"vscode": {
