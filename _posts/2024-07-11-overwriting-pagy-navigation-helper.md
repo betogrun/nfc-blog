@@ -44,7 +44,7 @@ Now, in the view file, we can use the `pagy_nav` helper to render the pagination
 
 ### DaisyUI Pagination component
 
-From the [DaisyUI documentation](https://daisyui.com/docs/components/pagination){:target="_blank"}, the pagination component is as follows:
+From the [DaisyUI documentation](https://daisyui.com/components/pagination){:target="_blank"}, the pagination component is as follows:
 
 {% include image.html path="post_2024_7_11/daisyui-pagination-sample" path-detail="post_2024_7_11/daisyui-pagination-sample" alt="DaisyUI Pagination component" %}
 
