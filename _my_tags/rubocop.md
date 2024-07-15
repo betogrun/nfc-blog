@@ -1,4 +1,0 @@
----
-slug: rubocop
-name: Rubocop
----

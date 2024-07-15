@@ -1,4 +1,0 @@
----
-slug: scraper
-name: Scraper
----

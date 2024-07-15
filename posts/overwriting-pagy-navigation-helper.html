@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Notes from a coder | Overwriting the Pagy Navigation Helper</title>
+  <meta name="description" content="Discover how to seamlessly integrate DaisyUI's pagination component into your Rails app by customizing the Pagy navigation helper.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Overwriting the Pagy Navigation Helper">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="blog.albertorocha.me/posts/overwriting-pagy-navigation-helper">
+  <meta property="og:description" content="Discover how to seamlessly integrate DaisyUI's pagination component into your Rails app by customizing the Pagy navigation helper.">
+  <meta property="og:site_name" content="Notes from a coder">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="blog.albertorocha.me/posts/overwriting-pagy-navigation-helper">
+  <meta name="twitter:title" content="Overwriting the Pagy Navigation Helper">
+  <meta name="twitter:description" content="Discover how to seamlessly integrate DaisyUI's pagination component into your Rails app by customizing the Pagy navigation helper.">
+
+  
+    <meta property="og:image" content="blog.albertorocha.me/assets/og-image-7a22d2317bfe2938542700eb3660268c8bc01435e4bbfd59cd9fe1cc38e5d6df.jpg">
+    <meta name="twitter:image" content="blog.albertorocha.me/assets/og-image-7a22d2317bfe2938542700eb3660268c8bc01435e4bbfd59cd9fe1cc38e5d6df.jpg">
+  
+
+  <link href="blog.albertorocha.me/feed.xml" type="application/rss+xml" rel="alternate" title="Notes from a coder Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-dark-11327753546b2135c989eee5cd83497a2734b702928d016839d795f6c706e3d5.ico">
+      <link rel="apple-touch-icon" href="/assets/apple-touch-icon-dark-d161409442b7e523089f24d08d0a55951549ece7504207c376d53b020713494d.png">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-bb1553a18d0f1ccfe1aabc010584c49b4277a88503216b78906ba719e30019c1.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-831218bc9e41aef39ee6a0bae4501195bccafcc13101ae2b9cd20493a6ec04c0.css" disabled="false">
+    
+
+  
+
+</head>
+
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="Notes from a coder">Notes from a coder</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/betogrun" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/betogrun" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/betogrun" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:hello@alberto.dev" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="/feed.xml" rel="noreferrer noopener" target="_blank" title="RSS">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-rss">
+  <use href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss" xlink:href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Overwriting the Pagy Navigation Helper</h1>
+            <p>Discover how to seamlessly integrate DaisyUI's pagination component into your Rails app by customizing the Pagy navigation helper.</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    July 11, 2024
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      4 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/rails" title="See all posts with tag 'Rails'">Rails</a>
+    
+      
+      <a href="/tag/pagy" title="See all posts with tag 'Pagy'">Pagy</a>
+    
+      
+      <a href="/tag/tailwindcss" title="See all posts with tag 'Tailwind CSS'">Tailwind CSS</a>
+    
+      
+      <a href="/tag/daisyui" title="See all posts with tag 'Daisy UI'">Daisy UI</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <h3 id="introduction">Introduction</h3>
+<p><a href="https://github.com/ddnexus/pagy" target="_blank">Pagy</a> is a pagination gem for Rack frameworks like Ruby on Rails, Sinatra, Hanami, etc. It is faster than other pagination gems and it is very flexible to use.</p>
+
+<p>For styling, the Pagy documentation suggests using CSS, which is also suitable for TailwindCSS. While this works well in most cases, if you are using a TailwindCSS component library like <a href="https://daisyui.com/" target="_blank">DaisyUI</a>, you might want to utilize the pagination template provided by DaisyUI.</p>
+
+<p>This post present an alternative solution where we will see how we can customize the pagination template by overwriting the Pagy navigation helper.</p>
+
+<h3 id="example">Example</h3>
+
+<p>Let’s consider a simple Rails application where we have a list of items and we want to paginate them. We will use the Pagy gem for pagination and DaisyUI for styling.</p>
+
+<p>Assuming the Pagy gem is already installed in the Rails application, we can paginate the items in the controller as follows:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ItemsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="kp">include</span> <span class="no">Pagy</span><span class="o">::</span><span class="no">Backend</span>
+
+  <span class="k">def</span> <span class="nf">index</span>
+    <span class="vi">@pagy</span><span class="p">,</span> <span class="vi">@items</span> <span class="o">=</span> <span class="n">pagy</span><span class="p">(</span><span class="no">Item</span><span class="p">.</span><span class="nf">all</span><span class="p">,</span> <span class="ss">items: </span><span class="mi">10</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Don’t forget to include the Pagy module in the application helper:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ApplicationHelper</span>
+  <span class="kp">include</span> <span class="no">Pagy</span><span class="o">::</span><span class="no">Frontend</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Now, in the view file, we can use the <code class="language-plaintext highlighter-rouge">pagy_nav</code> helper to render the pagination component:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;</span><span class="err">%=</span> <span class="na">pagy_nav</span><span class="err">(@</span><span class="na">pagy</span><span class="err">)</span> <span class="na">if</span> <span class="err">@</span><span class="na">pagy.pages</span> <span class="nt">&gt;</span> 1 %&gt;</code></pre></figure>
+
+<h3 id="daisyui-pagination-component">DaisyUI Pagination component</h3>
+
+<p>From the <a href="https://daisyui.com/components/pagination" target="_blank">DaisyUI documentation</a>, the pagination component is as follows:</p>
+
+<p><a href="/assets/post_2024_7_11/daisyui-pagination-sample-41930a1e963baa23281333922b8273f8b0a77465ee242211d581868ebb38cf37.png">
+  <img src="/assets/post_2024_7_11/daisyui-pagination-sample-41930a1e963baa23281333922b8273f8b0a77465ee242211d581868ebb38cf37.png" alt="DaisyUI Pagination component" class="zooming" data-rjs="/assets/post_2024_7_11/daisyui-pagination-sample-41930a1e963baa23281333922b8273f8b0a77465ee242211d581868ebb38cf37.png" data-zooming-width="" data-zooming-height="" />
+</a></p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"join"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"join-item btn"</span><span class="nt">&gt;</span>1<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"join-item btn"</span><span class="nt">&gt;</span>2<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"join-item btn btn-disabled"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"join-item btn"</span><span class="nt">&gt;</span>99<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"join-item btn"</span><span class="nt">&gt;</span>100<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></figure>
+
+<p>Let’s use this pagination component in our Rails application to overwrite the Pagy navigation helper.</p>
+
+<h3 id="the-pagy-object">The pagy object</h3>
+
+<p>The Pagy object offers methods to get the current page and the series of pages. We can use these methods to build our custom pagination component.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#current page</span>
+<span class="n">pagy</span><span class="p">.</span><span class="nf">page</span> <span class="c1">#=&gt; 1</span>
+
+<span class="c1">#series of pages</span>
+<span class="n">pagy</span><span class="p">.</span><span class="nf">series</span> <span class="c1">#=&gt; [1, 2, :gap, 99, 100]</span>
+
+<span class="c1">#previous page</span>
+<span class="n">pagy</span><span class="p">.</span><span class="nf">prev</span> <span class="c1">#=&gt; 1</span>
+
+<span class="c1">#next page</span>
+<span class="n">pagy</span><span class="p">.</span><span class="nf">next</span> <span class="c1">#=&gt; 2</span>
+
+<span class="c1">#url for the page</span>
+<span class="n">pagy_url_for</span><span class="p">(</span><span class="n">pagy</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">#=&gt; "/items?page=3"</span></code></pre></figure>
+
+<h3 id="overwriting-the-pagy-navigation-helper">Overwriting the Pagy navigation helper</h3>
+
+<p>The pagy documentation provides a static <a href="https://ddnexus.github.io/pagy/docs/how-to/#using-your-pagination-templates" target="_blank">example</a> of the pagination component that complies with the <a href="https://www.w2.org/WAI/standards-guidelines/aria/" target="_blank">ARIA standard</a>.</p>
+
+<p>We will use this as a reference to build our custom pagination helper.</p>
+
+<p>To overwrite the Pagy navigation helper, we need to create a new helper method in the <code class="language-plaintext highlighter-rouge">ApplicationHelper</code> module. This method will render the pagination component using the DaisyUI template.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ApplicationHelper</span>
+  <span class="kp">include</span> <span class="no">Pagy</span><span class="o">::</span><span class="no">Frontend</span>
+
+  <span class="k">def</span> <span class="nf">pagy_nav</span><span class="p">(</span><span class="n">pagy</span><span class="p">)</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="sx">%(&lt;div class="join" aria-label="Pages"&gt;)</span>
+
+    <span class="k">if</span> <span class="n">pagy</span><span class="p">.</span><span class="nf">prev</span>
+      <span class="n">html</span> <span class="o">&lt;&lt;</span> <span class="sx">%(&lt;a href="#{pagy_url_for(pagy, pagy.prev)}" class="join-item btn" aria-label="Previous"&gt;«&lt;/a&gt;)</span>
+    <span class="k">else</span>
+      <span class="n">html</span> <span class="o">&lt;&lt;</span> <span class="sx">%(&lt;button class="join-item btn" aria-disabled="true" aria-label="Previous"&gt;«&lt;/button&gt;)</span>
+    <span class="k">end</span>
+
+    <span class="n">pagy</span><span class="p">.</span><span class="nf">series</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span>
+      <span class="k">if</span> <span class="n">item</span><span class="p">.</span><span class="nf">is_a?</span> <span class="no">Integer</span>
+        <span class="n">html</span> <span class="o">&lt;&lt;</span> <span class="sx">%(&lt;a href="#{pagy_url_for(pagy, item)}" class="join-item btn"&gt;#{item}&lt;/a&gt;)</span>
+      <span class="k">elsif</span> <span class="n">item</span><span class="p">.</span><span class="nf">is_a?</span> <span class="no">String</span>
+        <span class="n">html</span> <span class="o">&lt;&lt;</span> <span class="sx">%(&lt;button class="join-item btn btn-active" aria-disabled="true" aria-current="page"&gt;#{item}&lt;/button&gt;)</span>
+      <span class="k">elsif</span> <span class="n">item</span> <span class="o">==</span> <span class="ss">:gap</span>
+        <span class="n">html</span> <span class="o">&lt;&lt;</span> <span class="sx">%(&lt;button class="join-item btn btn-disabled" aria-disabled="true"&gt;...&lt;/button&gt;)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">if</span> <span class="n">pagy</span><span class="p">.</span><span class="nf">next</span>
+      <span class="n">html</span> <span class="o">&lt;&lt;</span> <span class="sx">%(&lt;a href="#{pagy_url_for(pagy, pagy.next)}" class="join-item btn" aria-label="Next"&gt;»&lt;/a&gt;)</span>
+    <span class="k">else</span>
+      <span class="n">html</span> <span class="o">&lt;&lt;</span> <span class="sx">%(&lt;button class="join-item btn" aria-disabled="true" aria-label="Next"&gt;»&lt;/button&gt;)</span>
+    <span class="k">end</span>
+
+    <span class="n">html</span> <span class="o">&lt;&lt;</span> <span class="sx">%(&lt;/div&gt;)</span>
+
+    <span class="n">html</span><span class="p">.</span><span class="nf">html_safe</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>No changes are required in the controller or the view file. The pagination component will be rendered using the DaisyUI template and the result should look like this:</p>
+
+<p><a href="/assets/post_2024_7_11/custom-daisyui-pagination-sample-1c4bf11865d607e544dcd301fdfd64e54d6e5a1eadaac3e438d642c3b238f0e8.png">
+  <img src="/assets/post_2024_7_11/custom-daisyui-pagination-sample-1c4bf11865d607e544dcd301fdfd64e54d6e5a1eadaac3e438d642c3b238f0e8.png" alt="DaisyUI Pagination component" class="zooming" data-rjs="/assets/post_2024_7_11/custom-daisyui-pagination-sample-1c4bf11865d607e544dcd301fdfd64e54d6e5a1eadaac3e438d642c3b238f0e8.png" data-zooming-width="" data-zooming-height="" />
+</a></p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>In this post, we have seen how we can overwrite the Pagy navigation helper to use a custom pagination component. We have used the DaisyUI pagination component as an example, but you can use any other pagination component by modifying the helper method accordingly. This approach allows you to customize the pagination component according to your needs.</p>
+
+<h4 id="references">References</h4>
+<ul>
+  <li><a href="https://ddnexus.github.io/pagy/" target="_blank">Pagy</a></li>
+  <li><a href="https://daisyui.com/" target="_blank">DaisyUI</a></li>
+</ul>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/intent/tweet?text=Overwriting+the+Pagy+Navigation+Helper%20-%20blog.albertorocha.me/posts/overwriting-pagy-navigation-helper%0A%20%20%20%20%20%20%20%20%20%20%20%20by%20@betogrun"
+              title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512">
+                <path
+                  d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z" />
+              </svg>
+            </a>
+          </div>
+
+          
+          <div id="disqus_thread" class="article-comments"></div>
+          <script src="https://notesfromacoder.disqus.com/embed.js" async defer></script>
+          <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear"
+  style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+  <p>
+    Notes, tips and tricks by
+    <a href="/about" title="About me">Alberto Rocha</a>.
+  </p>
+  <p>
+    <a href="/tags" title="About me">ALL TAGS</a>
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96604674-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-96604674-1');
+  </script>
+
+
+<script src="/assets/vendor-68aa43180ce980cef3f5088a72309367c88bad0c9a8a3011a6d17d69973f1bbe.js" type="text/javascript"></script>
+
+
+  <script src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js" type="text/javascript"></script>
+
+
+
+  <script src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js" type="text/javascript"></script>
+
+
+<script src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js" type="text/javascript"></script>
+
+
+  <script src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js" type="text/javascript"></script>
+
+</body>
+
+</html>
