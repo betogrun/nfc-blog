@@ -1,4 +1,0 @@
----
-slug: nokogiri
-name: Nokogiri
----

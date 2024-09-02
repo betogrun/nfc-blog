@@ -1,4 +1,0 @@
----
-slug: rspec
-name: Rspec
----

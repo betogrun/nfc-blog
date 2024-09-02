@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Notes from a coder | Publishing Ruby Gems with GitHub Actions</title>
+  <meta name="description" content="Automate the release of Ruby gems with GitHub Actions">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Publishing Ruby Gems with GitHub Actions">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="blog.albertorocha.me/posts/publishing-ruby-gems-with-github-actions">
+  <meta property="og:description" content="Automate the release of Ruby gems with GitHub Actions">
+  <meta property="og:site_name" content="Notes from a coder">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="blog.albertorocha.me/posts/publishing-ruby-gems-with-github-actions">
+  <meta name="twitter:title" content="Publishing Ruby Gems with GitHub Actions">
+  <meta name="twitter:description" content="Automate the release of Ruby gems with GitHub Actions">
+
+  
+    <meta property="og:image" content="blog.albertorocha.me/assets/og-image-7a22d2317bfe2938542700eb3660268c8bc01435e4bbfd59cd9fe1cc38e5d6df.jpg">
+    <meta name="twitter:image" content="blog.albertorocha.me/assets/og-image-7a22d2317bfe2938542700eb3660268c8bc01435e4bbfd59cd9fe1cc38e5d6df.jpg">
+  
+
+  <link href="blog.albertorocha.me/feed.xml" type="application/rss+xml" rel="alternate" title="Notes from a coder Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-dark-11327753546b2135c989eee5cd83497a2734b702928d016839d795f6c706e3d5.ico">
+      <link rel="apple-touch-icon" href="/assets/apple-touch-icon-dark-d161409442b7e523089f24d08d0a55951549ece7504207c376d53b020713494d.png">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-bb1553a18d0f1ccfe1aabc010584c49b4277a88503216b78906ba719e30019c1.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-831218bc9e41aef39ee6a0bae4501195bccafcc13101ae2b9cd20493a6ec04c0.css" disabled="false">
+    
+
+  
+
+</head>
+
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="Notes from a coder">Notes from a coder</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/betogrun" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/betogrun" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/betogrun" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:hello@alberto.dev" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="/feed.xml" rel="noreferrer noopener" target="_blank" title="RSS">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-rss">
+  <use href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss" xlink:href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Publishing Ruby Gems with GitHub Actions</h1>
+            <p>Automate the release of Ruby gems with GitHub Actions</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    September 1, 2024
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      7 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/automation" title="See all posts with tag 'Automation'">Automation</a>
+    
+      
+      <a href="/tag/ruby" title="See all posts with tag 'Ruby'">Ruby</a>
+    
+      
+      <a href="/tag/git" title="See all posts with tag 'Git'">Git</a>
+    
+      
+      <a href="/tag/github" title="See all posts with tag 'Github'">Github</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p>In this post, I will demonstrate how GitHub Actions can be used to automate the process of publishing gems whenever a new version is created.</p>
+
+<h6 id="we-will-cover-the-following-topics">We will cover the following topics:</h6>
+<ul>
+  <li>Creating and publishing gems</li>
+  <li>Introduction to GitHub Actions</li>
+  <li>Gem versioning and changelog management</li>
+  <li>Setting up GitHub Actions for gem publishing</li>
+  <li>Automating the publishing process through tag creation</li>
+</ul>
+
+<h3 id="creating-and-publishing-gems">Creating and Publishing Gems</h3>
+
+<p>In Ruby, code libraries are called gems. They can be found and installed from a public repository called <a href="https://rubygems.org/" target="_blank">RubyGems</a>, which is the main hosting and management service for gems in the Ruby community.</p>
+
+<p>To create a new gem, you can use the <code class="language-plaintext highlighter-rouge">bundle gem</code> command, which is provided by the <code class="language-plaintext highlighter-rouge">bundler</code> gem.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>bundle gem my_gem</code></pre></figure>
+
+<p>This command will generate the necessary files and directories for the gem.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">my_gem
+├── Gemfile
+├── README.md
+├── Rakefile
+├── lib
+│   ├── my_gem
+│   │   └── version.rb
+│   └── my_gem.rb
+├── my_gem.gemspec
+└── spec
+    ├── my_gem_spec.rb
+    └── spec_helper.rb</code></pre></figure>
+
+<p>Once the gem is ready, you can build it using the <code class="language-plaintext highlighter-rouge">gem build</code> command, which will create a <code class="language-plaintext highlighter-rouge">.gem</code> file that can be published to RubyGems.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>gem build my_gem.gemspec</code></pre></figure>
+
+<p>After building the gem, you can publish it to RubyGems using the <code class="language-plaintext highlighter-rouge">gem push</code> command.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>gem push my_gem-0.1.0.gem</code></pre></figure>
+
+<p>PS: You need to have a RubyGems account and be authenticated to publish gems.</p>
+
+<h3 id="github-actions">GitHub Actions</h3>
+
+<p>Similar to other CI/CD tools, GitHub Actions allows you to automate tasks like testing, linting, and deployments. The configuration is done through YAML files that define which processes will be executed based on specific events, such as a commit to a particular branch.</p>
+
+<p>The example below shows a simple GitHub Actions workflow that will run the tests for a Ruby application whenever a new commit is pushed to the <code class="language-plaintext highlighter-rouge">main</code> branch:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">name</span><span class="pi">:</span> <span class="s">RSpec tests</span>
+
+<span class="na">on</span><span class="pi">:</span> 
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">main</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">test</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+
+    <span class="na">steps</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Checkout code</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Ruby</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/setup-ruby@v1</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">ruby-version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.4'</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Install dependencies</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="s">bundle install</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Run tests</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="s">bundle exec rspec</span></code></pre></figure>
+
+<h3 id="gem-versioning-and-changelog-management">Gem versioning and changelog management</h3>
+
+<p>When we are satisfied with the gem code and want to release a new version, we need to follow some practices to ensure that the gem is correctly versioned and documented.</p>
+
+<p>Let’s use the <a href="https://github.com/betogrun/lean-microsoft-graph" target="_blank">lean-microsoft-graph</a> gem as an example, where a new feature was added and some dependencies were updated in this <a href="">Pull Request</a>.</p>
+
+<p>After merging the code, we can create a new Pull Request changing the version number and updating the <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> file.</p>
+
+<p>Before proceding, it is important to mention the <a href="https://semver.org/" target="_blank">Semantic Versioning</a> guidelines, that follows the format <code class="language-plaintext highlighter-rouge">MAJOR.MINOR.PATCH</code>.</p>
+
+<h6 id="the-version-number-is-incremented-based-on-the-type-of-changes-made">The version number is incremented based on the type of changes made:</h6>
+<ul>
+  <li><strong>Major</strong>: for incompatible API changes</li>
+  <li><strong>Minor</strong>: for new functionality in a backwards-compatible manner</li>
+  <li><strong>Patch</strong>: for backwards-compatible bug fixes</li>
+</ul>
+
+<p>The version file is located at <code class="language-plaintext highlighter-rouge">lib/lean/microsoft/graph/version.rb</code>. Since a new feature was added without breaking changes, we will increment the minor version to <code class="language-plaintext highlighter-rouge">3</code>. So the new version will be <code class="language-plaintext highlighter-rouge">0.3.4</code>.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">LeanMicrosoftGraph</span>
+  <span class="no">VERSION</span> <span class="o">=</span> <span class="s2">"0.3.4"</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Now we need to update the <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> file with the changes made in the new version.</p>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="gh"># Changelog</span>
+
+<span class="c">&lt;!-- Additional logs omitted for brevity. --&gt;</span>
+
+<span class="gu">## [0.3.4] - 2024-08-30</span>
+
+<span class="gu">### Added</span>
+<span class="p">
+-</span> Ability to retrieve users by id with <span class="sb">`client.users.get_by_id('id')`</span>.
+
+<span class="gu">### Changed</span>
+<span class="p">
+-</span> Upgrade dependencies: faraday, mocha and minitest.
+
+<span class="c">&lt;!-- Additional logs omitted for brevity. --&gt;</span>
+
+<span class="p">[</span><span class="ss">0.3.4</span><span class="p">]:</span> <span class="sx">https://github.com/betogrun/lean-microsoft-graph/releases/tag/v0.3.4</span></code></pre></figure>
+
+<p>Please, take a look at the <a href="https://keepachangelog.com/" target="_blank">Keep a Changelog</a> website for more information on how to document the changes in the <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> file.</p>
+
+<p>At this point, we could build and publish the gem manually, but we want to automate this process using GitHub Actions.</p>
+
+<h3 id="setting-up-github-actions-for-gem-publishing">Setting up GitHub Actions for gem publishing</h3>
+
+<p>To automate the process, we need to create a GitHub Workflow, which is a YAML file located in the .github/workflows directory. If it doesn’t already exist, we can create it manually or use GitHub to generate an initial file. In the case of the <a href="https://github.com/betogrun/lean-microsoft-graph" target="_blank">lean-microsoft-graph</a> gem, there was already a ruby.yml file responsible for running unit tests, as seen in this <a href="https://github.com/betogrun/lean-microsoft-graph/pull/19/files" target="_blank">Pull Request</a>.</p>
+
+<p>Github actions will need an authentication token to publish the gem to RubyGems. This token should be stored in the repository secrets and passed to the workflow as an environment variable. The token can be obtained from RubyGems website.</p>
+
+<h6 id="follow-these-steps-to-add-the-token-to-the-repository-secrets">Follow these steps to add the token to the repository secrets:</h6>
+<ol>
+  <li>Go to <code class="language-plaintext highlighter-rouge">Settings</code> in the repository.</li>
+  <li>Navigate to <code class="language-plaintext highlighter-rouge">Secrets and variables</code> and click on <code class="language-plaintext highlighter-rouge">Actions</code>.</li>
+  <li>Click on <code class="language-plaintext highlighter-rouge">New repository secret</code>.</li>
+  <li>Name the secret RUBYGEMS_AUTH_TOKEN, paste the obtained token, and click <code class="language-plaintext highlighter-rouge">Add Secret</code>.</li>
+</ol>
+
+<p>Now we need to add a new job to the existing YAML file to handle the steps required to publish the gem.
+We could also handle the publication process in a separate workflow file, but in this case, we will add it to the existing file.</p>
+
+<p>Let’s add a new job called <code class="language-plaintext highlighter-rouge">publish</code> to the existing YAML file:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">publish</span><span class="pi">:</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">test</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">if</span><span class="pi">:</span> <span class="s">startsWith(github.ref, 'refs/tags/v')</span></code></pre></figure>
+
+<h6 id="in-the-example-above-we">In the example above, we:</h6>
+<ul>
+  <li>Added the <code class="language-plaintext highlighter-rouge">needs</code> keyword to specify that the publish job should wait for the test job to complete successfully before running. This creates a dependency that ensures the tests are executed first.</li>
+  <li>Specified the environment where the job will run. In this example, the job runs on the latest version of Ubuntu.</li>
+  <li>Included a condition to the job to ensure that it only runs when a new tag starting with <code class="language-plaintext highlighter-rouge">v</code> is created, indicating a version release.</li>
+</ul>
+
+<p>Now, we need to define the step to set up the environment. In this example, we set up Ruby and define the Ruby version to use:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml">  <span class="na">steps</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v3</span>  <span class="c1"># Check out the repository code</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Ruby</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">ruby/setup-ruby@v1</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">ruby-version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.4'</span>  <span class="c1"># Specify the Ruby version to use</span></code></pre></figure>
+
+<p>Lastly, we need to add the step to build and publish the gem.<br />
+First, we create the <code class="language-plaintext highlighter-rouge">.gem</code> directory and the credentials file. Then, we set the permissions for the file and write the authentication token to it.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml">    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Publish to RubyGems</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="s">mkdir -p $HOME/.gem</span>
+        <span class="s">touch $HOME/.gem/credentials</span>
+        <span class="s">chmod 0600 $HOME/.gem/credentials</span>
+        <span class="s">printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" &gt; $HOME/.gem/credentials</span></code></pre></figure>
+
+<p>Then we build the gem and push it to RubyGems:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml">        <span class="s">gem build *.gemspec</span>
+        <span class="s">gem push *.gem</span></code></pre></figure>
+
+<p>We can’t forget to use the <code class="language-plaintext highlighter-rouge">env</code> keyword to pass the RubyGems authentication token from the repository secrets:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml">      <span class="na">env</span><span class="pi">:</span>
+        <span class="na">GEM_HOST_API_KEY</span><span class="pi">:</span> <span class="s">${{ secrets.RUBYGEMS_AUTH_TOKEN  }}</span></code></pre></figure>
+
+<p>The complete job for publishing the gem should look like this:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">publish</span><span class="pi">:</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">test</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">if</span><span class="pi">:</span> <span class="s">startsWith(github.ref, 'refs/tags/v')</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v3</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Ruby</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">ruby/setup-ruby@v1</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">ruby-version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.0'</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Publish to RubyGems</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">mkdir -p $HOME/.gem</span>
+          <span class="s">touch $HOME/.gem/credentials</span>
+          <span class="s">chmod 0600 $HOME/.gem/credentials</span>
+          <span class="s">printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" &gt; $HOME/.gem/credentials</span>
+          <span class="s">gem build *.gemspec</span>
+          <span class="s">gem push *.gem</span>
+        <span class="na">env</span><span class="pi">:</span>
+          <span class="na">GEM_HOST_API_KEY</span><span class="pi">:</span> <span class="s">${{ secrets.RUBYGEMS_AUTH_TOKEN  }}</span></code></pre></figure>
+
+<h3 id="automating-the-publishing-process-through-tag-creation">Automating the publishing process through tag creation</h3>
+
+<p>Finally, after merging the <a href="https://github.com/betogrun/lean-microsoft-graph/pull/60">Pull Request</a> that updates the gem version and the changelog, the next step is to create a new tag for the new version by running the following command:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>git tag <span class="nt">-a</span> v0.3.4 <span class="nt">-m</span> <span class="s2">"Version 0.3.4"</span></code></pre></figure>
+
+<p>The <code class="language-plaintext highlighter-rouge">-a</code> flag creates an annotated tag, and the <code class="language-plaintext highlighter-rouge">-m</code> flag adds a message to the tag. Both are optional.</p>
+
+<p>After that, we need to push the tag to the remote repository on GitHub:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>git push origin v0.3.4</code></pre></figure>
+
+<p>After pushing the tag, the GitHub Actions workflow will be triggered, and the gem will be built and published to RubyGems.</p>
+
+<p>The result of the workflow can be checked in the Actions tab of the repository.</p>
+
+<p><a href="/assets/post_2024_8_30/github-actions-732cb3001d04e5dccd77f0f55dc02ca7592464a61f9683033b353942145699df.png">
+  <img src="/assets/post_2024_8_30/github-actions-732cb3001d04e5dccd77f0f55dc02ca7592464a61f9683033b353942145699df.png" alt="Github actions workflow" class="zooming" data-rjs="/assets/post_2024_8_30/github-actions-732cb3001d04e5dccd77f0f55dc02ca7592464a61f9683033b353942145699df.png" data-zooming-width="" data-zooming-height="" />
+</a></p>
+
+<p>The new version of the gem will be available on RubyGems, and the changes will be reflected in the <a href="https://rubygems.org/gems/lean-microsoft-graph" target="_blank">gem page</a>.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>This post demonstrated how to automate the process of publishing Ruby gems using GitHub Actions, and also covered the best practices for versioning and changelog management.<br />
+Please fell free to share how you are using GitHub Actions to automate your workflows and your favorite approaches to gem versioning and publishing.</p>
+
+<h3 id="references">References</h3>
+
+<ul>
+  <li><a href="https://rubygems.org/" target="_blank">RubyGems</a></li>
+  <li><a href="https://docs.github.com/en/actions" target="_blank">GitHub Actions</a></li>
+  <li><a href="https://semver.org/" target="_blank">Semantic Versioning</a></li>
+  <li><a href="https://keepachangelog.com/" target="_blank">Keep a Changelog</a></li>
+</ul>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/intent/tweet?text=Publishing+Ruby+Gems+with+GitHub+Actions%20-%20blog.albertorocha.me/posts/publishing-ruby-gems-with-github-actions%0A%20%20%20%20%20%20%20%20%20%20%20%20by%20@betogrun"
+              title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512">
+                <path
+                  d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z" />
+              </svg>
+            </a>
+          </div>
+
+          
+          <div id="disqus_thread" class="article-comments"></div>
+          <script src="https://notesfromacoder.disqus.com/embed.js" async defer></script>
+          <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear"
+  style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+  <p>
+    Notes, tips and tricks by
+    <a href="/about" title="About me">Alberto Rocha</a>.
+  </p>
+  <p>
+    <a href="/tags" title="About me">ALL TAGS</a>
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96604674-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-96604674-1');
+  </script>
+
+
+<script src="/assets/vendor-68aa43180ce980cef3f5088a72309367c88bad0c9a8a3011a6d17d69973f1bbe.js" type="text/javascript"></script>
+
+
+  <script src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js" type="text/javascript"></script>
+
+
+
+  <script src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js" type="text/javascript"></script>
+
+
+<script src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js" type="text/javascript"></script>
+
+
+  <script src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js" type="text/javascript"></script>
+
+</body>
+
+</html>
