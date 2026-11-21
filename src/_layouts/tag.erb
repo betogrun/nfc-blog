@@ -3,14 +3,15 @@ layout: default
 ---
 <% posts = collections.posts.resources.select { it.data.tags&.include?(data.tag_slug) } %>
 
-<h1><%= data.title %></h1>
-
 <% if posts.any? %>
   <ul class="article-list">
     <% posts.each do |post| %>
-      <li class="article-list-item">
-        <a href="<%= post.relative_url %>" title="<%= post.data.title %>"><h5><%= post.data.title %></h5></a>
+      <li class="article-list-item scrollappear">
+        <a href="<%= post.relative_url %>" title="<%= post.data.title %>">
+          <h5><%= post.data.title %></h5>
+        </a>
         <p><%= post.data.description %></p>
+        <%= render ArticleMeta.new(post:) %>
       </li>
     <% end %>
   </ul>

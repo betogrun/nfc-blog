@@ -10,20 +10,24 @@ paginate:
 
 <ul class="article-list">
   <% paginator.resources.each do |post| %>
-    <li class="article-list-item">
+    <li class="article-list-item scrollappear">
       <a href="<%= post.relative_url %>" title="<%= post.data.title %>">
-        <h5><%= post.data.title %></h5>
+        <h5>
+          <%= post.data.title %>
+          <%= render Icon.new("arrow-right") %>
+        </h5>
       </a>
       <p><%= post.data.description %></p>
+      <%= render ArticleMeta.new(post:) %>
     </li>
   <% end %>
   <% if paginator.total_pages > 1 %>
-    <li class="article-pagination">
+    <li class="article-pagination scrollappear">
       <% if paginator.next_page %>
-        <a href="<%= paginator.next_page_path %>" class="article-pagination-left">Older posts</a>
+        <a href="<%= paginator.next_page_path %>" class="article-pagination-left"><%= render Icon.new("arrow-left") %> Older posts</a>
       <% end %>
       <% if paginator.previous_page %>
-        <a href="<%= paginator.previous_page_path %>" class="article-pagination-right">Newer posts</a>
+        <a href="<%= paginator.previous_page_path %>" class="article-pagination-right">Newer posts <%= render Icon.new("arrow-right") %></a>
       <% end %>
     </li>
   <% end %>
