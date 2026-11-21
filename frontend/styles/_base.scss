@@ -2,6 +2,9 @@
 // Base
 // =============================================================================
 
+@use "variables" as *;
+@use "mixins" as *;
+
 // Document
 // =============================================================================
 
@@ -21,8 +24,8 @@ body {
   -webkit-font-smoothing: antialiased;
   font-weight: $base-font-weight;
   line-height: $base-line-height;
-  color: $base-font-color;
-  background: $body-background;
+  color: var(--base-font-color);
+  background: var(--body-background);
 }
 
 // Typography
@@ -53,7 +56,7 @@ h1 {
   font-size: $base-font-size * 1.6;
   font-weight: 400;
   letter-spacing: -.03em;
-  color: $article-header-title-color;
+  color: var(--article-header-title-color);
 }
 
 h2 {
@@ -93,15 +96,15 @@ h6 {
 }
 
 a {
-  color: $base-accent-color;
+  color: var(--base-accent-color);
   text-decoration: underline;
   transition: color $base-transition-speed linear;
   &:hover,
   &:active {
-    color: $base-accent-highlighted-color;
+    color: var(--base-accent-highlighted-color);
   }
   &:focus {
-    color: $base-accent-highlighted-color;
+    color: var(--base-accent-highlighted-color);
     outline: none;
   }
 }
@@ -118,7 +121,7 @@ ol {
 
 abbr {
   cursor: help;
-  border-bottom: 1px dotted $base-border-color;
+  border-bottom: 1px dotted var(--base-border-color);
 }
 
 blockquote {
@@ -139,7 +142,7 @@ hr {
   margin: 0;
   border-top: 0;
   border-right: 0;
-  border-bottom: 1px solid $base-border-color;
+  border-bottom: 1px solid var(--base-border-color);
   border-left: 0;
 }
 

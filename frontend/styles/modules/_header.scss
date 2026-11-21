@@ -2,10 +2,13 @@
 // Header
 // =============================================================================
 
+@use "../variables" as *;
+@use "../mixins" as *;
+
 .header-nav {
   display: block;
   padding: 75px 0 20px;
-  border-bottom: 1px solid $base-border-color;
+  border-bottom: 1px solid var(--base-border-color);
 }
 
 .header-logo {
@@ -13,7 +16,7 @@
   font-family: $serif;
   font-size: 36px;
   font-weight: 700;
-  color: $header-logo-color;
+  color: var(--header-logo-color);
   text-decoration: none;
 }
 
@@ -31,15 +34,15 @@
     }
     a {
       font-size: 18px;
-      color: $header-link-color;
+      color: var(--header-link-color);
       cursor: pointer;
       svg {
         width: 16px;
         height: 16px;
-        fill: $header-link-color;
+        fill: var(--header-link-color);
       }
       &:hover svg {
-        fill: $header-link-color-hover;
+        fill: var(--header-link-color-hover);
       }
     }
   }
@@ -54,9 +57,9 @@
     padding-right: 10px;
     a {
       display: inline-block;
-      color: $header-link-color;
+      color: var(--header-link-color);
       text-decoration: none;
-      &:hover { color: $header-link-color-hover; }
+      &:hover { color: var(--header-link-color-hover); }
     }
   }
 }

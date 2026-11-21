@@ -2,6 +2,9 @@
 // ScrollAppear
 // =============================================================================
 
+@use "../variables" as *;
+@use "../mixins" as *;
+
 .appear {
   visibility: hidden;
   opacity: 0;

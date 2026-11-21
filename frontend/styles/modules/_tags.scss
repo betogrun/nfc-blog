@@ -2,6 +2,9 @@
 // Tags
 // =============================================================================
 
+@use "../variables" as *;
+@use "../mixins" as *;
+
 .tags-page-header {
   margin-top: 0px;
 }

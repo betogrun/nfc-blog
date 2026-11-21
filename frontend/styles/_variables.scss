@@ -2,6 +2,8 @@
 // Variables
 // =============================================================================
 
+@use "sass:math";
+
 // Typography
 // =============================================================================
 
@@ -13,6 +15,26 @@ $base-font-weight-bold: 700;
 
 // Colors
 // =============================================================================
+
+// Shades of gray (shared by both themes)
+// Hex values of Chalk's `lighten($gray-darkest, n)` scale, as the original build output them.
+
+$black: #000;
+$gray-darkest: #121111;
+$gray-darker: #393636;   // +15% lightness
+$gray-dark: #615b5b;     // +30%
+$gray: #888181;          // +45%
+$gray-light: #ada8a8;    // +60%
+$gray-lighter: #d2cfcf;  // +75%
+$gray-lightest: #ebeaea; // +85%
+$white: #fff;
+
+// Derived colors (Chalk computed these with darken/lighten)
+
+$accent-highlighted-light: #3a3636; // darken($gray-dark, 15)
+$accent-highlighted-dark: #ada8a8;  // darken($gray-lighter, 15)
+$code-background-light: #fafafa;    // lighten($gray-lightest, 6)
+$code-background-dark: #050505;     // darken($gray-darkest, 5)
 
 // Brand colors
 
@@ -29,7 +51,7 @@ $brand-warning: #f1c90b;
 $columns: 12;
 $max-width: 650px;
 $gutter: 20px;
-$one-column: 100% / $columns;
+$one-column: math.div(100%, $columns);
 $negative-gutter: 0 - $gutter;
 
 // Font sizes

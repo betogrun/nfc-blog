@@ -2,6 +2,9 @@
 // Embed
 // =============================================================================
 
+@use "../variables" as *;
+@use "../mixins" as *;
+
 .embed-responsive {
   position: relative;
   display: block;

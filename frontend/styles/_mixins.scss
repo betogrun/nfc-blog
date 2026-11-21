@@ -26,3 +26,24 @@
     @warn "The parameter #{$val} is not valid";
   }
 }
+
+// Applies styles for a color theme. An explicit choice (`data-theme` on <html>,
+// set by the toggle) wins; otherwise the OS preference decides.
+// @param {String} $name light or dark.
+
+@mixin theme($name) {
+  $other: light;
+  @if $name == light {
+    $other: dark;
+  }
+
+  :root[data-theme="#{$name}"] {
+    @content;
+  }
+
+  @media (prefers-color-scheme: $name) {
+    :root:not([data-theme="#{$other}"]) {
+      @content;
+    }
+  }
+}

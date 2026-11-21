@@ -2,6 +2,9 @@
 // Articles
 // =============================================================================
 
+@use "../variables" as *;
+@use "../mixins" as *;
+
 .article {
   display: block;
   margin: 100px 0;
@@ -16,7 +19,7 @@
     position: relative;
     display: block;
     padding: 50px 0;
-    border-bottom: 1px solid $base-border-color;
+    border-bottom: 1px solid var(--base-border-color);
     &:last-child {
       border-bottom: 0;
     }
@@ -43,11 +46,11 @@
         }
 
         &:hover svg {
-          fill: $article-paginator-color-hover;
+          fill: var(--article-paginator-color-hover);
         }
 
         &:hover {
-          color: $article-paginator-color-hover;
+          color: var(--article-paginator-color-hover);
         }
       }
     }
@@ -61,14 +64,14 @@
       position: relative;
       display: block;
       padding-right: 25px;
-      color: $article-header-title-color;
+      color: var(--article-header-title-color);
       border-bottom: 1px solid transparent;
       svg {
         width: 16px;
         height: 16px;
         vertical-align: middle;
         margin: -2px 8px 0 8px;
-        fill: $article-header-title-color;
+        fill: var(--article-header-title-color);
         opacity: 0;
         transition: opacity $base-transition-speed linear;
       }
@@ -81,7 +84,7 @@
     display: block;
     margin: 12px 0 10px;
     font-size: 15px;
-    color: $article-header-description-color;
+    color: var(--article-header-description-color);
   }
 }
 
@@ -91,15 +94,15 @@
   a {
     display: inline-block;
     font-size: 12px;
-    color: $article-footer-color;
+    color: var(--article-footer-color);
     text-transform: uppercase;
     vertical-align: middle;
   }
   a {
     margin-right: 7.5px;
-    color: $article-footer-link-color;
+    color: var(--article-footer-link-color);
     &:hover {
-      color: $article-footer-link-color-hover;
+      color: var(--article-footer-link-color-hover);
     }
     &:last-child {
       margin-right: 0;
@@ -138,12 +141,12 @@
   display: block;
   padding-bottom: 30px;
   margin-bottom: 30px;
-  border-bottom: 1px solid $base-border-color;
+  border-bottom: 1px solid var(--base-border-color);
   p {
     display: block;
     margin: 12px 0 10px;
     font-size: $base-font-size;
-    color: $article-header-description-color;
+    color: var(--article-header-description-color);
   }
   a {
     text-decoration: none;
@@ -166,7 +169,7 @@
     display: block;
     margin-bottom: 10px;
     font-family: $sans-serif;
-    color: $article-post-titles-color;
+    color: var(--article-post-titles-color);
   }
   blockquote p {
     margin-bottom: 0;
@@ -183,7 +186,7 @@
   display: block;
   padding-top: 20px;
   margin-top: 30px;
-  border-top: 1px solid $base-border-color;
+  border-top: 1px solid var(--base-border-color);
 }
 
 .article-share {
