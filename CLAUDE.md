@@ -17,9 +17,8 @@ work and keep its checkboxes up to date in the same PR that completes them.
 - The Bridgetown site lives in `src/` (content, layouts, components), `frontend/`
   (styles, JS, fonts, icons), `config/` and `plugins/`.
 - `_assets/images/` only holds two unused images whose fate is deferred to cleanup.
-- Since 2026-11-21 the live site is the Bridgetown build on Cloudflare. The old Jekyll
-  build on the `gh-pages` branch (GitHub Pages) stays until the end of Phase 6; the tag
-  `legacy-jekyll-site` preserves it.
+- Since 2026-11-21 the live site is the Bridgetown build on Cloudflare; GitHub Pages is off.
+  The old Jekyll build stays in the `gh-pages` branch and the `legacy-jekyll-site` tag.
 
 ## Writing posts
 
@@ -110,8 +109,8 @@ Work is issue-driven, and Ruby code is written test-first.
   `bin/ci` and deploys with the `cf` CLI (Wrangler's successor, pinned to an exact version
   while it is pre-1.0): a preview per PR (`pr-<number>`, deleted on close) and production
   on pushes to `main`. Secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
-- The custom domain `blog.albertorocha.me` is attached to the Worker outside the config. Never
-  add `domains` to `cloudflare.config.ts`: CI would then overwrite DNS records without asking.
+- Never add `domains` to `cloudflare.config.ts`: the custom domain is attached outside the config,
+  and a declared one makes CI overwrite DNS records without asking.
 
 ## Common commands
 
