@@ -94,12 +94,25 @@ output after `gh-pages` is deleted.
       (`documentation/post_18_4_23_*` are real post images and were kept)
 - [x] `about`, `tags`, `404`, `robots.txt` ported; scaffold sample pages removed
 
-### Phase 3: templates & frontend
-- [ ] Layouts → ERB (`default`, `post`, tag archive)
-- [ ] Components: `Navigation`, `Footer`, `ArticleMeta`, `Figure`, `Icon`
-- [ ] SCSS → `frontend/styles`; one stylesheet with `[data-theme]` variables
-- [ ] Vanilla JS: theme toggle, scroll-appear, image zoom
-- [ ] Self-hosted fonts
+### Phase 3: templates & frontend · #89
+- [x] Layouts in ERB: `default`, `post`, `tag`; home, tags, about and 404 with the Chalk markup
+- [x] Ruby components: `Navigation`, `ArticleMeta` (date, reading time, tags), `Icon` (inlines the SVG
+      symbols from `frontend/icons`, dropping svgxuse); the footer is a plain partial
+- [x] Chalk SCSS → `frontend/styles` on Dart Sass with `@use` (no deprecation warnings), one stylesheet.
+      The 15 colors that differ per theme are CSS custom properties; grays are pinned to the hex values the
+      old `lighten()` build produced. Code block selectors adjusted to kramdown's markup
+- [x] Theme follows `prefers-color-scheme`; the toggle stores an explicit choice in `localStorage`
+      (same `theme` key as before), applied by an inline script before first paint
+- [x] Vanilla JS: theme toggle, scroll-appear (`IntersectionObserver`), share popup; zoom via `zooming`
+- [x] Self-hosted woff2 fonts; Google Fonts, webfontloader, jQuery, retina.js and GA UA dropped
+- [x] Disqus and the Twitter share link kept (decisions deferred)
+- [x] Legacy `_layouts/`, `_includes/`, `_assets/` removed (except the two deferred images)
+- [x] Visual check with headless Chromium vs. the live site: pixel-identical except antialiasing in the
+      logo font and two intended changes (`MINITEST` label on `/tags`, see below). All 21 colors of the
+      legacy dark stylesheet are present in the dark theme
+- [x] Tests: navigation, theme toggle, article meta, and reading time per post against the live values
+      (`test/fixtures/reading_times.yml`). One post reads 2 minutes instead of 1: kramdown's code block
+      markup adds a counted word per block, pushing it from 249 to 251
 
 ### Phase 4: plugins & metadata
 - [ ] `bridgetown-feed` (`/feed.xml`), `bridgetown-sitemap`, `bridgetown-seo-tag`
@@ -125,6 +138,8 @@ output after `gh-pages` is deleted.
 - [ ] Dependabot for bundler, npm and GitHub Actions
 - [ ] Rewrite `README.md`
 - [ ] Decide on `_assets/images/photo4.jpg` and `post_1/new_pr.png` (the author's images, referenced nowhere)
+- [ ] Remove unused `src/images/favicon-light.ico` and `apple-touch-icon-light.png` (or use them for a light-theme favicon)
+- [ ] `zooming` has had no release since 2019; consider a native `<dialog>` zoom
 
 ### After parity (to discuss)
 - Analytics: none / Cloudflare Web Analytics / Plausible / GoatCounter
