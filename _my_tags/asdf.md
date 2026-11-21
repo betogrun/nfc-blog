@@ -1,4 +1,0 @@
----
-slug: asdf
-name: ASDF
----
