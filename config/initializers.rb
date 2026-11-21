@@ -28,18 +28,15 @@ Bridgetown.configure do |_config|
   #
   # timezone "America/Los_Angeles"
 
-  # Add collection pagination features to your site. Documentation here:
+  # Paginates the home page and powers the tag archive prototype pages.
   # https://www.bridgetownrb.com/docs/content/pagination
-  #
-  # pagination do
-  #   enabled true
-  # end
+  pagination do
+    enabled true
+  end
 
-  # Configure the permalink style for pages and posts. Custom collections can be
-  # configured separately under the `collections` key. Documentation here:
+  # Posts keep their Jekyll URLs: /posts/:slug (served from posts/:slug.html).
   # https://www.bridgetownrb.com/docs/content/permalinks
-  #
-  # permalink "simple"
+  permalink "/posts/:slug.*"
 
   # Optionally host your site off a path, e.g. /blog. If you set this option,
   # ensure you use the `relative_url` helper for all links and assets in your HTML.

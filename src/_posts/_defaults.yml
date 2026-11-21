@@ -1,0 +1,3 @@
+# Posts are plain Markdown: no ERB pass, so code samples like `<%= ... %>` or
+# `${{ secrets.X }}` render literally instead of being executed.
+template_engine: none

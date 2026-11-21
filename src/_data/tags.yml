@@ -1,0 +1,41 @@
+# Display names for post tags (slug => name), formerly the _my_tags collection.
+asdf:
+  name: ASDF
+automation:
+  name: Automation
+daisyui:
+  name: Daisy UI
+design:
+  name: Design
+docker:
+  name: Docker
+git:
+  name: Git
+github:
+  name: Github
+jekyll:
+  name: Jekyll
+linux:
+  name: Linux
+minitest:
+  name: Minitest
+nokogiri:
+  name: Nokogiri
+pagy:
+  name: Pagy
+rails:
+  name: Rails
+rspec:
+  name: Rspec
+rubocop:
+  name: Rubocop
+ruby:
+  name: Ruby
+scraper:
+  name: Scraper
+tailwindcss:
+  name: Tailwind CSS
+vue:
+  name: Vue
+web:
+  name: Web

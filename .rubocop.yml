@@ -23,11 +23,12 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Bridgetown components follow Zeitwerk's compact namespacing (`class Shared::Navbar`)
+# Bridgetown components and builders follow Zeitwerk's compact namespacing (`class Shared::Navbar`)
 # and don't need to call super from initialize.
 Style/ClassAndModuleChildren:
   Exclude:
     - src/_components/**/*
+    - plugins/**/*
 Lint/MissingSuper:
   Exclude:
     - src/_components/**/*

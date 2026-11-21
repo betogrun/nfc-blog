@@ -1,0 +1,30 @@
+---
+layout: default
+title: "Notes from a coder"
+description: "Notes, tips and tricks by Alberto Rocha."
+paginate:
+  collection: posts
+  per_page: 4
+  permalink: /posts/page/:num/
+---
+
+<ul class="article-list">
+  <% paginator.resources.each do |post| %>
+    <li class="article-list-item">
+      <a href="<%= post.relative_url %>" title="<%= post.data.title %>">
+        <h5><%= post.data.title %></h5>
+      </a>
+      <p><%= post.data.description %></p>
+    </li>
+  <% end %>
+  <% if paginator.total_pages > 1 %>
+    <li class="article-pagination">
+      <% if paginator.next_page %>
+        <a href="<%= paginator.next_page_path %>" class="article-pagination-left">Older posts</a>
+      <% end %>
+      <% if paginator.previous_page %>
+        <a href="<%= paginator.previous_page_path %>" class="article-pagination-right">Newer posts</a>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

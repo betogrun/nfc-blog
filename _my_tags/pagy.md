@@ -1,4 +1,0 @@
----
-slug: pagy
-name: Pagy
----

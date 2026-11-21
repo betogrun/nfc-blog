@@ -16,12 +16,25 @@ work and keep its checkboxes up to date in the same PR that completes them.
 
 - The Bridgetown site lives in `src/` (content), `frontend/` (styles/JS), `config/`
   and `plugins/`.
-- Legacy Jekyll sources (`_posts/`, `_layouts/`, `_includes/`, `_assets/`,
-  `_my_tags/`, and root `index.html`, `about.html`, `tags.html`, `404.html`) are
-  **not used by the build**. They stay only as material to port in Phases 2-3;
-  move them with `git mv` so history is kept, and don't edit them in place.
+- Legacy Chalk theme sources (`_layouts/`, `_includes/`, `_assets/`) are **not
+  used by the build**. They stay only as material to port in Phase 3; move them
+  with `git mv` so history is kept, and don't edit them in place.
 - The live site is still the Jekyll build on the `gh-pages` branch (GitHub Pages)
   until the Phase 6 cutover. The tag `legacy-jekyll-site` preserves that output.
+
+## Writing posts
+
+- Posts live in `src/_posts/YYYY-MM-DD-slug.md` and are served at `/posts/slug`.
+- Posts are **plain Markdown**: `src/_posts/_defaults.yml` sets
+  `template_engine: none`, so ERB or Liquid in a post renders as text. That keeps
+  code samples (`<%= ... %>`, `${{ secrets.X }}`) safe without escaping. Don't
+  add template tags or components to posts.
+- Code: fenced blocks with a language (```` ```ruby ````). Images:
+  `![alt](/images/<folder>/<file>.png){: .zooming}` with the file in `src/images/`.
+  Links opening a new tab: `[text](url){:target="_blank"}`.
+- Every tag in a post's `tags:` needs an entry in `src/_data/tags.yml` (slug →
+  display name); a test fails otherwise. Each tag gets a `/tag/<slug>/` page.
+- Drafts: `published: false` in front matter; preview with `bin/bt start -U`.
 
 ## Language
 
@@ -76,7 +89,6 @@ Work is issue-driven, and Ruby code is written test-first.
 - No jQuery; small vanilla JS only.
 - Hosting moves to Cloudflare (per-PR previews) at the Phase 6 cutover; production builds use
   `BRIDGETOWN_ENV=production`.
-- Drafts are posts with `published: false` in front matter.
 
 ## Common commands
 

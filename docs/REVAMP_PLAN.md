@@ -76,14 +76,23 @@ output after `gh-pages` is deleted.
 - [x] GitHub Actions workflow on PRs and `main` that runs `bin/ci`
 - [x] Decide on `gh signoff`: **not for now**. Keep local `bin/ci` (no signoff) plus GitHub Actions; revisit later
 
-### Phase 2: content
-- [ ] `_posts` → `src/_posts`; convert 63 `{% highlight %}` blocks to fenced code (scripted)
-- [ ] Replace 9 `{% include image.html %}` with a component
-- [ ] `_my_tags/*.md` → `src/_data/tags.yml` + prototype page for `/tag/:slug/`
-- [ ] Permalinks: posts `/posts/:slug.*`, tags `/tag/:slug/`, pagination `/posts/page/:num/`
-      (verify the pagination permalink format against a real build)
-- [ ] `_assets/images` → `src/images`; drop `*:Zone.Identifier` and Chalk `documentation/` images
-- [ ] `about`, `tags`, `404` pages
+### Phase 2: content · #87
+- [x] Legacy URL test first (`test/test_legacy_urls.rb`, moved here from Phase 5): red → green
+- [x] `git mv` posts to `src/_posts` (history kept)
+- [x] Posts are **plain Markdown** (`template_engine: none` in `src/_posts/_defaults.yml`):
+      Bridgetown would otherwise run ERB over `.md` files and execute code samples like `<%= ... %>`
+- [x] Scripted conversion, no prose changes: 63 `{% highlight %}` → fenced code, 2 `{{ "{{" }}` escapes
+      undone, 9 `{% include image.html %}` → `![alt](/images/...){: .zooming}` (plain Markdown instead of
+      an ERB component, so posts stay engine-free; zoom behaviour comes back in Phase 3)
+- [x] `_my_tags/*.md` → `src/_data/tags.yml`; a Ruby builder (`plugins/builders/tag_pages.rb`) generates
+      `/tag/:slug/` for **every** tag, including the 3 without posts (design, jekyll, web) that Jekyll served.
+      Prototype pages were not used: they only cover tags in use and add pagination
+- [x] Added the `minitest` tag (used by a post, missing from `_my_tags`: its link was a 404 on the live
+      site); a test now fails when a post uses an unknown tag
+- [x] Permalinks: posts `/posts/:slug.*`, tags `/tag/:slug/`, pagination `/posts/page/:num/` (4 per page)
+- [x] Used images → `src/images`; dropped `*:Zone.Identifier` and Chalk sample images
+      (`documentation/post_18_4_23_*` are real post images and were kept)
+- [x] `about`, `tags`, `404`, `robots.txt` ported; scaffold sample pages removed
 
 ### Phase 3: templates & frontend
 - [ ] Layouts → ERB (`default`, `post`, tag archive)
@@ -99,7 +108,7 @@ output after `gh-pages` is deleted.
 - [ ] Custom `new_post` CLI command in `plugins/commands/`, test-first
 
 ### Phase 5: parity verification
-- [ ] Minitest: every path in `test/fixtures/legacy_urls.txt` exists in `output/`
+- [x] ~~Legacy URL test~~ (done in Phase 2)
 - [ ] Link check (lychee or html-proofer)
 - [ ] Side-by-side visual comparison against the live site (home, post, tag, tags, about, 404, both themes)
 
@@ -115,6 +124,7 @@ output after `gh-pages` is deleted.
 - [ ] Close the obsolete dependabot PR (#82)
 - [ ] Dependabot for bundler, npm and GitHub Actions
 - [ ] Rewrite `README.md`
+- [ ] Decide on `_assets/images/photo4.jpg` and `post_1/new_pr.png` (the author's images, referenced nowhere)
 
 ### After parity (to discuss)
 - Analytics: none / Cloudflare Web Analytics / Plausible / GoatCounter

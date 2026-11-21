@@ -1,4 +1,0 @@
----
-slug: vue
-name: Vue
----
