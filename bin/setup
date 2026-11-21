@@ -1,16 +1,17 @@
-#!/usr/bin/env sh
+#!/usr/bin/env ruby
+# Sets up or updates the development environment. Idempotent: run it any time.
+# Expects Ruby and Node from mise.toml to be active (`mise install`).
 
-# Set up Jekyll site. Run this script immediately after cloning the codebase.
-# https://github.com/thoughtbot/guides/tree/master/protocol
+require "fileutils"
 
-# Exit if any subcommand fails
-set -e
+def system!(*)
+  system(*, exception: true)
+end
 
-# Set up Ruby dependencies via Bundler.
-gem install bundler --conservative
-bundle check || bundle install
-# bundle update
+FileUtils.chdir(File.expand_path("..", __dir__)) do
+  puts "== Installing Ruby gems =="
+  system("bundle check", out: File::NULL) || system!("bundle install")
 
-# Set up JS dependencies via Yarn.
-# npm install -g yarn
-yarn install --modules-folder ./_assets/yarn
+  puts "\n== Installing npm packages =="
+  system!("npm ci --no-audit --no-fund")
+end

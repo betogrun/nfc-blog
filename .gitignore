@@ -1,16 +1,38 @@
-# Global
-*.DS_Store
+# OS
+.DS_Store
 Desktop.ini
 Thumbs.db
+*:Zone.Identifier
 
-# Project
-!.keep
-*.sass-cache
+# Editors
+Session.vim
+
+# Bridgetown
+/output
+/.bridgetown-cache
+/.bridgetown-metadata
+/.routes.json
+
+# Dependencies
+/node_modules
+/.bundle
+
+# Caches
+.sass-cache
+.npm
+.node_repl_history
+
+# Environment
+.env
+
+# Temp files and pids (keep the directories)
+/tmp/*
+!/tmp/.keep
+!/tmp/pids/
+/tmp/pids/*
+!/tmp/pids/.keep
+
+# Legacy Jekyll artifacts (until Phases 2-3 remove the old sources)
 /_assets/yarn/
 /_site/
 /.jekyll-cache/
-Gemfile.lock
-package-lock.json
-yarn.lock
-Session.vim
-node_modules

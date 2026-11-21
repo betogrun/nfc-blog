@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+# Local CI gate. GitHub Actions runs this same script, so a green run here means a green PR.
+# Every step runs even if an earlier one fails, so one run reports all problems.
+
+Dir.chdir(File.expand_path("..", __dir__))
+
+STEPS = {
+  "Setup" => %w[bin/setup],
+  "Style: Ruby" => %w[bin/rubocop],
+  "Build: production" => [{ "BRIDGETOWN_ENV" => "production" }, "bin/bridgetown", "deploy"],
+  "Tests" => %w[bin/bridgetown test]
+}.freeze
+
+def clock = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+
+results = STEPS.map do |name, command|
+  puts "\n\e[1m== #{name}\e[0m"
+  started = clock
+  passed = system(*command)
+  [name, passed, clock - started]
+end
+
+puts "\n\e[1m== Summary\e[0m"
+results.each do |name, passed, seconds|
+  mark = passed ? "\e[32m✓\e[0m" : "\e[31m✗\e[0m"
+  puts format("%<mark>s %<name>-20s %<seconds>5.1fs", mark:, name:, seconds:)
+end
+
+exit(results.all? { |_, passed, _| passed })

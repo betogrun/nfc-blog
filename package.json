@@ -1,17 +1,20 @@
 {
-  "name": "chalk",
+  "name": "nfc-blog",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "setup": "bin/setup",
-    "local": "bundle exec jekyll serve --drafts",
-    "publish": "bin/deploy"
+    "esbuild": "node esbuild.config.js --minify",
+    "esbuild-dev": "node esbuild.config.js --watch"
   },
-  "dependencies": {
-    "jquery": "^3.2.1",
-    "npm": "^6.0.1",
-    "retinajs": "^2.1.1",
-    "svgxuse": "^1.2.4",
-    "webfontloader": "^1.6.28",
-    "yarn": "^1.22.22",
-    "zooming": "^2.1.1"
+  "devDependencies": {
+    "esbuild": "^0.25.11",
+    "postcss": "^8.5.6",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^16.1.0",
+    "postcss-load-config": "^6.0.1",
+    "postcss-preset-env": "^10.4.0",
+    "read-cache": "^1.0.0",
+    "sass": "^1.93.2"
   }
 }

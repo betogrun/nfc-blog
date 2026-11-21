@@ -14,9 +14,12 @@ The plan, decisions and phase checklist live in
 [`docs/REVAMP_PLAN.md`](docs/REVAMP_PLAN.md). Read it before starting migration
 work and keep its checkboxes up to date in the same PR that completes them.
 
-- The legacy Jekyll setup (`_config.yml`, `_assets/`, `_layouts/`, `_includes/`,
-  `_my_tags/`, `bin/deploy`) stays in the tree until Phase 1 lands. It **does not
-  build** on modern Ruby and is about to be deleted, so don't spend time fixing it.
+- The Bridgetown site lives in `src/` (content), `frontend/` (styles/JS), `config/`
+  and `plugins/`.
+- Legacy Jekyll sources (`_posts/`, `_layouts/`, `_includes/`, `_assets/`,
+  `_my_tags/`, and root `index.html`, `about.html`, `tags.html`, `404.html`) are
+  **not used by the build**. They stay only as material to port in Phases 2-3;
+  move them with `git mv` so history is kept, and don't edit them in place.
 - The live site is still the Jekyll build on the `gh-pages` branch (GitHub Pages)
   until the Phase 6 cutover. The tag `legacy-jekyll-site` preserves that output.
 
@@ -46,9 +49,8 @@ Work is issue-driven, and Ruby code is written test-first.
 3. **TDD for Ruby code** (components, plugins, commands): red → green → refactor.
    Content and styling changes are verified by the build and the parity checks
    instead.
-4. **Before pushing**, run the local CI gate; it must be green. `bin/ci` runs the
-   same steps as GitHub Actions, so a green local run means a green PR.
-   *(Introduced in Phase 1; until then there is nothing to run.)*
+4. **Before pushing**, run the local CI gate; it must be green. GitHub Actions
+   runs the same `bin/ci`, so a green local run means a green PR.
 5. **Open a PR** against `main`: `gh pr create`.
 6. **Merge** once CI is green. Merging, pushing to `main`, deleting branches, and
    anything touching DNS or hosting are done only when the author asks.
@@ -65,19 +67,18 @@ Work is issue-driven, and Ruby code is written test-first.
 - **Don't rewrite post prose.** Mechanical conversions (e.g. `{% highlight %}` →
   fenced code) are fine; wording changes need the author's approval.
 
-## Target stack (Phase 1 onward)
+## Stack
 
-- Ruby 3.4 + Node LTS, pinned in `mise.toml`.
+- Ruby 4.0 + Node 26 LTS, pinned in `mise.toml`.
+- Plain RuboCop with `rubocop-minitest` (`.rubocop.yml`); not Rails omakase.
 - Bridgetown 2.x with **ERB** templates and Ruby components; esbuild + Dart Sass
   for the frontend. Prefer Ruby over JavaScript where reasonable.
 - No jQuery; small vanilla JS only.
-- Hosting on Cloudflare with per-PR previews; production builds use
+- Hosting moves to Cloudflare (per-PR previews) at the Phase 6 cutover; production builds use
   `BRIDGETOWN_ENV=production`.
 - Drafts are posts with `published: false` in front matter.
 
 ## Common commands
-
-Available once the Phase 1 scaffold lands:
 
 | Task                        | Command          |
 | --------------------------- | ---------------- |
@@ -87,5 +88,6 @@ Available once the Phase 1 scaffold lands:
 | Dev server with drafts      | `bin/bt start -U`|
 | Console                     | `bin/bt console` |
 | Run tests                   | `bin/bt test`    |
+| Lint (autofix: `-a`)        | `bin/rubocop`    |
 | Full CI gate                | `bin/ci`         |
 | Production build            | `bin/bt deploy`  |
