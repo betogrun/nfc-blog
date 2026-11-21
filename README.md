@@ -56,3 +56,25 @@ page, and pages rewritten by Cloudflare.
    ```
 
 Until both secrets exist, CI skips the deploy steps.
+
+### Custom domain
+
+`blog.albertorocha.me` is a Custom Domain of the Worker, attached once from a terminal and
+kept out of `cloudflare.config.ts` on purpose. `cf deploy` only touches the domains the config
+declares, and in CI (no terminal) it overwrites conflicting DNS records without asking; a
+declared domain would also need zone permissions on the token.
+
+To attach a domain, use the `cf auth login` session in an interactive terminal:
+
+1. Add `domains: ["<hostname>"]` to the `worker` block of `cloudflare.config.ts`, without
+   committing it. Keep `workersDev: true` and `previewUrls: true`: declaring a domain turns
+   both off otherwise.
+2. If the hostname already has a DNS record, delete it right before deploying. Cloudflare
+   refuses to replace an existing record (`externally managed DNS records`). Get the record ID
+   from `npx cf dns records list --zone <zone-id>`:
+
+   ```sh
+   npx cf dns records delete <record-id> --zone <zone-id> --force && npx cf deploy output
+   ```
+
+3. Revert the config change: `git checkout cloudflare.config.ts`.

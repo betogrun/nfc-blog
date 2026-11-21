@@ -179,15 +179,23 @@ output after `gh-pages` is deleted.
       HTML byte-identical to `output/`
 - [x] API token from the dashboard: `cf auth login` grants no token scopes, so the CLI can't create one.
       Scope **Specified Workers** → `blog`, permission **Individual Workers** → **Editor** (deploys and
-      previews, can't create or delete Workers; the account has another Worker). Stored with the account ID
-      as repository secrets
+      previews, can't create or delete Workers). Stored with the account ID as repository secrets
 - [x] First preview (`https://pr-96-blog.betogrun.workers.dev`) deployed and checked by CI. Visual comparison
       against the live site (same pages, widths and themes as Phase 5): only the differences Phase 5 explained
-- [ ] On merge: production deployed by CI and the PR's preview deleted (the token's Editor role covers
-      creating previews; deleting one is untested)
-- [ ] Point `blog.albertorocha.me` to Cloudflare; confirm HTTPS and all legacy URLs live
-- [ ] Turn off Email Address Obfuscation (Scrape Shield) for the blog: it mangles `git@github.com` in code blocks
-      and the navigation's email link; `check_deploy` on production must pass
+- [x] On merge: production deployed by CI and the PR's preview deleted (the Editor role covers both)
+- [x] Email Address Obfuscation turned off zone-wide (`cf zones settings edit email_obfuscation`; the
+      `albertorocha.me` zone only holds the blog), before the DNS switch: `git@github.com` and the navigation's
+      email link are plain text again, and `check_deploy` on the live site found no `/cdn-cgi/`
+- [x] `blog.albertorocha.me` on Cloudflare (2026-11-21) as a Custom Domain of the Worker. The API refuses to
+      replace the existing proxied CNAME to GitHub Pages ("externally managed DNS records", code 100117), so the
+      CNAME was deleted and the domain attached right after by a local, interactive `cf deploy` with a temporary
+      `domains` entry: about 15 seconds without a record. Cloudflare created an `AAAA 100::` proxied record;
+      HTTPS serves a valid certificate. Production passes `check_deploy` (`/feed.xml` works now), serves HTML
+      byte-identical to the build, and keeps HTTP as it was (no redirect to HTTPS)
+- [x] The domain stays out of `cloudflare.config.ts`: CI deploys don't touch undeclared domains, while a declared
+      one would make CI overwrite DNS records without asking and need zone permissions on the token. Declaring
+      a domain also turns `workers.dev` and Preview URLs off by default (the first attempt did), so the config
+      sets `workersDev` and `previewUrls` explicitly
 - [ ] Only after confirming: disable GitHub Pages and delete the `gh-pages` branch
 - [ ] Remove `CNAME` if no longer needed
 
@@ -208,3 +216,7 @@ output after `gh-pages` is deleted.
 - Share links: Twitter → Bluesky/Mastodon/LinkedIn or none
 - Copy button on code blocks, light/dark syntax themes, client-side search (Pagefind), per-post OG images
 - Image optimization (`src/images` is ~11 MB)
+- Always Use HTTPS: the zone setting is off, so HTTP serves pages (200) as it did on GitHub Pages
+- Move to `blog.alberto.dev` (shorter). `alberto.dev` isn't on the Cloudflare account yet (nameservers first).
+  Every `blog.albertorocha.me` URL must 301 to the same path (Redirect Rule); change `url`, canonical and feed;
+  Search Console change of address; Disqus comments are keyed by URL, so they need Disqus's domain migration
