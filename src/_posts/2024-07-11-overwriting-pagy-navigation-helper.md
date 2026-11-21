@@ -18,7 +18,7 @@ Let's consider a simple Rails application where we have a list of items and we w
 
 Assuming the Pagy gem is already installed in the Rails application, we can paginate the items in the controller as follows:
 
-{% highlight ruby %}
+```ruby
 class ItemsController < ApplicationController
   include Pagy::Backend
 
@@ -26,30 +26,30 @@ class ItemsController < ApplicationController
     @pagy, @items = pagy(Item.all, items: 10)
   end
 end
-{% endhighlight %}
+```
 
 Don't forget to include the Pagy module in the application helper:
 
-{% highlight ruby %}
+```ruby
 module ApplicationHelper
   include Pagy::Frontend
 end
-{% endhighlight %}
+```
 
 Now, in the view file, we can use the `pagy_nav` helper to render the pagination component:
 
-{% highlight html %}
+```html
 <%= pagy_nav(@pagy) if @pagy.pages > 1 %>
-{% endhighlight %}
+```
 
 ### DaisyUI Pagination component
 
 From the [DaisyUI documentation](https://daisyui.com/components/pagination){:target="_blank"}, the pagination component is as follows:
 
-{% include image.html path="post_2024_7_11/daisyui-pagination-sample" path-detail="post_2024_7_11/daisyui-pagination-sample" alt="DaisyUI Pagination component" %}
+![DaisyUI Pagination component](/images/post_2024_7_11/daisyui-pagination-sample.png){: .zooming}
 
 
-{% highlight html %}
+```html
 <div class="join">
   <button class="join-item btn">1</button>
   <button class="join-item btn">2</button>
@@ -57,7 +57,7 @@ From the [DaisyUI documentation](https://daisyui.com/components/pagination){:tar
   <button class="join-item btn">99</button>
   <button class="join-item btn">100</button>
 </div>
-{% endhighlight %}
+```
 
 Let's use this pagination component in our Rails application to overwrite the Pagy navigation helper.
 
@@ -66,7 +66,7 @@ Let's use this pagination component in our Rails application to overwrite the Pa
 The Pagy object offers methods to get the current page and the series of pages. We can use these methods to build our custom pagination component.
 
 
-{% highlight ruby %}
+```ruby
 #current page
 pagy.page #=> 1
 
@@ -81,7 +81,7 @@ pagy.next #=> 2
 
 #url for the page
 pagy_url_for(pagy, 3) #=> "/items?page=3"
-{% endhighlight %}
+```
 
 ### Overwriting the Pagy navigation helper
 
@@ -91,7 +91,7 @@ We will use this as a reference to build our custom pagination helper.
 
 To overwrite the Pagy navigation helper, we need to create a new helper method in the `ApplicationHelper` module. This method will render the pagination component using the DaisyUI template.
 
-{% highlight ruby %}
+```ruby
 module ApplicationHelper
   include Pagy::Frontend
 
@@ -125,11 +125,11 @@ module ApplicationHelper
     html.html_safe
   end
 end
-{% endhighlight %}
+```
 
 No changes are required in the controller or the view file. The pagination component will be rendered using the DaisyUI template and the result should look like this:
 
-{% include image.html path="post_2024_7_11/custom-daisyui-pagination-sample" path-detail="post_2024_7_11/custom-daisyui-pagination-sample" alt="DaisyUI Pagination component" %}
+![DaisyUI Pagination component](/images/post_2024_7_11/custom-daisyui-pagination-sample.png){: .zooming}
 
 ### Conclusion
 

@@ -20,13 +20,13 @@ In Ruby, code libraries are called gems. They can be found and installed from a 
 
 To create a new gem, you can use the `bundle gem` command, which is provided by the `bundler` gem. 
 
-{% highlight shell %}
+```shell
 $ bundle gem my_gem
-{% endhighlight %}
+```
 
 This command will generate the necessary files and directories for the gem.
 
-{% highlight shell %}
+```shell
 my_gem
 ├── Gemfile
 ├── README.md
@@ -39,19 +39,19 @@ my_gem
 └── spec
     ├── my_gem_spec.rb
     └── spec_helper.rb
-{% endhighlight %}
+```
 
 Once the gem is ready, you can build it using the `gem build` command, which will create a `.gem` file that can be published to RubyGems.
 
-{% highlight shell %}
+```shell
 $ gem build my_gem.gemspec
-{% endhighlight %}
+```
 
 After building the gem, you can publish it to RubyGems using the `gem push` command.
 
-{% highlight shell %}
+```shell
 $ gem push my_gem-0.1.0.gem
-{% endhighlight %}
+```
 
 PS: You need to have a RubyGems account and be authenticated to publish gems.
 
@@ -61,7 +61,7 @@ Similar to other CI/CD tools, GitHub Actions allows you to automate tasks like t
 
 The example below shows a simple GitHub Actions workflow that will run the tests for a Ruby application whenever a new commit is pushed to the `main` branch:
 
-{% highlight yaml %}
+```yaml
 name: RSpec tests
 
 on: 
@@ -87,7 +87,7 @@ jobs:
 
     - name: Run tests
       run: bundle exec rspec
-{% endhighlight %}
+```
 
 ### Gem versioning and changelog management
 
@@ -106,15 +106,15 @@ Before proceding, it is important to mention the [Semantic Versioning](https://s
 
 The version file is located at `lib/lean/microsoft/graph/version.rb`. Since a new feature was added without breaking changes, we will increment the minor version to `3`. So the new version will be `0.3.4`.
 
-{% highlight ruby %}
+```ruby
 module LeanMicrosoftGraph
   VERSION = "0.3.4"
 end
-{% endhighlight %}
+```
 
 Now we need to update the `CHANGELOG.md` file with the changes made in the new version.
 
-{% highlight markdown %}
+```markdown
 # Changelog
 
 <!-- Additional logs omitted for brevity. -->
@@ -132,7 +132,7 @@ Now we need to update the `CHANGELOG.md` file with the changes made in the new v
 <!-- Additional logs omitted for brevity. -->
 
 [0.3.4]: https://github.com/betogrun/lean-microsoft-graph/releases/tag/v0.3.4
-{% endhighlight %}
+```
 
 Please, take a look at the [Keep a Changelog](https://keepachangelog.com/){:target="_blank"} website for more information on how to document the changes in the `CHANGELOG.md` file.
 
@@ -156,13 +156,13 @@ We could also handle the publication process in a separate workflow file, but in
 
 Let's add a new job called `publish` to the existing YAML file:
 
-{% highlight yaml %}
+```yaml
 jobs:
   publish:
     needs: test
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
-{% endhighlight %}
+```
 
 ###### In the example above, we:
 - Added the `needs` keyword to specify that the publish job should wait for the test job to complete successfully before running. This creates a dependency that ensures the tests are executed first.
@@ -171,7 +171,7 @@ jobs:
 
 Now, we need to define the step to set up the environment. In this example, we set up Ruby and define the Ruby version to use:
 
-{% highlight yaml %}
+```yaml
   steps:
     - uses: actions/checkout@v3  # Check out the repository code
 
@@ -179,37 +179,37 @@ Now, we need to define the step to set up the environment. In this example, we s
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.4'  # Specify the Ruby version to use
-{% endhighlight %}
+```
 
 Lastly, we need to add the step to build and publish the gem.<br>
 First, we create the `.gem` directory and the credentials file. Then, we set the permissions for the file and write the authentication token to it.
 
-{% highlight yaml %}
+```yaml
     - name: Publish to RubyGems
       run: |
         mkdir -p $HOME/.gem
         touch $HOME/.gem/credentials
         chmod 0600 $HOME/.gem/credentials
         printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-{% endhighlight %}
+```
 
 Then we build the gem and push it to RubyGems:
 
-{% highlight yaml %}
+```yaml
         gem build *.gemspec
         gem push *.gem
-{% endhighlight %}
+```
 
 We can't forget to use the `env` keyword to pass the RubyGems authentication token from the repository secrets:
 
-{% highlight yaml %}
+```yaml
       env:
-        GEM_HOST_API_KEY: ${{ "{{" }} secrets.RUBYGEMS_AUTH_TOKEN  }}
-{% endhighlight %}
+        GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_AUTH_TOKEN  }}
+```
 
 The complete job for publishing the gem should look like this:
 
-{% highlight yaml %}
+```yaml
 publish:
     needs: test
     runs-on: ubuntu-latest
@@ -229,30 +229,30 @@ publish:
           gem build *.gemspec
           gem push *.gem
         env:
-          GEM_HOST_API_KEY: ${{ "{{" }} secrets.RUBYGEMS_AUTH_TOKEN  }}
-{% endhighlight %}
+          GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_AUTH_TOKEN  }}
+```
 
 ### Automating the publishing process through tag creation
 
 Finally, after merging the [Pull Request](https://github.com/betogrun/lean-microsoft-graph/pull/60) that updates the gem version and the changelog, the next step is to create a new tag for the new version by running the following command:
 
-{% highlight shell %}
+```shell
 $ git tag -a v0.3.4 -m "Version 0.3.4"
-{% endhighlight %}
+```
 
 The `-a` flag creates an annotated tag, and the `-m` flag adds a message to the tag. Both are optional.
 
 After that, we need to push the tag to the remote repository on GitHub:
 
-{% highlight shell %}
+```shell
 $ git push origin v0.3.4
-{% endhighlight %}
+```
 
 After pushing the tag, the GitHub Actions workflow will be triggered, and the gem will be built and published to RubyGems.
 
 The result of the workflow can be checked in the Actions tab of the repository.
 
-{% include image.html path="post_2024_8_30/github-actions" path-detail="post_2024_8_30/github-actions" alt="Github actions workflow" %}
+![Github actions workflow](/images/post_2024_8_30/github-actions.png){: .zooming}
 
 The new version of the gem will be available on RubyGems, and the changes will be reflected in the [gem page](https://rubygems.org/gems/lean-microsoft-graph){:target="_blank"}.
 

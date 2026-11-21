@@ -14,28 +14,28 @@ This post provides a simple guide for how to rename the branch in your own Git r
 
 First we need to rename the master branch to main using the command below:
 
-{% highlight console %}
+```console
  git branch --move master main
-{% endhighlight %}
+```
 
 Then we need to push the main branch to the remote repository
 
-{% highlight console %}
+```console
 git push -u origin main
-{% endhighlight %}
+```
 
 Now it is necessary to let GitHub know that "main" is the new default branch for this repo.
 
 Access your repository and navigate to the "Settings" page.
 In the "Default Branch" section, click on the "Switch" button.
 
-{% include image.html path="documentation/post_18_4_23_1" path-detail="documentation/post_18_4_23_1" alt="Default branch" %}
+![Default branch](/images/documentation/post_18_4_23_1.png){: .zooming}
 Select the 'main' branch from the dropdown menu and click on "Update".
 
-{% include image.html path="documentation/post_18_4_23_2" path-detail="documentation/post_18_4_23_2" alt="Default branch" %}
+![Default branch](/images/documentation/post_18_4_23_2.png){: .zooming}
 A warning message will appear. Click on "I understand, update this branch" to confirm the action.
 
-{% include image.html path="documentation/post_18_4_23_3" path-detail="documentation/post_18_4_23_3" alt="Default branch" %}
+![Default branch](/images/documentation/post_18_4_23_3.png){: .zooming}
 
 ### How to change the default branch for new projects
 
@@ -43,9 +43,9 @@ Starting with Git version 2.28, you can define the default branch name for new p
 
 Once you have confirmed your Git version, you can use the following command to set 'main' as the default branch for all new Git repositories:
 
-{% highlight console %}
+```console
 git config --global init.defaultBranch main
-{% endhighlight %}
+```
 
 ### Summary
 

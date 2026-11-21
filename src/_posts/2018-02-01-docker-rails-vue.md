@@ -10,7 +10,7 @@ Since Rails 5.1 it is possible to create applications with modern javascript fra
 The example bellow ilustrate how to create the Dockerfile and the docker-compose.yml in order to get an exisisting Rails and Vue.js application running in a conatiner.
 
 # Dockerfile
-{% highlight dockerfile %}
+```dockerfile
 FROM ruby:2.4.1
 
 # Set install path
@@ -48,10 +48,10 @@ RUN gem install foreman
 
 # Copy the code to the container
 COPY . .
-{% endhighlight %}
+```
 
 # docker-compose.yml
-{% highlight yaml %}
+```yaml
 version: '2'
 
 services:
@@ -73,16 +73,16 @@ services:
 
 volumes:
   postgres:
-{% endhighlight %}
+```
 
 The commands bellow assumes you have docker installed:
 
 
-{% highlight console %}
+```console
 $ docker-compose build
 $ docker-compose run --rm web bin/setup
 $ docker-compose up
-{% endhighlight %}
+```
 
 Access: <http://localhost:5000>
 

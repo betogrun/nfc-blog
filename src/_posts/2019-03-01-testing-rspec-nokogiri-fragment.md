@@ -8,7 +8,7 @@ A widely used approach to test web scrapers is to use the [VCR](https://github.c
 
 I had to test a class that depends on Nokogiri while building the [esaj](https://github.com/betogrun/esaj) scraper, but I could not use this procedure since the class being tested was initialized with a `Nokogiri::XML::Element` element:
 
-{% highlight ruby %}
+```ruby
 class ResultItem
   attr_reader :element
 
@@ -41,7 +41,7 @@ class ResultItem
     element.children.count
   end
 end
-{% endhighlight  %}
+```
 
 No request would be performed in this scenario.
 
@@ -51,7 +51,7 @@ The chosen solution was to use the "Nokogiri::HTML::fragment" method to instanti
 
 The fixture was created in `spec/fixture/result_item_fragment`<br> and the Nokogiri fragment method was wrapped in module created in `spec/helpers`:
 
-{% highlight ruby %}
+```ruby
 module Helpers
   def element_for(fragment_file_name)
     fragment_for(fragment_file_name)&.children[0]
@@ -61,22 +61,22 @@ module Helpers
     Nokogiri::HTML::fragment(File.read("spec/fixtures/#{file_name}"))
   end
 end
-{% endhighlight %}
+```
 
 The `spec_heper` was updated in order to make the above helper available for all specs.
 
-{% highlight ruby %}
+```ruby
 require_relative 'helpers'
 
 RSpec.configure do |config|
   config.include Helpers
 end
-{% endhighlight %}
+```
 
 ### Clean code
 This approach allows a test class without doubles or stubs making the code lean and clean.
 
-{% highlight ruby  %}
+```ruby
 RSpec.describe ResultItem do
   subject { described_class.new(element)  }
   let(:element) { element_for('result_item_fragment')  }
@@ -92,7 +92,7 @@ RSpec.describe ResultItem do
     end
   end
 end
-{% endhighlight  %}
+```
 
 The full code is available [here](https://github.com/betogrun/esaj).
 

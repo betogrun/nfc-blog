@@ -8,7 +8,7 @@ tags: [git, github]
 Atention: Make sure you have a configured remote pointing to the remote upstream.
 
 #### 1. Fetch branches and commits from upstream
-{% highlight console %}
+```console
 $ git fetch upstream 
 
 remote: Counting objects: 6, done.
@@ -18,17 +18,17 @@ Unpacking objects: 100% (6/6), done.
 From github.com:hacker-sessions/mySelfie
    7e5e502..588a4df  master     -> upstream/master
 
-{% endhighlight %}
+```
 
 #### 2. Make sure to checkout to your fork's local brach
-{% highlight console %}
+```console
 $ git checkout master
 
 Switched to branch 'master'
-{% endhighlight %}
+```
 
 #### 3. Merge changes from `upstream/master` to local master
-{% highlight console %}
+```console
 $ git merge upstream/master
 
 Updating 7c208d3..588a4df
@@ -50,7 +50,7 @@ Fast-forward
  create mode 100644 app/javascript/packs/tag/hello.js
  create mode 100644 docker-compose.yml
 
-{% endhighlight %}
+```
 
 PS: It is still necessary to push these changes to your fork on Github.
 
