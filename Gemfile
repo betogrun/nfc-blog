@@ -54,6 +54,7 @@ group :test do
 end
 
 group :development, :test do
+  gem "html-proofer", "~> 5.0", require: false
   gem "rubocop", require: false
   gem "rubocop-minitest", require: false
 end
