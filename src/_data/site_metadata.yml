@@ -8,3 +8,7 @@ social:
   twitter: betogrun
   github: betogrun
   linkedin: betogrun
+# Twitter card settings for bridgetown-seo-tag (the card type the Jekyll site used).
+twitter:
+  username: betogrun
+  card: summary
