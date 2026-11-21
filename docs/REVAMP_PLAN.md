@@ -93,8 +93,6 @@ output after `gh-pages` is deleted.
 - [x] Used images → `src/images`; dropped `*:Zone.Identifier` and Chalk sample images
       (`documentation/post_18_4_23_*` are real post images and were kept)
 - [x] `about`, `tags`, `404`, `robots.txt` ported; scaffold sample pages removed
-- [ ] Decide on `photo4.jpg` and `post_1/new_pr.png`: the author's images, referenced nowhere,
-      left in `_assets/images`
 
 ### Phase 3: templates & frontend
 - [ ] Layouts → ERB (`default`, `post`, tag archive)
@@ -126,6 +124,7 @@ output after `gh-pages` is deleted.
 - [ ] Close the obsolete dependabot PR (#82)
 - [ ] Dependabot for bundler, npm and GitHub Actions
 - [ ] Rewrite `README.md`
+- [ ] Decide on `_assets/images/photo4.jpg` and `post_1/new_pr.png` (the author's images, referenced nowhere)
 
 ### After parity (to discuss)
 - Analytics: none / Cloudflare Web Analytics / Plausible / GoatCounter
