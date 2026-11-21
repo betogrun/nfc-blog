@@ -1,0 +1,25 @@
+# Weekly dependency updates. Minor and patch bumps come grouped, one PR per ecosystem;
+# majors come one PR each. cf (pinned to an exact pre-1.0 release) always gets its own PR.
+version: 2
+updates:
+  - package-ecosystem: bundler
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      gems:
+        update-types: [minor, patch]
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      npm:
+        update-types: [minor, patch]
+        exclude-patterns: [cf]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
