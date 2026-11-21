@@ -43,6 +43,8 @@ Bugs found on the live site (2026-11-21):
 | Hosting | **Cloudflare** (DNS already there) | Per-PR preview deployments. Choose Pages vs. Workers static assets at Phase 6. |
 | Devcontainer | **Remove** | `mise` covers the local environment. |
 | Analytics / comments / share | Decide **after** parity | GA UA removed (dead). Disqus kept until then. |
+| Runtime | **Ruby 4.0 + Node 26 LTS**, pinned in `mise.toml` | Bridgetown CI tests Ruby 3.3/3.4/4.0; matches the author's other projects. |
+| Linting | Plain RuboCop (+ `rubocop-minitest`) | Tuned for a small Ruby project, not Rails omakase. |
 | Language | Posts stay in English | |
 
 ## Workflow for this plan
@@ -62,14 +64,16 @@ Bugs found on the live site (2026-11-21):
 The live site itself is the visual baseline until cutover; the tag preserves the built
 output after `gh-pages` is deleted.
 
-### Phase 1: Bridgetown scaffold
-- [ ] `bridgetown new --use-sass` in a temp dir; bring the structure into the repo
-- [ ] `mise.toml` with Ruby 3.4 + Node LTS (replaces `.ruby-version` 2.4.3)
-- [ ] `bin/setup` (bundle + `npm ci`)
-- [ ] Remove Jekyll/Chalk tooling: `_config.yml`, `jekyll-assets`, `yarn.lock`, `package.json` (old),
-      `bin/deploy`, `circle.yml`, `.travis.yml`, tracked `_site/`, `.devcontainer/`, Codeship badge
-- [ ] `bin/ci`: local CI gate (build, tests, RuboCop; link check once content exists)
-- [ ] GitHub Actions workflow on PRs that runs `bin/ci`
+### Phase 1: Bridgetown scaffold · #85
+- [x] `bridgetown new --use-sass -t erb -s puma` in a temp dir; bring the structure into the repo
+- [x] `mise.toml` with Ruby 4.0.10 + Node 26.13.1 (replaces `.ruby-version` 2.4.3)
+- [x] `bin/setup` (bundle + `npm ci`)
+- [x] Remove Jekyll/Chalk tooling: `Gemfile`/lock, `_config.yml`, `package.json`/`yarn.lock` (old),
+      vendored `_assets/yarn/`, `bin/deploy`, `circle.yml`, `.travis.yml`, tracked `_site/`,
+      `.devcontainer/`, devcontainer-only `dependabot.yml`, Codeship badge
+- [x] Minitest via Bridgetown's `minitesting` configuration (smoke test for now)
+- [x] `bin/ci`: local CI gate (setup, RuboCop, production build, tests); link check joins once content exists
+- [x] GitHub Actions workflow on PRs and `main` that runs `bin/ci`
 - [ ] Decide whether to adopt `gh signoff` (used in the author's Rails apps)
 
 ### Phase 2: content

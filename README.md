@@ -1,5 +1,16 @@
-# README
+# Notes from a coder
 
-[ ![Codeship Status for betogrun/nfc-blog](https://app.codeship.com/projects/81326c00-11df-0135-065d-1e7aafd418e3/status?branch=master)](https://app.codeship.com/projects/216831)
+[![CI](https://github.com/betogrun/nfc-blog/actions/workflows/ci.yml/badge.svg)](https://github.com/betogrun/nfc-blog/actions/workflows/ci.yml)
 
-My personal blog made with [Jekyll](https://jekyllrb.com/) and [Chalk](https://github.com/nielsenramon/chalk).
+My personal blog at [blog.albertorocha.me](https://blog.albertorocha.me), being migrated from
+[Jekyll](https://jekyllrb.com/) + [Chalk](https://github.com/nielsenramon/chalk) to
+[Bridgetown](https://www.bridgetownrb.com/). See [`docs/REVAMP_PLAN.md`](docs/REVAMP_PLAN.md).
+
+## Development
+
+```sh
+mise install     # Ruby + Node from mise.toml
+bin/setup        # gems + npm packages
+bin/bt start     # http://localhost:4000 with live reload
+bin/ci           # the same checks GitHub Actions runs
+```
