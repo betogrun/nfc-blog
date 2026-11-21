@@ -62,7 +62,7 @@ Bugs found on the live site (2026-11-21):
 - [x] Tag the current `gh-pages` build as `legacy-jekyll-site`
 
 The live site itself is the visual baseline until cutover; the tag preserves the built
-output after `gh-pages` is deleted.
+output (the `gh-pages` branch was kept too, see Phase 6).
 
 ### Phase 1: Bridgetown scaffold · #85
 - [x] `bridgetown new --use-sass -t erb -s puma` in a temp dir; bring the structure into the repo
@@ -196,8 +196,12 @@ output after `gh-pages` is deleted.
       one would make CI overwrite DNS records without asking and need zone permissions on the token. Declaring
       a domain also turns `workers.dev` and Preview URLs off by default (the first attempt did), so the config
       sets `workersDev` and `previewUrls` explicitly
-- [ ] Only after confirming: disable GitHub Pages and delete the `gh-pages` branch
-- [ ] Remove `CNAME` if no longer needed
+- [x] GitHub Pages disabled after production was confirmed: the API refuses (`DELETE /pages` returns 422 for a
+      site published from a branch), so the publishing source was set to **None** in the repository settings.
+      The `gh-pages` branch stays as a keepsake (the author's choice); `legacy-jekyll-site` points to the same commit
+- [x] `CNAME` removed: it only told GitHub Pages the custom domain
+- [x] Deploy runbook (account setup, token, custom domain procedure) kept in private notes rather than in the
+      public README, which only describes how deploys work
 
 ### Phase 7: cleanup
 - [ ] Delete ~30 stale remote branches
