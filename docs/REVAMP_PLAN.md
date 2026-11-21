@@ -179,8 +179,7 @@ output after `gh-pages` is deleted.
       HTML byte-identical to `output/`
 - [x] API token from the dashboard: `cf auth login` grants no token scopes, so the CLI can't create one.
       Scope **Specified Workers** → `blog`, permission **Individual Workers** → **Editor** (deploys and
-      previews, can't create or delete Workers; the account has another Worker). Stored with the account ID
-      as repository secrets
+      previews, can't create or delete Workers). Stored with the account ID as repository secrets
 - [x] First preview (`https://pr-96-blog.betogrun.workers.dev`) deployed and checked by CI. Visual comparison
       against the live site (same pages, widths and themes as Phase 5): only the differences Phase 5 explained
 - [x] On merge: production deployed by CI and the PR's preview deleted (the Editor role covers both)
