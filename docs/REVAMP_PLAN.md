@@ -74,8 +74,8 @@ Rouge 4.7 coloring `#{}` inside `%()` strings, a working feed, and the share lin
 - [x] Unused images removed: the light favicon and touch icon, and `_assets/images/photo4.jpg` and
       `post_1/new_pr.png`, which stay in the history (`git show 8654ff5:_assets/images/photo4.jpg`)
 - [x] The `new_feature` branch (2017, the example of the `feature-branch-workflow` post) is kept
-- [ ] Leftover `github-pages` environment deleted
-- Deleting merged branches (remote and local) was skipped: it adds little and can happen any time
+- Skipped, since they add little and can happen any time: deleting merged branches (remote and local) and
+  the leftover `github-pages` environment
 
 ## After parity (to discuss)
 
