@@ -40,7 +40,7 @@ Bugs found on the live site (2026-11-21):
 | Theme | Single stylesheet, CSS custom properties, `[data-theme]` | Default follows `prefers-color-scheme`; user choice persisted in `localStorage`. |
 | JavaScript | No jQuery | Scroll-appear → `IntersectionObserver`; image zoom via `zooming` (or native `<dialog>`); theme toggle in vanilla JS. |
 | Fonts | Self-hosted (already in `_assets/fonts`) | Drop Google Fonts / webfontloader. |
-| Hosting | **Cloudflare** (DNS already there) | Per-PR preview deployments. Choose Pages vs. Workers static assets at Phase 6. |
+| Hosting | **Cloudflare Workers static assets** (DNS already there) | Built on GitHub Actions (mise, after `bin/ci`), deployed with the `cf` CLI; preview per PR. See Phase 6. |
 | Devcontainer | **Remove** | `mise` covers the local environment. |
 | Analytics / comments / share | Decide **after** parity | GA UA removed (dead). Disqus kept until then. |
 | Runtime | **Ruby 4.0 + Node 26 LTS**, pinned in `mise.toml` | Bridgetown CI tests Ruby 3.3/3.4/4.0; matches the author's other projects. |
@@ -158,11 +158,28 @@ output after `gh-pages` is deleted.
 - Cloudflare already proxies the live site, and its Email Address Obfuscation rewrites `git@github.com` in
   two posts' code blocks into a link decoded by JavaScript. It looks the same, but see Phase 6
 
-### Phase 6: cutover
-- [ ] Cloudflare project (Pages or Workers static assets) with production on `main` and PR previews
-- [ ] Build with the same Ruby/Node as local (`mise`); `BRIDGETOWN_ENV=production`
+### Phase 6: cutover · #95
+- [x] Workers static assets over Pages: Cloudflare's new features (Previews, Workers Logs) land on Workers,
+      and static asset requests are free on both. Default `html_handling` (`auto-trailing-slash`) serves
+      `posts/slug.html` at `/posts/slug` and `tag/x/index.html` at `/tag/x/`; `/posts/slug.html` becomes a
+      307 to `/posts/slug`. `notFoundHandling: "404-page"` serves `404.html` with status 404
+- [x] Build on GitHub Actions, not Workers Builds: its image defaults to Ruby 3.4 / Node 24 and doesn't use
+      mise. CI builds with `BRIDGETOWN_ENV=production` after `bin/ci` (whose tests rebuild `output/` for the
+      test environment) and deploys that `output/`
+- [x] `cf` CLI instead of Wrangler: Cloudflare announced it as Wrangler's successor (open beta 2026-09-28;
+      Wrangler gets 18 months of maintenance after the beta ends). Pinned to `1.0.0-rc.2`, an exact version,
+      since it still makes breaking changes. Worker `blog` in `cloudflare.config.ts`
+- [x] Workflow: preview per PR (`pr-<number>`), URL commented on the PR and checked with `check_deploy`,
+      deleted on close; production on pushes to `main`. Skipped until the secrets exist (and on forks)
+- [x] `check_deploy` command: every legacy URL, sitemap URL and feed link answers 200 without redirecting,
+      unknown paths get the 404 page, and no page references `/cdn-cgi/` (Cloudflare rewrites). On the live
+      site it flags every page: Email Address Obfuscation also rewrites the navigation's email link
+- [ ] Cloudflare API token and account ID as repository secrets; first preview verified (`check_deploy`,
+      visual comparison against the live site)
+- [ ] Production deploy to `blog.<subdomain>.workers.dev` on merge
 - [ ] Point `blog.albertorocha.me` to Cloudflare; confirm HTTPS and all legacy URLs live
 - [ ] Turn off Email Address Obfuscation (Scrape Shield) for the blog: it mangles `git@github.com` in code blocks
+      and the navigation's email link; `check_deploy` on production must pass
 - [ ] Only after confirming: disable GitHub Pages and delete the `gh-pages` branch
 - [ ] Remove `CNAME` if no longer needed
 
