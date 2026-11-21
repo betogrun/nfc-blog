@@ -1,0 +1,38 @@
+plugins:
+  - rubocop-minitest
+
+AllCops:
+  TargetRubyVersion: 4.0
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - node_modules/**/*
+    - output/**/*
+    - tmp/**/*
+    - vendor/**/*
+
+# Bridgetown's generated code uses double quotes; keep one style across the repo.
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+# A small blog: class docs and magic comments add noise, not safety.
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# Bridgetown components follow Zeitwerk's compact namespacing (`class Shared::Navbar`)
+# and don't need to call super from initialize.
+Style/ClassAndModuleChildren:
+  Exclude:
+    - src/_components/**/*
+Lint/MissingSuper:
+  Exclude:
+    - src/_components/**/*
+
+# Roda route blocks receive the request; `route(&:bridgetown)` would change semantics.
+Style/SymbolProc:
+  AllowedMethods:
+    - route
