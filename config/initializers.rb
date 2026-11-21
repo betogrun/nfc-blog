@@ -16,7 +16,7 @@
 
 Bridgetown.configure do |_config|
   # The base hostname & protocol for your site, e.g. https://example.com
-  url ""
+  url "https://blog.albertorocha.me"
 
   # Available options are `erb` (default), `serbea`, or `liquid`
   template_engine "erb"
@@ -27,6 +27,12 @@ Bridgetown.configure do |_config|
   # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   #
   # timezone "America/Los_Angeles"
+
+  # Atom feed at /feed.xml, sitemap at /sitemap.xml, and <head> metadata via the
+  # `seo` helper (settings in src/_data/site_metadata.yml).
+  init :"bridgetown-feed"
+  init :"bridgetown-sitemap"
+  init :"bridgetown-seo-tag"
 
   # Paginates the home page and powers the tag archive prototype pages.
   # https://www.bridgetownrb.com/docs/content/pagination

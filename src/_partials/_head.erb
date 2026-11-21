@@ -1,22 +1,11 @@
 <meta charset="utf-8">
+<%# The tab title keeps the Jekyll order ("Site | Page"); seo-tag would render "Page | Site",
+    so seo_metadata (plugins/builders/seo_metadata.rb) renders it with title: false. %>
 <title><%= metadata.title %> | <%= resource.data.title %></title>
-<meta name="description" content="<%= resource.data.description %>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta property="og:title" content="<%= resource.data.title %>">
-<meta property="og:type" content="website">
-<meta property="og:url" content="<%= absolute_url resource.relative_url %>">
-<meta property="og:description" content="<%= resource.data.description %>">
-<meta property="og:site_name" content="<%= metadata.title %>">
-<meta property="og:image" content="<%= absolute_url "/images/og-image.jpg" %>">
-
-<meta name="twitter:card" content="summary">
-<meta name="twitter:url" content="<%= absolute_url resource.relative_url %>">
-<meta name="twitter:title" content="<%= resource.data.title %>">
-<meta name="twitter:description" content="<%= resource.data.description %>">
-<meta name="twitter:image" content="<%= absolute_url "/images/og-image.jpg" %>">
-
-<link href="/feed.xml" type="application/rss+xml" rel="alternate" title="<%= metadata.title %> Last 10 blog posts">
+<%= seo_metadata %>
+<%= feed_meta %>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/images/apple-touch-icon-dark.png">
 

@@ -114,11 +114,25 @@ output after `gh-pages` is deleted.
       (`test/fixtures/reading_times.yml`). One post reads 2 minutes instead of 1: kramdown's code block
       markup adds a counted word per block, pushing it from 249 to 251
 
-### Phase 4: plugins & metadata
-- [ ] `bridgetown-feed` (`/feed.xml`), `bridgetown-sitemap`, `bridgetown-seo-tag`
-- [ ] `url: https://blog.albertorocha.me`; real site description
-- [ ] Remove the GA UA snippet (keep the Twitter share link until the share decision is made)
-- [ ] Custom `new_post` CLI command in `plugins/commands/`, test-first
+### Phase 4: plugins & metadata · #91
+- [x] `bridgetown-feed` (Atom at `/feed.xml`, last 10 posts), `bridgetown-sitemap`, `bridgetown-seo-tag`
+- [x] `url: https://blog.albertorocha.me`: feed, sitemap, canonical and `og:*` URLs are absolute.
+      The sitemap matches the Jekyll one (posts, tag pages, about, home; no `/tags` or pagination)
+      minus the `node_modules` pages; `robots.txt` points to it
+- [x] Hand-written `og:*` / `twitter:*` tags replaced by seo-tag through a `seo_metadata` helper.
+      The tab title keeps the Jekyll order (`Site | Page`; seo-tag renders `Page | Site`). seo-tag
+      marks any page with a date as an article, and every Bridgetown resource has one (build time),
+      so the helper sets `og:type` to `website` on everything but posts. `twitter:creator` needed
+      the handle in `src/_data/authors.yml` (the plugin used the author's name)
+- [x] Site description kept as is (`Notes, tips and tricks by Alberto Rocha.`, what the live home page
+      sends); new wording waits until after parity
+- [x] GA UA snippet: already removed in Phase 3 (Twitter share link kept until the share decision)
+- [x] `new_post` CLI command (`plugins/commands/new_post.rb`, registered in `config/custom_commands.rb`),
+      test-first: dated draft, slug from the title, refuses to overwrite
+- [x] Tests parse responses as UTF-8: Nokolexbor turned non-ASCII bytes of Rack's binary body into U+FFFD
+- Besides `<head>`, the only output change is the Twitter share link on posts: with `url ""` Phase 3
+  shared a bare `/posts/slug` (the live site sends `blog.albertorocha.me/posts/slug`); it now shares
+  the full `https://` URL. Swapping the hand-written tags for seo-tag left every `<body>` byte-identical
 
 ### Phase 5: parity verification
 - [x] ~~Legacy URL test~~ (done in Phase 2)
