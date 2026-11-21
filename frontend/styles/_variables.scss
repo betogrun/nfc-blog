@@ -29,11 +29,12 @@ $gray-lighter: #d2cfcf;  // +75%
 $gray-lightest: #ebeaea; // +85%
 $white: #fff;
 
-// Derived colors (Chalk computed these with darken/lighten)
+// Derived colors: Chalk computed these with darken/lighten. Hex values as Ruby Sass
+// output them; Dart Sass rounds some of them one step off.
 
-$accent-highlighted-light: #3a3636; // darken($gray-dark, 15)
+$accent-highlighted-light: #393636; // darken($gray-dark, 15)
 $accent-highlighted-dark: #ada8a8;  // darken($gray-lighter, 15)
-$code-background-light: #fafafa;    // lighten($gray-lightest, 6)
+$code-background-light: #faf9f9;    // lighten($gray-lightest, 6)
 $code-background-dark: #050505;     // darken($gray-darkest, 5)
 
 // Brand colors
