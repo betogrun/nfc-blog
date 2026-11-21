@@ -2,12 +2,13 @@
 layout: default
 title: "Alberto Rocha"
 description: "About me"
+permalink: /about.*
 ---
-<div class="about {% if site.scrollappear_enabled %}scrollappear{% endif %}">
+<div class="about">
   <center>
-    <img src="{% asset 'myself.png' @path %}" alt="About Alberto Rocha" />
+    <img src="/images/myself.png" alt="About Alberto Rocha" />
   </center>
-  <h1>{{ page.description }}</h1>
+  <h1><%= data.description %></h1>
   <p>
     Hello! My name is Alberto Rocha and I am a seasoned software engineer with over 10 years of experience.
     My expertise lies in full-stack and back-end development, with a focus on using Ruby on Rails to build high-quality
