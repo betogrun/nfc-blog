@@ -1,0 +1,20 @@
+// =============================================================================
+// Footer
+// =============================================================================
+
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.footer {
+  display: block;
+  padding-top: 35px;
+  margin-bottom: 85px;
+  border-top: 1px solid var(--base-border-color);
+  p {
+    font-size: 15px;
+    color: $gray-light;
+  }
+  a {
+    text-decoration: none;
+  }
+}

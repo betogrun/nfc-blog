@@ -5,7 +5,7 @@ class TestTagPages < Bridgetown::Test
     it "lists the posts tagged with it" do
       html get "/tag/pagy/"
 
-      assert_includes document.query_selector("h1").text, "Pagy"
+      assert_includes document.query_selector("title").text, "Pagy"
       assert_includes document.query_selector_all("a").map { it[:href] },
                       "/posts/overwriting-pagy-navigation-helper"
     end

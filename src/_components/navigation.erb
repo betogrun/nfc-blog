@@ -1,0 +1,17 @@
+<nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="<%= @metadata.title %>"><%= @metadata.title %></a>
+  <ul class="header-links">
+    <% links.each do |link| %>
+      <li>
+        <a href="<%= link.href %>" title="<%= link.title %>"<% if link.external %> rel="noreferrer noopener" target="_blank"<% end %>>
+          <%= render Icon.new(link.icon) %>
+        </a>
+      </li>
+    <% end %>
+    <li>
+      <a href="#" role="button" title="Toggle Theme" data-theme-toggle>
+        <%= render Icon.new("theme") %>
+      </a>
+    </li>
+  </ul>
+</nav>

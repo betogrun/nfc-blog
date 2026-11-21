@@ -14,11 +14,9 @@ The plan, decisions and phase checklist live in
 [`docs/REVAMP_PLAN.md`](docs/REVAMP_PLAN.md). Read it before starting migration
 work and keep its checkboxes up to date in the same PR that completes them.
 
-- The Bridgetown site lives in `src/` (content), `frontend/` (styles/JS), `config/`
-  and `plugins/`.
-- Legacy Chalk theme sources (`_layouts/`, `_includes/`, `_assets/`) are **not
-  used by the build**. They stay only as material to port in Phase 3; move them
-  with `git mv` so history is kept, and don't edit them in place.
+- The Bridgetown site lives in `src/` (content, layouts, components), `frontend/`
+  (styles, JS, fonts, icons), `config/` and `plugins/`.
+- `_assets/images/` only holds two unused images whose fate is deferred to cleanup.
 - The live site is still the Jekyll build on the `gh-pages` branch (GitHub Pages)
   until the Phase 6 cutover. The tag `legacy-jekyll-site` preserves that output.
 
@@ -79,6 +77,17 @@ Work is issue-driven, and Ruby code is written test-first.
   to tell apart from intended changes; improvements come after cutover.
 - **Don't rewrite post prose.** Mechanical conversions (e.g. `{% highlight %}` →
   fenced code) are fine; wording changes need the author's approval.
+
+## Frontend
+
+- Styles are the Chalk SCSS on Dart Sass with `@use`. Colors that change per theme
+  are CSS custom properties defined in `frontend/styles/_themes.scss`; use
+  `var(--name)` for them and the `$gray-*` variables for fixed colors.
+- `@include theme(light|dark) { ... }` (in `_mixins.scss`) scopes styles to a theme:
+  an explicit `data-theme` on `<html>` wins, otherwise the OS preference applies.
+- Icons: `render Icon.new("name")` inlines `frontend/icons/name.svg`.
+- Visual checks: headless Chromium screenshots of `bin/bt start`; simulate the dark
+  OS setting with `--blink-settings=preferredColorScheme=0`.
 
 ## Stack
 

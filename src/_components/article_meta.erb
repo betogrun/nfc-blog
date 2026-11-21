@@ -1,0 +1,11 @@
+<div class="article-list-footer">
+  <span class="article-list-date"><%= date %></span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes"><%= minutes %> minute read</span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    <% tags.each do |slug, name| %>
+      <a href="/tag/<%= slug %>/" title="See all posts with tag '<%= name %>'"><%= name %></a>
+    <% end %>
+  </div>
+</div>

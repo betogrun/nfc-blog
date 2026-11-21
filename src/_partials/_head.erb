@@ -1,10 +1,28 @@
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<% resource_title = strip_html(strip_newlines(title)) %>
-<title><% if resource_title != "Index" %><%= resource_title %> | <%= metadata.title %><% else %><%= metadata.title %>: <%= metadata.tagline %><% end %></title>
+<meta charset="utf-8">
+<title><%= metadata.title %> | <%= resource.data.title %></title>
+<meta name="description" content="<%= resource.data.description %>">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="description" content="<%= metadata.description %>" />
+<meta property="og:title" content="<%= resource.data.title %>">
+<meta property="og:type" content="website">
+<meta property="og:url" content="<%= absolute_url resource.relative_url %>">
+<meta property="og:description" content="<%= resource.data.description %>">
+<meta property="og:site_name" content="<%= metadata.title %>">
+<meta property="og:image" content="<%= absolute_url "/images/og-image.jpg" %>">
 
-<link rel="stylesheet" href="<%= asset_path :css %>" />
+<meta name="twitter:card" content="summary">
+<meta name="twitter:url" content="<%= absolute_url resource.relative_url %>">
+<meta name="twitter:title" content="<%= resource.data.title %>">
+<meta name="twitter:description" content="<%= resource.data.description %>">
+<meta name="twitter:image" content="<%= absolute_url "/images/og-image.jpg" %>">
+
+<link href="/feed.xml" type="application/rss+xml" rel="alternate" title="<%= metadata.title %> Last 10 blog posts">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon-dark.png">
+
+<%# Apply a saved theme choice before first paint to avoid a flash of the other theme. %>
+<script>
+  if (localStorage.getItem("theme")) document.documentElement.dataset.theme = localStorage.getItem("theme")
+</script>
+<link rel="stylesheet" href="<%= asset_path :css %>">
 <script src="<%= asset_path :js %>" defer></script>
-<%= live_reload_dev_js %>

@@ -1,0 +1,56 @@
+// =============================================================================
+// Themes
+// =============================================================================
+
+// Colors that differ between the light and dark themes, exposed as CSS custom
+// properties. Values are the original Chalk light.scss / dark.scss variables.
+
+@use "sass:meta";
+@use "variables" as *;
+@use "mixins" as *;
+
+@include theme(light) {
+  --base-font-color: #{$gray-dark};
+  --base-accent-color: #{$gray-dark};
+  --base-accent-highlighted-color: #{$accent-highlighted-light};
+  --base-border-color: #{$gray-lightest};
+  --body-background: #{$white};
+  --header-logo-color: #{$black};
+  --header-link-color: #{$gray-darker};
+  --header-link-color-hover: #{$gray-darkest};
+  --article-header-title-color: #{$gray-darkest};
+  --article-header-description-color: #{$gray-dark};
+  --article-post-titles-color: #{$gray-darkest};
+  --article-footer-color: #{$gray-light};
+  --article-footer-link-color: #{$gray-dark};
+  --article-footer-link-color-hover: #{$gray-darkest};
+  --article-paginator-color-hover: #{$gray-darkest};
+}
+
+@include theme(dark) {
+  --base-font-color: #{$gray-lighter};
+  --base-accent-color: #{$gray-lighter};
+  --base-accent-highlighted-color: #{$accent-highlighted-dark};
+  --base-border-color: #{$gray-darker};
+  --body-background: #{$gray-darkest};
+  --header-logo-color: #{$white};
+  --header-link-color: #{$gray-light};
+  --header-link-color-hover: #{$white};
+  --article-header-title-color: #{$gray-lightest};
+  --article-header-description-color: #{$gray};
+  --article-post-titles-color: #{$gray-lightest};
+  --article-footer-color: #{$gray-dark};
+  --article-footer-link-color: #{$gray-light};
+  --article-footer-link-color-hover: #{$white};
+  --article-paginator-color-hover: #{$gray-lightest};
+}
+
+// Syntax highlighting has a full palette per theme.
+
+@include theme(light) {
+  @include meta.load-css("modules/highlights-light");
+}
+
+@include theme(dark) {
+  @include meta.load-css("modules/highlights-dark");
+}
