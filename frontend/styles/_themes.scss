@@ -45,11 +45,11 @@
   --article-paginator-color-hover: #{$gray-lightest};
 }
 
-// Syntax highlighting has a full palette per theme.
+// Syntax highlighting: the light palette always applies and the dark one overrides it,
+// as Chalk's light.css + dark.css cascade did. Tokens the dark palette lacks (shell
+// prompts and output, diff and error lines) keep their light colors in the dark theme.
 
-@include theme(light) {
-  @include meta.load-css("modules/highlights-light");
-}
+@include meta.load-css("modules/highlights-light");
 
 @include theme(dark) {
   @include meta.load-css("modules/highlights-dark");

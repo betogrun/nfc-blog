@@ -118,5 +118,6 @@ Work is issue-driven, and Ruby code is written test-first.
 | Console                     | `bin/bt console` |
 | Run tests                   | `bin/bt test`    |
 | Lint (autofix: `-a`)        | `bin/rubocop`    |
+| Link check (`--external` adds outside links) | `bin/bt check_links` |
 | Full CI gate                | `bin/ci`         |
 | Production build            | `bin/bt deploy`  |

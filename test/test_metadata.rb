@@ -27,6 +27,12 @@ class TestMetadata < Bridgetown::Test
       assert_empty(links.reject { it.start_with?("#{SITE}/posts/") })
     end
 
+    it "links to pages the site serves" do
+      urls = xml("/feed.xml").query_selector_all("link[href]").map { it[:href] }
+
+      assert_empty(urls.reject { get(it.delete_prefix(SITE)).ok? })
+    end
+
     it "is linked from every page" do
       html get "/"
 
@@ -48,6 +54,13 @@ class TestMetadata < Bridgetown::Test
 
       assert_empty(locs.reject { it.start_with?("#{SITE}/") })
       assert_empty locs.grep(/node_modules/)
+    end
+
+    # html-proofer only reads HTML, so the URLs in the sitemap are checked here.
+    it "only lists pages the site serves" do
+      locs = xml("/sitemap.xml").query_selector_all("loc").map(&:text)
+
+      assert_empty(locs.reject { get(it.delete_prefix(SITE)).ok? })
     end
 
     it "is announced in robots.txt" do

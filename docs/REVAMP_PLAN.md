@@ -134,15 +134,35 @@ output after `gh-pages` is deleted.
   shared a bare `/posts/slug` (the live site sends `blog.albertorocha.me/posts/slug`); it now shares
   the full `https://` URL. Swapping the hand-written tags for seo-tag left every `<body>` byte-identical
 
-### Phase 5: parity verification
+### Phase 5: parity verification · #93
 - [x] ~~Legacy URL test~~ (done in Phase 2)
-- [ ] Link check (lychee or html-proofer)
-- [ ] Side-by-side visual comparison against the live site (home, post, tag, tags, about, 404, both themes)
+- [x] Link check: html-proofer through a `check_links` command (`plugins/commands/check_links.rb`), a step
+      in `bin/ci`. Internal links, anchors, images, scripts, favicon and Open Graph URLs; URLs on
+      `https://blog.albertorocha.me` are swapped back to paths, so canonical, `og:*` and the share link are
+      checked against the build. External links only with `bin/bt check_links --external` (network, not CI).
+      Sitemap and feed URLs are checked by `test/test_metadata.rb` (html-proofer reads HTML only)
+- [x] Problems in post content are listed in `CheckLinks::KNOWN_FAILURES` instead of being fixed (no prose
+      changes without approval): an empty `[Pull Request]()` link and three `http://` links. The check fails
+      if a listed problem disappears, so the list shrinks when a post is fixed
+- [x] Side-by-side visual comparison against the live site (home, two posts, tag, tags, about, 404), at
+      1280px and 375px, light, dark stored by the toggle, dark clicked on the toggle, and dark OS (compared
+      with the live toggle, since the live site ignores the OS). Screenshots through the DevTools protocol;
+      the script stayed out of the repo (no baseline after cutover)
+- [x] Fixed: Dart Sass rounded two derived colors one step off (code background `#faf9f9`, light link hover
+      `#393636`); the CSS now has exactly the legacy color set. Light syntax colors apply under the dark
+      theme too, as Chalk's `dark.css` loaded on top of `light.css` (shell prompt/output stayed gray)
+- [x] Remaining differences, all explained: logo font antialiasing; `MINITEST` on `/tags`; 2-minute read on
+      `asdf-ruby-no-version-set`; Rouge 4.7 (was 3.30) tokenizes `#{}` inside `%()` strings, which
+      recolors parts of the code in `overwriting-pagy-navigation-helper`; text antialiasing in code blocks
+      that scroll sideways (mobile) varies between runs on both sites
+- Cloudflare already proxies the live site, and its Email Address Obfuscation rewrites `git@github.com` in
+  two posts' code blocks into a link decoded by JavaScript. It looks the same, but see Phase 6
 
 ### Phase 6: cutover
 - [ ] Cloudflare project (Pages or Workers static assets) with production on `main` and PR previews
 - [ ] Build with the same Ruby/Node as local (`mise`); `BRIDGETOWN_ENV=production`
 - [ ] Point `blog.albertorocha.me` to Cloudflare; confirm HTTPS and all legacy URLs live
+- [ ] Turn off Email Address Obfuscation (Scrape Shield) for the blog: it mangles `git@github.com` in code blocks
 - [ ] Only after confirming: disable GitHub Pages and delete the `gh-pages` branch
 - [ ] Remove `CNAME` if no longer needed
 
@@ -156,6 +176,8 @@ output after `gh-pages` is deleted.
 - [ ] `zooming` has had no release since 2019; consider a native `<dialog>` zoom
 
 ### After parity (to discuss)
+- Post links found in Phase 5 (wording changes need approval): the empty `[Pull Request]()` link in
+  `publishing-ruby-gems-with-github-actions`, `http://` links, and external links that fail (see PR for #93)
 - Analytics: none / Cloudflare Web Analytics / Plausible / GoatCounter
 - Comments: Disqus → Giscus or none
 - Share links: Twitter → Bluesky/Mastodon/LinkedIn or none
