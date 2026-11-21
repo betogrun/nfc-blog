@@ -1,0 +1,43 @@
+# Legacy URLs served by the Jekyll site (captured 2026-11-21 from blog.albertorocha.me).
+# Every path below returned HTTP 200 and MUST keep resolving after the Bridgetown migration.
+# One path per line; blank lines and lines starting with "#" are ignored.
+#
+# Pagination pages depend on post count (4 per page); new posts may add more, never remove these.
+/
+/about
+/tags
+/posts/page/2/
+/posts/page/3/
+/posts/page/4/
+/posts/feature-branch-workflow
+/posts/undo-git-commit
+/posts/git-repo-via-cmd
+/posts/linux-docker-sudo
+/posts/docker-rails-vue
+/posts/git-sync-repo-fork
+/posts/git-pre-push-hook
+/posts/testing-rspec-nokogiri-fragment
+/posts/enable-forgery-protection-minitest
+/posts/asdf-ruby-no-version-set
+/posts/rename-git-master-to-main
+/posts/overwriting-pagy-navigation-helper
+/posts/publishing-ruby-gems-with-github-actions
+/tag/asdf/
+/tag/automation/
+/tag/daisyui/
+/tag/design/
+/tag/docker/
+/tag/github/
+/tag/git/
+/tag/jekyll/
+/tag/linux/
+/tag/nokogiri/
+/tag/pagy/
+/tag/rails/
+/tag/rspec/
+/tag/rubocop/
+/tag/ruby/
+/tag/scraper/
+/tag/tailwindcss/
+/tag/vue/
+/tag/web/
