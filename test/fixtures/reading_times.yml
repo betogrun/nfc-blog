@@ -1,0 +1,16 @@
+# "N minute read" shown by the Jekyll site for each post (captured 2026-11-21).
+feature-branch-workflow: 1
+undo-git-commit: 1
+git-repo-via-cmd: 2
+linux-docker-sudo: 1
+docker-rails-vue: 2
+git-sync-repo-fork: 1
+git-pre-push-hook: 2
+testing-rspec-nokogiri-fragment: 2
+enable-forgery-protection-minitest: 1
+# Jekyll showed 1: kramdown wraps code blocks in one more element than Jekyll's
+# highlight tag, which pushes this post from 249 to 251 counted words.
+asdf-ruby-no-version-set: 2
+rename-git-master-to-main: 2
+overwriting-pagy-navigation-helper: 4
+publishing-ruby-gems-with-github-actions: 7
