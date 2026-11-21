@@ -174,9 +174,17 @@ output after `gh-pages` is deleted.
 - [x] `check_deploy` command: every legacy URL, sitemap URL and feed link answers 200 without redirecting,
       unknown paths get the 404 page, and no page references `/cdn-cgi/` (Cloudflare rewrites). On the live
       site it flags every page: Email Address Obfuscation also rewrites the navigation's email link
-- [ ] Cloudflare API token and account ID as repository secrets; first preview verified (`check_deploy`,
-      visual comparison against the live site)
-- [ ] Production deploy to `blog.<subdomain>.workers.dev` on merge
+- [x] Worker `blog` created by a first `cf deploy` from a local account login (creating a Worker needs
+      Workers Admin); it serves `https://blog.betogrun.workers.dev`, which passes `check_deploy` and serves
+      HTML byte-identical to `output/`
+- [x] API token from the dashboard: `cf auth login` grants no token scopes, so the CLI can't create one.
+      Scope **Specified Workers** → `blog`, permission **Individual Workers** → **Editor** (deploys and
+      previews, can't create or delete Workers; the account has another Worker). Stored with the account ID
+      as repository secrets
+- [x] First preview (`https://pr-96-blog.betogrun.workers.dev`) deployed and checked by CI. Visual comparison
+      against the live site (same pages, widths and themes as Phase 5): only the differences Phase 5 explained
+- [ ] On merge: production deployed by CI and the PR's preview deleted (the token's Editor role covers
+      creating previews; deleting one is untested)
 - [ ] Point `blog.albertorocha.me` to Cloudflare; confirm HTTPS and all legacy URLs live
 - [ ] Turn off Email Address Obfuscation (Scrape Shield) for the blog: it mangles `git@github.com` in code blocks
       and the navigation's email link; `check_deploy` on production must pass
