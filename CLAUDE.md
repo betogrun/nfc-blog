@@ -22,6 +22,10 @@ work and keep its checkboxes up to date in the same PR that completes them.
 
 ## Writing posts
 
+- Start a post with `bin/bt new_post "Title"`: it creates
+  `src/_posts/YYYY-MM-DD-<slug>.md` as a draft. The slug is derived from the title
+  and becomes the permanent URL, so rename the file for a shorter slug before
+  publishing.
 - Posts live in `src/_posts/YYYY-MM-DD-slug.md` and are served at `/posts/slug`.
 - Posts are **plain Markdown**: `src/_posts/_defaults.yml` sets
   `template_engine: none`, so ERB or Liquid in a post renders as text. That keeps
@@ -86,6 +90,9 @@ Work is issue-driven, and Ruby code is written test-first.
 - `@include theme(light|dark) { ... }` (in `_mixins.scss`) scopes styles to a theme:
   an explicit `data-theme` on `<html>` wins, otherwise the OS preference applies.
 - Icons: `render Icon.new("name")` inlines `frontend/icons/name.svg`.
+- `<head>` metadata (Open Graph, Twitter card, canonical) comes from bridgetown-seo-tag
+  via the `seo_metadata` helper (`plugins/builders/seo_metadata.rb`); don't hand-write
+  those tags. Site-wide values live in `src/_data/site_metadata.yml`.
 - Visual checks: headless Chromium screenshots of `bin/bt start`; simulate the dark
   OS setting with `--blink-settings=preferredColorScheme=0`.
 
@@ -107,6 +114,7 @@ Work is issue-driven, and Ruby code is written test-first.
 | Install dependencies        | `bin/setup`      |
 | Dev server (live reload)    | `bin/bt start`   |
 | Dev server with drafts      | `bin/bt start -U`|
+| New draft post              | `bin/bt new_post "Title"` |
 | Console                     | `bin/bt console` |
 | Run tests                   | `bin/bt test`    |
 | Lint (autofix: `-a`)        | `bin/rubocop`    |
