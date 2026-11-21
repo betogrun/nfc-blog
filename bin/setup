@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+# Sets up or updates the development environment. Idempotent: run it any time.
+# Expects Ruby and Node from mise.toml to be active (`mise install`).
+
+require "fileutils"
+
+def system!(*)
+  system(*, exception: true)
+end
+
+FileUtils.chdir(File.expand_path("..", __dir__)) do
+  puts "== Installing Ruby gems =="
+  system("bundle check", out: File::NULL) || system!("bundle install")
+
+  puts "\n== Installing npm packages =="
+  system!("npm ci --no-audit --no-fund")
+end
