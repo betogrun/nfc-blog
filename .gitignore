@@ -13,6 +13,9 @@ Session.vim
 /.bridgetown-metadata
 /.routes.json
 
+# Cloudflare (cf CLI build output)
+/.cloudflare
+
 # Dependencies
 /node_modules
 /.bundle
