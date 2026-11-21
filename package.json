@@ -16,5 +16,8 @@
     "postcss-preset-env": "^10.4.0",
     "read-cache": "^1.0.0",
     "sass": "^1.93.2"
+  },
+  "dependencies": {
+    "zooming": "^2.1.1"
   }
 }

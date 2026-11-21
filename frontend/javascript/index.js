@@ -1,7 +1,12 @@
 import "$styles/index.scss"
-import "$styles/syntax-highlighting.css"
+import Zooming from "zooming"
 
-// Import all JavaScript & CSS files from src/_components
-import components from "$components/**/*.{js,jsx,js.rb,css}"
+import { setupThemeToggle } from "./theme"
+import { setupScrollAppear } from "./scroll_appear"
+import { setupSharePopups } from "./share"
 
-console.info("Bridgetown is loaded!")
+setupThemeToggle()
+setupScrollAppear()
+setupSharePopups()
+
+new Zooming({ customSize: "100%", scaleBase: 0.9, scaleExtra: 0 }).listen(".zooming")
