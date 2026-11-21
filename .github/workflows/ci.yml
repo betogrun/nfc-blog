@@ -2,15 +2,30 @@ name: CI
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, closed]
   push:
     branches: [main]
 
 permissions:
   contents: read
 
+env:
+  # Repository secrets. Deploy steps are skipped while they are unset, and on pull
+  # requests from forks, which GitHub runs without secrets.
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
 jobs:
   ci:
+    if: github.event.action != 'closed'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # comment the preview URL
+    # One production deploy at a time; a new push to a PR cancels its running build.
+    concurrency:
+      group: ${{ github.event_name == 'push' && 'production' || format('pr-{0}', github.event.pull_request.number) }}
+      cancel-in-progress: ${{ github.event_name == 'pull_request' }}
     env:
       # Use mise's precompiled Ruby instead of building it from source.
       MISE_RUBY_COMPILE: "false"
@@ -18,3 +33,45 @@ jobs:
       - uses: actions/checkout@v7
       - uses: jdx/mise-action@v5
       - run: bin/ci
+
+      # bin/ci ends with the tests, which rebuild output/ for the test environment.
+      - name: Build for production
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: bin/bridgetown deploy
+        env:
+          BRIDGETOWN_ENV: production
+
+      - name: Deploy preview
+        if: github.event_name == 'pull_request' && env.CLOUDFLARE_API_TOKEN != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          url=$(npx cf previews deploy output --preview-name "pr-$PR" | jq -er '.preview_urls[0]')
+          echo "PREVIEW_URL=$url" >> "$GITHUB_ENV"
+          echo "Preview: $url" >> "$GITHUB_STEP_SUMMARY"
+          gh pr comment "$PR" --edit-last --create-if-none --body "Preview: $url"
+
+      - name: Check preview
+        if: env.PREVIEW_URL != ''
+        run: bin/bridgetown check_deploy "$PREVIEW_URL"
+
+      - name: Deploy production
+        if: github.event_name == 'push' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npx cf deploy output
+
+  delete-preview:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+        with:
+          install_args: node
+      - name: Delete preview
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        env:
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          npm ci --no-audit --no-fund
+          npx cf previews delete "pr-$PR" --worker blog --force # Worker name from cloudflare.config.ts

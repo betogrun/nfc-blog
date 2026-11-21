@@ -18,7 +18,7 @@ work and keep its checkboxes up to date in the same PR that completes them.
   (styles, JS, fonts, icons), `config/` and `plugins/`.
 - `_assets/images/` only holds two unused images whose fate is deferred to cleanup.
 - The live site is still the Jekyll build on the `gh-pages` branch (GitHub Pages)
-  until the Phase 6 cutover. The tag `legacy-jekyll-site` preserves that output.
+  until the Phase 6 DNS switch. The tag `legacy-jekyll-site` preserves that output.
 
 ## Writing posts
 
@@ -66,7 +66,8 @@ Work is issue-driven, and Ruby code is written test-first.
    instead.
 4. **Before pushing**, run the local CI gate; it must be green. GitHub Actions
    runs the same `bin/ci`, so a green local run means a green PR.
-5. **Open a PR** against `main`: `gh pr create`.
+5. **Open a PR** against `main`: `gh pr create`. CI deploys a preview of the PR to
+   Cloudflare, comments its URL on the PR and runs `check_deploy` against it.
 6. **Merge** once CI is green. Merging, pushing to `main`, deleting branches, and
    anything touching DNS or hosting are done only when the author asks.
 
@@ -103,8 +104,11 @@ Work is issue-driven, and Ruby code is written test-first.
 - Bridgetown 2.x with **ERB** templates and Ruby components; esbuild + Dart Sass
   for the frontend. Prefer Ruby over JavaScript where reasonable.
 - No jQuery; small vanilla JS only.
-- Hosting moves to Cloudflare (per-PR previews) at the Phase 6 cutover; production builds use
-  `BRIDGETOWN_ENV=production`.
+- Hosting: a Cloudflare Worker (`blog`) serving `output/` as static assets, configured in
+  `cloudflare.config.ts`. GitHub Actions builds with `BRIDGETOWN_ENV=production` after
+  `bin/ci` and deploys with the `cf` CLI (Wrangler's successor, pinned to an exact version
+  while it is pre-1.0): a preview per PR (`pr-<number>`, deleted on close) and production
+  on pushes to `main`. Secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
 
 ## Common commands
 
@@ -121,3 +125,4 @@ Work is issue-driven, and Ruby code is written test-first.
 | Link check (`--external` adds outside links) | `bin/bt check_links` |
 | Full CI gate                | `bin/ci`         |
 | Production build            | `bin/bt deploy`  |
+| Check a deployed site       | `bin/bt check_deploy <url>` |

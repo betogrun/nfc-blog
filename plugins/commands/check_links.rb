@@ -2,8 +2,12 @@
 # images, scripts, favicon and Open Graph URLs must resolve. `--external` also requests every
 # external link, which needs the network, so CI leaves it out.
 # Registered with the CLI in config/custom_commands.rb.
+require_relative "site_url"
+
 module Commands
   class CheckLinks < Bridgetown::Command
+    include SiteUrl
+
     Problem = Data.define(:path, :line, :description, :status) do
       def key = [path, description]
       def to_s = "#{[path, line].compact.join(":")}: #{description}#{" (status #{status})" if status}"
@@ -87,13 +91,6 @@ module Commands
         puts "\ncheck_links: #{problems.size} problem(s) in #{directory}"
         exit false
       end
-    end
-
-    private
-
-    # The site URL is set in config/initializers.rb, which the CLI doesn't run for commands.
-    def site_url
-      Bridgetown.configuration.tap { it.run_initializers!(context: :static) }.url
     end
   end
 end
