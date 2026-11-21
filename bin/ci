@@ -8,6 +8,7 @@ STEPS = {
   "Setup" => %w[bin/setup],
   "Style: Ruby" => %w[bin/rubocop],
   "Build: production" => [{ "BRIDGETOWN_ENV" => "production" }, "bin/bridgetown", "deploy"],
+  "Links" => %w[bin/bridgetown check_links],
   "Tests" => %w[bin/bridgetown test]
 }.freeze
 
