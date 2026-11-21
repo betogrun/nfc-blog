@@ -7,18 +7,18 @@ Guidance for working in this repository.
 "Notes from a coder", a personal tech blog by Alberto Rocha, served at
 https://blog.albertorocha.me.
 
-## Current state: mid-migration
+## Layout
 
-The blog is being migrated from **Jekyll 3.9 + Chalk theme** to **Bridgetown 2.x**.
-The plan, decisions and phase checklist live in
-[`docs/REVAMP_PLAN.md`](docs/REVAMP_PLAN.md). Read it before starting migration
-work and keep its checkboxes up to date in the same PR that completes them.
-
-- The Bridgetown site lives in `src/` (content, layouts, components), `frontend/`
-  (styles, JS, fonts, icons), `config/` and `plugins/`.
-- `_assets/images/` only holds two unused images whose fate is deferred to cleanup.
-- Since 2026-11-21 the live site is the Bridgetown build on Cloudflare; GitHub Pages is off.
-  The old Jekyll build stays in the `gh-pages` branch and the `legacy-jekyll-site` tag.
+- `src/`: content and templates. Posts in `src/_posts`, images in `src/images`, data
+  (tags, site metadata, authors) in `src/_data`, ERB layouts, partials and Ruby components.
+- `frontend/`: styles, JavaScript, fonts and SVG icons, bundled by esbuild.
+- `plugins/`: Ruby builders (tag pages, SEO metadata) and CLI commands (`new_post`,
+  `check_links`, `check_deploy`); `config/` holds the Bridgetown setup.
+- `test/`: Minitest, with `test/fixtures/legacy_urls.txt` as the list of URLs to keep.
+- The blog moved from Jekyll to Bridgetown in 2026; `docs/REVAMP_PLAN.md` records the
+  decisions. The old Jekyll build stays in the `gh-pages` branch and the
+  `legacy-jekyll-site` tag. Ideas deferred during the migration are listed at the end of
+  the plan ("After parity").
 
 ## Writing posts
 
@@ -57,13 +57,11 @@ Portuguese.
 Work is issue-driven, and Ruby code is written test-first.
 
 1. **Issue first.** Every change starts as a GitHub issue: `gh issue create`.
-   During the migration, create the issue for the next phase only after the
-   current one is merged, so the plan can change based on what each phase teaches.
 2. **Branch from the issue** so GitHub links them natively:
    `gh issue develop <issue-number> --checkout`.
 3. **TDD for Ruby code** (components, plugins, commands): red → green → refactor.
-   Content and styling changes are verified by the build and the parity checks
-   instead.
+   Content and styling changes are verified by the build, the link check and
+   screenshots instead.
 4. **Before pushing**, run the local CI gate; it must be green. GitHub Actions
    runs the same `bin/ci`, so a green local run means a green PR.
 5. **Open a PR** against `main`: `gh pr create`. CI deploys a preview of the PR to
@@ -77,9 +75,6 @@ Work is issue-driven, and Ruby code is written test-first.
   resolving: they are indexed by search engines and linked from elsewhere, and a
   broken link loses both. Posts live at `/posts/:slug` (no trailing slash), tags
   at `/tag/:slug/`, pagination at `/posts/page/:num/`.
-- **No visual changes before parity.** The migrated site must look identical to
-  the live one. Mixing a redesign into the migration makes regressions impossible
-  to tell apart from intended changes; improvements come after cutover.
 - **Don't rewrite post prose.** Mechanical conversions (e.g. `{% highlight %}` →
   fenced code) are fine; wording changes need the author's approval.
 
