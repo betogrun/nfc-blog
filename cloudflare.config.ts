@@ -5,7 +5,7 @@
 // The custom domain (blog.albertorocha.me) is attached to the Worker but deliberately not
 // listed here: cf only touches domains that the config declares, and outside a terminal (CI)
 // it would overwrite conflicting DNS records without asking. workersDev and previewUrls are
-// explicit because declaring a domain turns both off by default (see README, Deploy).
+// explicit because declaring a domain turns both off by default.
 export default {
   worker: {
     name: "blog",
