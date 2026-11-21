@@ -74,7 +74,7 @@ output after `gh-pages` is deleted.
 - [x] Minitest via Bridgetown's `minitesting` configuration (smoke test for now)
 - [x] `bin/ci`: local CI gate (setup, RuboCop, production build, tests); link check joins once content exists
 - [x] GitHub Actions workflow on PRs and `main` that runs `bin/ci`
-- [ ] Decide whether to adopt `gh signoff` (used in the author's Rails apps)
+- [x] Decide on `gh signoff`: **not for now**. Keep local `bin/ci` (no signoff) plus GitHub Actions; revisit later
 
 ### Phase 2: content
 - [ ] `_posts` → `src/_posts`; convert 63 `{% highlight %}` blocks to fenced code (scripted)
