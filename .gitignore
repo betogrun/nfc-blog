@@ -34,8 +34,3 @@ Session.vim
 !/tmp/pids/
 /tmp/pids/*
 !/tmp/pids/.keep
-
-# Legacy Jekyll artifacts (until Phases 2-3 remove the old sources)
-/_assets/yarn/
-/_site/
-/.jekyll-cache/
