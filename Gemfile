@@ -38,7 +38,7 @@ gem "bridgetown-sitemap", "~> 3.0"
 # The Rack-compliant web server
 # (you can optionally limit this to the "development" group)
 
-gem "puma", "< 8"
+gem "puma", "< 9"
 
 # Uncomment to use the Inspectors API to manipulate the output
 # of your HTML or XML resources:
