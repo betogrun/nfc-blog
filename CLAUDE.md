@@ -17,8 +17,7 @@ https://blog.albertorocha.me.
 - `test/`: Minitest, with `test/fixtures/legacy_urls.txt` as the list of URLs to keep.
 - The blog moved from Jekyll to Bridgetown in 2026; `docs/REVAMP_PLAN.md` records the
   decisions. The old Jekyll build stays in the `gh-pages` branch and the
-  `legacy-jekyll-site` tag. Ideas deferred during the migration are listed at the end of
-  the plan ("After parity").
+  `legacy-jekyll-site` tag. Ideas deferred during the migration are tracked in issue #107.
 
 ## Writing posts
 

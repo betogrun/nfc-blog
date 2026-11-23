@@ -77,18 +77,7 @@ Rouge 4.7 coloring `#{}` inside `%()` strings, a working feed, and the share lin
 - Skipped, since they add little and can happen any time: deleting merged branches (remote and local) and
   the leftover `github-pages` environment
 
-## After parity (to discuss)
+## After parity
 
-- Post links found in Phase 5 (wording changes need approval): the empty `[Pull Request]()` link in
-  `publishing-ruby-gems-with-github-actions`, `http://` links, and external links that fail (see PR for #93)
-- Analytics: none / Cloudflare Web Analytics / Plausible / GoatCounter
-- Comments: Disqus → Giscus or none
-- Share links: Twitter → Bluesky/Mastodon/LinkedIn or none
-- Copy button on code blocks, light/dark syntax themes, client-side search (Pagefind), per-post OG images
-- Image optimization (`src/images` is ~11 MB)
-- Replace `zooming` (no release since 2.1.1) with a native `<dialog>` zoom
-- A light-theme favicon
-- Always Use HTTPS: the zone setting is off, so HTTP serves pages (200) as it did on GitHub Pages
-- Move to `blog.alberto.dev` (shorter). `alberto.dev` isn't on the Cloudflare account yet (nameservers first).
-  Every `blog.albertorocha.me` URL must 301 to the same path; change `url`, canonical and feed;
-  Search Console change of address; Disqus comments are keyed by URL, so they need Disqus's domain migration
+Ideas deferred during the migration, pending decisions and leftover cleanup are tracked in
+[#107](https://github.com/betogrun/nfc-blog/issues/107).
