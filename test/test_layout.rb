@@ -41,6 +41,18 @@ class TestLayout < Bridgetown::Test
     end
   end
 
+  describe "comments" do
+    it "keys the Disqus thread by the post path and canonical URL" do
+      html get "/posts/overwriting-pagy-navigation-helper"
+
+      thread = document.query_selector("#disqus_thread")
+
+      assert_equal "notesfromacoder", thread["data-disqus-shortname"]
+      assert_equal "/posts/overwriting-pagy-navigation-helper", thread["data-disqus-identifier"]
+      assert_equal "https://blog.albertorocha.me/posts/overwriting-pagy-navigation-helper", thread["data-disqus-url"]
+    end
+  end
+
   describe "home" do
     it "lists four posts with their meta" do
       html get "/"

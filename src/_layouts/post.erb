@@ -24,8 +24,10 @@ layout: default
   </div>
 
   <% if site.metadata.disqus %>
-    <div id="disqus_thread" class="article-comments"></div>
-    <script src="https://<%= site.metadata.disqus %>.disqus.com/embed.js" async defer></script>
+    <div id="disqus_thread" class="article-comments"
+      data-disqus-shortname="<%= site.metadata.disqus %>"
+      data-disqus-identifier="<%= resource.relative_url %>"
+      data-disqus-url="<%= absolute_url resource.relative_url %>"></div>
     <noscript>Please enable JavaScript to view the comments.</noscript>
   <% end %>
 </article>
