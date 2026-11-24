@@ -5,6 +5,7 @@ require_relative "site_url"
 # `bin/bt check_deploy URL` checks a deployed copy of the site (a Cloudflare preview or
 # production): every legacy URL, sitemap URL and feed link answers 200 without redirecting,
 # unknown paths get the 404 page with status 404, and no page was rewritten by Cloudflare.
+# On the site's own domain, each legacy URL over plain HTTP must redirect permanently to HTTPS.
 # Registered with the CLI in config/custom_commands.rb.
 module Commands
   class CheckDeploy < Bridgetown::Command
@@ -14,6 +15,7 @@ module Commands
     FEEDS = %w[/sitemap.xml /feed.xml /robots.txt].freeze
     MISSING_PAGE = "/check-deploy-missing-page".freeze
     NOT_FOUND_MARKER = 'class="notfound-wrapper"'.freeze # from src/404.erb
+    PERMANENT_REDIRECTS = [301, 308].freeze
 
     Response = Data.define(:status, :body, :location) do
       def initialize(status:, body:, location: nil) = super
@@ -83,6 +85,20 @@ module Commands
       end
     end
 
+    # Requests each path over HTTP; it must redirect permanently to the same path under `origin`.
+    def self.https_problems(http_host, origin:, paths:)
+      paths.filter_map do |path|
+        response = http_host.get(path)
+        target = "#{origin}#{path}"
+        next if PERMANENT_REDIRECTS.include?(response.status) && response.location == target
+
+        redirect = " to #{response.location}" if response.location
+        "#{path} over HTTP: status #{response.status}#{redirect}, expected a permanent redirect to #{target}"
+      end
+    end
+
+    def self.own_domain?(url, site_url:) = URI(url).host == URI(site_url).host
+
     def self.not_found_problems(response)
       if response.status != 404
         ["#{MISSING_PAGE}: status #{response.status}, expected 404"]
@@ -94,7 +110,7 @@ module Commands
     end
 
     def call
-      problems = self.class.problems(Client.new(url), site_url:)
+      problems = self.class.problems(Client.new(url), site_url:) + https_problems
       if problems.empty?
         puts "check_deploy: #{url} serves every page"
       else
@@ -102,6 +118,16 @@ module Commands
         puts "\ncheck_deploy: #{problems.size} problem(s) on #{url}"
         exit false
       end
+    end
+
+    private
+
+    # Previews on workers.dev serve plain HTTP, so only the site's own domain is checked.
+    def https_problems
+      return [] unless self.class.own_domain?(url, site_url:)
+
+      http_host = Client.new(url.sub(/\Ahttps:/, "http:"))
+      self.class.https_problems(http_host, origin: url.chomp("/"), paths: self.class.legacy_paths)
     end
   end
 end

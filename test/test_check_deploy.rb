@@ -151,3 +151,39 @@ class TestCheckDeploy < Minitest::Test
     server&.stop(true)
   end
 end
+
+# On the site's own domain, plain HTTP must redirect permanently to the same path over HTTPS.
+class TestCheckDeployHttps < Minitest::Test
+  SITE = TestCheckDeploy::SITE
+
+  def https_problems(pages, paths: ["/", "/about"])
+    Commands::CheckDeploy.https_problems(TestCheckDeploy::FakeHost.new(pages, missing: [404, ""]), origin: SITE, paths:)
+  end
+
+  def test_passes_when_http_redirects_to_the_same_https_path
+    pages = { "/" => [301, "", "#{SITE}/"], "/about" => [308, "", "#{SITE}/about"] }
+
+    assert_empty https_problems(pages)
+  end
+
+  def test_reports_a_page_served_over_http
+    pages = { "/" => [301, "", "#{SITE}/"], "/about" => [200, "about"] }
+
+    assert_equal ["/about over HTTP: status 200, expected a permanent redirect to #{SITE}/about"],
+                 https_problems(pages)
+  end
+
+  def test_reports_a_temporary_or_misdirected_redirect
+    pages = { "/" => [302, "", "#{SITE}/"], "/about" => [301, "", "#{SITE}/"] }
+
+    assert_equal ["/ over HTTP: status 302 to #{SITE}/, expected a permanent redirect to #{SITE}/",
+                  "/about over HTTP: status 301 to #{SITE}/, expected a permanent redirect to #{SITE}/about"],
+                 https_problems(pages)
+  end
+
+  # workers.dev hosts (previews) serve plain HTTP; only the site's own domain redirects.
+  def test_checks_http_only_on_the_sites_own_domain
+    assert Commands::CheckDeploy.own_domain?("#{SITE}/", site_url: SITE)
+    refute Commands::CheckDeploy.own_domain?("https://pr-1-blog.example.workers.dev", site_url: SITE)
+  end
+end
