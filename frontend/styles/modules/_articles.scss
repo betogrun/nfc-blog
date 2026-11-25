@@ -143,6 +143,8 @@
     color: var(--ink-strong);
   }
 
+  // Section headings. Some older posts use `#` for them, so h1 gets the same style.
+  h1,
   h2 {
     margin: 48px 0 14px;
     @include spaced-caps(.24em);
