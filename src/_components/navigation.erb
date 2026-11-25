@@ -1,13 +1,19 @@
 <header class="site-header">
-  <nav class="site-nav" aria-label="Site">
-    <% site_links.each do |name, href| %>
-      <a href="<%= href %>"><%= name %></a>
-    <% end %>
-  </nav>
-  <a href="/" class="site-name"><% first, last = name_parts %><%= first %><% if last %> <span class="site-name-amp">&amp;</span> <%= last %><% end %></a>
-  <div class="site-preferences">
+  <div class="site-bar">
+    <nav class="site-nav" aria-label="Site">
+      <% site_links.each do |name, href| %>
+        <a href="<%= href %>"><%= name %></a>
+      <% end %>
+    </nav>
     <button type="button" class="theme-toggle" aria-label="Switch theme" data-theme-toggle>
       <%= render Icon.new("theme") %>
     </button>
+  </div>
+  <div class="site-masthead">
+    <a href="/" class="site-name"><% first, last = name_parts %><%= first %><% if last %> <span class="site-name-amp">&amp;</span> <%= last %><% end %></a>
+    <% if @tagline %>
+      <%= render Tagline.new(taglines: @metadata.taglines) %>
+    <% end %>
+    <div class="site-dinkus" aria-hidden="true">· · ·</div>
   </div>
 </header>

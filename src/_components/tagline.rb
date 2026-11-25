@@ -1,7 +1,7 @@
-# The home's subtitle, under the header bar. The HTML carries the main subtitle (the first tagline),
-# which stays when JavaScript is off. The script right after it rolls one tagline per visit,
-# keeps the roll in sessionStorage and swaps the text before the first paint, so nothing
-# flickers. Its title gives the roll away: "rolled a 3 on a d8".
+# The home's subtitle, in the masthead under the name. The HTML carries the main subtitle
+# (the first tagline), which stays when JavaScript is off. The script right after it rolls
+# one tagline per visit, keeps the roll in sessionStorage and swaps the text before the
+# first paint, so nothing flickers. Its title gives the roll away: "rolled a 3 on a d8".
 class Tagline < Bridgetown::Component
   # Characters that could close the script or open an HTML comment inside it. They become
   # \u escapes, which JSON (and so JavaScript) reads back as the same characters.

@@ -93,7 +93,7 @@ Work is issue-driven, and Ruby code is written test-first.
 - `<head>` metadata (Open Graph, Twitter card, canonical) comes from bridgetown-seo-tag
   via the `seo_metadata` helper (`plugins/builders/seo_metadata.rb`); don't hand-write
   those tags. Site-wide values live in `src/_data/site_metadata.yml`.
-- The home's subtitle, under the header bar, rolls one of `taglines` (in `site_metadata.yml`) per
+- The home's subtitle, in the masthead under the name, rolls one of `taglines` (in `site_metadata.yml`) per
   visit; the first is the main subtitle and the site `description`. Keep the count a die
   size (4, 6, 8, 10, 12 or 20) and each tagline within the length `test/test_taglines.rb`
   allows. The Disqus shortname stays `notesfromacoder`, the old name.

@@ -2,38 +2,29 @@
 // Header
 // =============================================================================
 
-// A three-part bar on every page: site links on the left, the name in the center,
-// reader preferences on the right. On phones the name takes its own line, with the
-// links and preferences on the line below.
+// The same on every page: a thin line with the site links on the left and reader
+// preferences on the right, as wide as the text column, then the centered masthead
+// (the name, the tagline on the home, and a row of dots before the content).
 
 @use "../variables" as *;
 @use "../mixins" as *;
 
-.site-header {
-  display: grid;
-  grid-template-areas: "nav name preferences";
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  max-width: $header-max-width;
-  padding: 20px $gutter 0;
-  margin: 0 auto;
-  font-family: $display-font-family;
-  line-height: 1.6;
-}
-
-.site-nav,
-.site-preferences {
+.site-bar {
   display: flex;
   align-items: center;
-  font-size: 14px;
+  justify-content: space-between;
+  max-width: $column-max-width + 2 * $gutter;
+  padding: 8px $gutter 0;
+  margin: 0 auto;
+  font-family: $display-font-family;
+  font-size: 13px;
   letter-spacing: $caps-letter-spacing;
   text-transform: uppercase;
   color: var(--meta);
 }
 
 .site-nav {
-  grid-area: nav;
-  justify-self: start;
+  display: flex;
   gap: 24px;
   a {
     padding: 12px 0;
@@ -45,11 +36,33 @@
   }
 }
 
-// The masthead: letter-spaced caps with an italic ampersand.
+.theme-toggle {
+  @include touch-target;
+  padding: 0;
+  margin-right: -13px; // aligns the icon, not its touch area, with the column edge
+  cursor: pointer;
+  background: none;
+  border: 0;
+  &:hover {
+    color: var(--ink-strong);
+  }
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.site-masthead {
+  padding: 36px $gutter 0;
+  font-family: $display-font-family;
+  line-height: 1.6;
+  text-align: center;
+}
+
+// The name: letter-spaced caps with an italic ampersand.
 .site-name {
-  grid-area: name;
-  @include spaced-caps(.3em);
-  font-size: 16px;
+  @include spaced-caps(.32em);
+  font-size: 18px;
   font-weight: 500;
   color: var(--ink-strong);
   text-decoration: none;
@@ -59,13 +72,13 @@
 // The spaces around the ampersand keep the name readable as text (screen readers,
 // copying); negative word spacing cancels them, and the margins set the gaps.
 .site-name:has(.site-name-amp) {
-  word-spacing: -.55em;
+  word-spacing: -.57em;
 }
 
 .site-name-amp {
   display: inline-block;
   margin: 0 .3em 0 .05em;
-  font-size: 1.375em;
+  font-size: 1.35em;
   font-style: italic;
   font-weight: 400;
   line-height: 0;
@@ -73,71 +86,56 @@
   text-transform: none;
 }
 
-.site-preferences {
-  grid-area: preferences;
-  justify-self: end;
-}
-
-.theme-toggle {
-  @include touch-target;
-  padding: 0;
-  margin-right: -14px; // aligns the icon, not its touch area, with the column edge
-  cursor: pointer;
-  background: none;
-  border: 0;
-  &:hover {
-    color: var(--ink-strong);
-  }
-  svg {
-    width: 15px;
-    height: 15px;
-  }
-}
-
-// The home's subtitle, under the bar.
+// The home's rolled tagline (src/_components/tagline.rb).
 .site-tagline {
-  margin-top: 40px;
-  font-family: $display-font-family;
+  margin-top: 12px;
   font-size: 20px;
   font-style: italic;
   line-height: 1.4;
   color: var(--meta);
-  text-align: center;
+}
+
+.site-dinkus {
+  @include spaced-caps(.6em);
+  margin-top: 28px;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--meta);
+  text-transform: none;
 }
 
 @include breakpoint(small) {
-  .site-header {
-    grid-template-areas:
-      "name name"
-      "nav preferences";
-    grid-template-columns: 1fr auto;
-    padding: 16px $gutter-small 0;
-  }
-
-  .site-name {
-    justify-self: center;
-    font-size: 13px;
-    @include spaced-caps(.22em);
-  }
-
-  .site-name:has(.site-name-amp) {
-    word-spacing: -.47em;
-  }
-
-  .site-nav,
-  .site-preferences {
-    font-size: 13px;
+  .site-bar {
+    padding: 4px $gutter-small 0;
   }
 
   .site-nav {
     gap: 20px;
   }
 
+  .site-masthead {
+    padding: 24px $gutter-small 0;
+  }
+
+  .site-name {
+    @include spaced-caps(.22em);
+    font-size: 14px;
+  }
+
+  .site-name:has(.site-name-amp) {
+    word-spacing: -.47em;
+  }
+
   // The longer taglines wrap to two lines here; reserving both keeps the height the
   // same whichever one the visit rolls.
   .site-tagline {
     min-height: 2.8em;
-    margin-top: 28px;
+    margin-top: 8px;
     font-size: 17px;
+  }
+
+  .site-dinkus {
+    margin-top: 18px;
+    font-size: 18px;
   }
 }

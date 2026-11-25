@@ -4,21 +4,26 @@ class TestLayout < Bridgetown::Test
   PAGY = "/posts/overwriting-pagy-navigation-helper".freeze
 
   describe "header" do
-    it "puts the site links on the left and the name, linking home, in the center" do
+    it "puts the site links and the theme toggle on a line above the masthead" do
       html get PAGY
 
-      header = document.query_selector(".site-header")
-      links = header.query_selector_all(".site-nav a").to_h { [it.text.strip, it[:href]] }
+      bar = document.query_selector(".site-header > .site-bar")
+      links = bar.query_selector_all(".site-nav a").to_h { [it.text.strip, it[:href]] }
 
       assert_equal({ "Tags" => "/tags", "About" => "/about" }, links)
-      assert_equal "/", header.query_selector(".site-name")[:href]
-      assert_equal "Reflections & Refactors", header.query_selector(".site-name").text.split.join(" ")
+      refute_nil bar.query_selector("button[data-theme-toggle]")
+      assert_equal "site-masthead", bar.next_element[:class]
     end
 
-    it "sets the ampersand of the name apart, for the italic in the masthead" do
-      html get "/"
+    it "has the name, linking home, and a row of dots in the masthead" do
+      html get PAGY
 
-      assert_equal "&", document.query_selector(".site-name .site-name-amp").text
+      name = document.query_selector(".site-masthead .site-name")
+
+      assert_equal "/", name[:href]
+      assert_equal "Reflections & Refactors", name.text.split.join(" ")
+      assert_equal "&", name.query_selector(".site-name-amp").text
+      assert_equal "true", document.query_selector(".site-masthead .site-dinkus")["aria-hidden"]
     end
 
     it "has a theme toggle button with an accessible name" do
@@ -57,19 +62,20 @@ class TestLayout < Bridgetown::Test
       assert_equal 4, document.query_selector_all(".article-list-item .article-meta").size
     end
 
-    it "shows the subtitle under the bar only on the home" do
+    it "shows the subtitle in the masthead only on the home" do
       html get PAGY
 
       assert_nil document.query_selector(".site-tagline")
     end
 
-    it "shows the main subtitle under the bar on the home" do
+    it "shows the main subtitle between the name and the dots on the home" do
       html get "/"
 
-      tagline = document.query_selector(".site-header + main .site-tagline")
+      tagline = document.query_selector(".site-masthead .site-name + .site-tagline")
 
       assert_equal "An adventure log on software, craft and AI.", tagline.text
       assert_includes tagline.next_element.text, "The Dungeon Master is a language model now."
+      assert_equal "site-dinkus", tagline.next_element.next_element[:class]
     end
   end
 

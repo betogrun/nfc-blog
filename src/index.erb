@@ -1,13 +1,13 @@
 ---
 layout: default
 title: "Reflections & Refactors"
+# The masthead shows the rolled tagline on the home only.
+tagline: true
 paginate:
   collection: posts
   per_page: 4
   permalink: /posts/page/:num/
 ---
-
-<%= render Tagline.new(taglines: site.metadata.taglines) %>
 
 <ul class="article-list">
   <% paginator.resources.each do |post| %>

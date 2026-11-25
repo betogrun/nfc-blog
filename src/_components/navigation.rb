@@ -1,12 +1,14 @@
-# The header bar (site links, name, reader preferences) and the outside links the footer
-# shows as icons. `links` is the single source for those outside links.
+# The header: a line with the site links and reader preferences, then the centered
+# masthead (the name, the rolled tagline on the home, a row of dots). Also the outside
+# links the footer shows as icons: `links` is the single source for them.
 class Navigation < Bridgetown::Component
   Link = Data.define(:icon, :title, :href, :external)
 
   SITE_LINKS = { "Tags" => "/tags", "About" => "/about" }.freeze
 
-  def initialize(metadata:)
+  def initialize(metadata:, tagline: false)
     @metadata = metadata
+    @tagline = tagline
   end
 
   def site_links = SITE_LINKS
