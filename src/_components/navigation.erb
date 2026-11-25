@@ -4,7 +4,7 @@
       <a href="<%= href %>"><%= name %></a>
     <% end %>
   </nav>
-  <a href="/" class="site-name"><%= @metadata.title %></a>
+  <a href="/" class="site-name"><% first, last = name_parts %><%= first %><% if last %> <span class="site-name-amp">&amp;</span> <%= last %><% end %></a>
   <div class="site-preferences">
     <button type="button" class="theme-toggle" aria-label="Switch theme" data-theme-toggle>
       <%= render Icon.new("theme") %>

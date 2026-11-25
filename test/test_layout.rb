@@ -12,7 +12,13 @@ class TestLayout < Bridgetown::Test
 
       assert_equal({ "Tags" => "/tags", "About" => "/about" }, links)
       assert_equal "/", header.query_selector(".site-name")[:href]
-      assert_equal "Reflections & Refactors", header.query_selector(".site-name").text.strip
+      assert_equal "Reflections & Refactors", header.query_selector(".site-name").text.split.join(" ")
+    end
+
+    it "sets the ampersand of the name apart, for the italic in the masthead" do
+      html get "/"
+
+      assert_equal "&", document.query_selector(".site-name .site-name-amp").text
     end
 
     it "has a theme toggle button with an accessible name" do
@@ -23,21 +29,6 @@ class TestLayout < Bridgetown::Test
       assert_equal "button", toggle[:type]
       refute_empty toggle["aria-label"]
       refute_nil toggle.query_selector("svg.icon-theme")
-    end
-
-    it "adds the subtitle under the bar only on the home" do
-      html get PAGY
-
-      assert_nil document.query_selector(".site-tagline")
-    end
-
-    it "shows the main subtitle under the bar on the home" do
-      html get "/"
-
-      tagline = document.query_selector(".site-header + main .site-tagline")
-
-      assert_equal "An adventure log on software, craft and AI.", tagline.text
-      assert_includes tagline.next_element.text, "The Dungeon Master is a language model now."
     end
   end
 
@@ -64,6 +55,21 @@ class TestLayout < Bridgetown::Test
       html get "/"
 
       assert_equal 4, document.query_selector_all(".article-list-item .article-meta").size
+    end
+
+    it "shows the subtitle under the bar only on the home" do
+      html get PAGY
+
+      assert_nil document.query_selector(".site-tagline")
+    end
+
+    it "shows the main subtitle under the bar on the home" do
+      html get "/"
+
+      tagline = document.query_selector(".site-header + main .site-tagline")
+
+      assert_equal "An adventure log on software, craft and AI.", tagline.text
+      assert_includes tagline.next_element.text, "The Dungeon Master is a language model now."
     end
   end
 

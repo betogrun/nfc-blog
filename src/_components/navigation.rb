@@ -11,6 +11,9 @@ class Navigation < Bridgetown::Component
 
   def site_links = SITE_LINKS
 
+  # The name split around its ampersand, which the masthead sets in italic.
+  def name_parts = @metadata.title.split(" & ", 2)
+
   def links
     social = @metadata.social
 

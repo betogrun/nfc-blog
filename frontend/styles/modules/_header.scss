@@ -45,7 +45,7 @@
   }
 }
 
-// The masthead. #118 adds an italic ampersand inside it.
+// The masthead: letter-spaced caps with an italic ampersand.
 .site-name {
   grid-area: name;
   @include spaced-caps(.3em);
@@ -54,6 +54,23 @@
   color: var(--ink-strong);
   text-decoration: none;
   white-space: nowrap;
+}
+
+// The spaces around the ampersand keep the name readable as text (screen readers,
+// copying); negative word spacing cancels them, and the margins set the gaps.
+.site-name:has(.site-name-amp) {
+  word-spacing: -.55em;
+}
+
+.site-name-amp {
+  display: inline-block;
+  margin: 0 .3em 0 .05em;
+  font-size: 1.375em;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .site-preferences {
@@ -103,6 +120,10 @@
     @include spaced-caps(.22em);
   }
 
+  .site-name:has(.site-name-amp) {
+    word-spacing: -.47em;
+  }
+
   .site-nav,
   .site-preferences {
     font-size: 13px;
@@ -112,7 +133,10 @@
     gap: 20px;
   }
 
+  // The longer taglines wrap to two lines here; reserving both keeps the height the
+  // same whichever one the visit rolls.
   .site-tagline {
+    min-height: 2.8em;
     margin-top: 28px;
     font-size: 17px;
   }
