@@ -17,6 +17,15 @@ class TestLayout < Bridgetown::Test
 
       refute_nil document.query_selector(".header-links [data-theme-toggle]")
     end
+
+    it "shows the main subtitle under the site name" do
+      html get "/"
+
+      tagline = document.query_selector(".header-nav .header-tagline")
+
+      assert_equal "An adventure log on software, craft and AI.", tagline.text
+      assert_includes tagline.next_element.text, "The Dungeon Master is a language model now."
+    end
   end
 
   describe "article meta" do
