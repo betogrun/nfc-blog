@@ -1,4 +1,4 @@
-# Notes from a coder
+# Reflections & Refactors
 
 [![CI](https://github.com/betogrun/nfc-blog/actions/workflows/ci.yml/badge.svg)](https://github.com/betogrun/nfc-blog/actions/workflows/ci.yml)
 

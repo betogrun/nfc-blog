@@ -4,7 +4,7 @@ Guidance for working in this repository.
 
 ## Project
 
-"Notes from a coder", a personal tech blog by Alberto Rocha, served at
+"Reflections & Refactors", a personal tech blog by Alberto Rocha, served at
 https://blog.albertorocha.me.
 
 ## Layout
@@ -88,6 +88,10 @@ Work is issue-driven, and Ruby code is written test-first.
 - `<head>` metadata (Open Graph, Twitter card, canonical) comes from bridgetown-seo-tag
   via the `seo_metadata` helper (`plugins/builders/seo_metadata.rb`); don't hand-write
   those tags. Site-wide values live in `src/_data/site_metadata.yml`.
+- The subtitle under the site name rolls one of `taglines` (in `site_metadata.yml`) per
+  visit; the first is the main subtitle and the site `description`. Keep the count a die
+  size (4, 6, 8, 10, 12 or 20) and each tagline within the length `test/test_taglines.rb`
+  allows. The Disqus shortname stays `notesfromacoder`, the old name.
 - Visual checks: headless Chromium screenshots of `bin/bt start`; simulate the dark
   OS setting with `--blink-settings=preferredColorScheme=0`.
 
