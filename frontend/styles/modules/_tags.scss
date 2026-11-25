@@ -5,18 +5,39 @@
 @use "../variables" as *;
 @use "../mixins" as *;
 
-.tags-page-header {
-  margin-top: 0px;
-}
-
+// The cloud's inline sizes are percentages of this size.
 .tags-page {
+  margin: 80px 0 0;
+  font-size: 12px;
   text-align: center;
-  padding: 50px 0;
   h1 {
-    margin: 0 0 15px 0;
+    margin-bottom: 32px;
+    font-size: 50px;
+    line-height: 1.1;
   }
 }
 
+// Each tag's size grows with its post count (set inline in src/tags.erb).
 .tag-cloud {
+  font-family: $mono-font-family;
+  line-height: 2;
+  color: var(--ink-strong);
   text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  small {
+    margin-left: 2px;
+    font-size: .7em;
+    color: var(--meta);
+  }
+}
+
+@include breakpoint(small) {
+  .tags-page {
+    margin-top: 44px;
+    h1 {
+      font-size: 34px;
+    }
+  }
 }

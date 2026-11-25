@@ -3,54 +3,39 @@
 // =============================================================================
 
 // Colors that differ between the light and dark themes, exposed as CSS custom
-// properties. Values are the original Chalk light.scss / dark.scss variables.
+// properties: warm paper, ink, and a muted printed-page palette for code. Every text
+// color reaches 4.5:1 on the background it sits on (page or code block).
 
-@use "sass:meta";
-@use "variables" as *;
 @use "mixins" as *;
 
 @include theme(light) {
-  --base-font-color: #{$gray-dark};
-  --base-accent-color: #{$gray-dark};
-  --base-accent-highlighted-color: #{$accent-highlighted-light};
-  --base-border-color: #{$gray-lightest};
-  --body-background: #{$white};
-  --header-logo-color: #{$black};
-  --header-link-color: #{$gray-darker};
-  --header-link-color-hover: #{$gray-darkest};
-  --article-header-title-color: #{$gray-darkest};
-  --article-header-description-color: #{$gray-dark};
-  --article-post-titles-color: #{$gray-darkest};
-  --article-footer-color: #{$gray-light};
-  --article-footer-link-color: #{$gray-dark};
-  --article-footer-link-color-hover: #{$gray-darkest};
-  --article-paginator-color-hover: #{$gray-darkest};
+  color-scheme: light;
+  --page-background: #fbfaf7;
+  --ink: #2b2926;         // body text
+  --ink-strong: #1a1917;  // masthead, titles, links
+  --meta: #6b675f;        // dates, descriptions, site links
+  --rule: #c9c4ba;        // borders and dotted leaders, never text
+  --code-background: #f3f0e8;
+  --code-keyword: #a0432a;
+  --code-string: #4d6b2a;
+  --code-constant: #6b4c9a;
+  --code-number: #8b5a14; // symbols and numbers
+  --code-variable: #2f6a73;
+  --code-comment: #6b665c;
 }
 
 @include theme(dark) {
-  --base-font-color: #{$gray-lighter};
-  --base-accent-color: #{$gray-lighter};
-  --base-accent-highlighted-color: #{$accent-highlighted-dark};
-  --base-border-color: #{$gray-darker};
-  --body-background: #{$gray-darkest};
-  --header-logo-color: #{$white};
-  --header-link-color: #{$gray-light};
-  --header-link-color-hover: #{$white};
-  --article-header-title-color: #{$gray-lightest};
-  --article-header-description-color: #{$gray};
-  --article-post-titles-color: #{$gray-lightest};
-  --article-footer-color: #{$gray-dark};
-  --article-footer-link-color: #{$gray-light};
-  --article-footer-link-color-hover: #{$white};
-  --article-paginator-color-hover: #{$gray-lightest};
-}
-
-// Syntax highlighting: the light palette always applies and the dark one overrides it,
-// as Chalk's light.css + dark.css cascade did. Tokens the dark palette lacks (shell
-// prompts and output, diff and error lines) keep their light colors in the dark theme.
-
-@include meta.load-css("modules/highlights-light");
-
-@include theme(dark) {
-  @include meta.load-css("modules/highlights-dark");
+  color-scheme: dark;
+  --page-background: #171615;
+  --ink: #d9d5cd;
+  --ink-strong: #f2efe8;
+  --meta: #9a958c;
+  --rule: #4a4641;
+  --code-background: #211f1c;
+  --code-keyword: #e08c6e;
+  --code-string: #b5c98f;
+  --code-constant: #b9a3e0;
+  --code-number: #d1a25a;
+  --code-variable: #86c0c7;
+  --code-comment: #9a958c;
 }

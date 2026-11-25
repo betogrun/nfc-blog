@@ -2,6 +2,8 @@
 // Mixins
 // =============================================================================
 
+@use "variables" as *;
+
 // Handling breakpoints for media queries
 // @param {Number} $val the media query specification.
 
@@ -12,14 +14,6 @@
     }
   } @else if $val == small {
     @media all and (max-width: 767px) {
-      @content;
-    }
-  } @else if $val == medium {
-    @media all and (max-width: 1024px) {
-      @content;
-    }
-  } @else if $val == large {
-    @media all and (max-width: 1223px) {
       @content;
     }
   } @else {
@@ -46,4 +40,24 @@
       @content;
     }
   }
+}
+
+// Letter-spaced capitals. The trailing negative margin cancels the spacing after the
+// last letter, so centered text stays centered.
+// @param {Number} $spacing the letter spacing.
+
+@mixin spaced-caps($spacing) {
+  letter-spacing: $spacing;
+  text-transform: uppercase;
+  margin-right: -$spacing;
+}
+
+// A transparent area around a small link or button that reaches the touch target size.
+
+@mixin touch-target {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: $touch-target;
+  min-height: $touch-target;
 }

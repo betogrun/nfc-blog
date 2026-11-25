@@ -1,5 +1,5 @@
 // =============================================================================
-// Notes from a coder: the Chalk theme, ported to Dart Sass
+// Notes from a coder: a book-page look on the Chalk structure
 // =============================================================================
 
 @use "vendor/normalize";
@@ -10,7 +10,7 @@
 @use "layouts/grid";
 @use "modules/about";
 @use "modules/articles";
+@use "modules/code";
 @use "modules/embed";
 @use "modules/header";
-@use "modules/scrollappear";
 @use "modules/tags";

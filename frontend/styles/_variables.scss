@@ -2,67 +2,36 @@
 // Variables
 // =============================================================================
 
-@use "sass:math";
-
 // Typography
 // =============================================================================
 
-$sans-serif: "Lato", Helvetica, Arial, sans-serif;
-$serif: "Cormorant Garamond", Courier, serif;
-$base-font-family: $sans-serif;
+// EB Garamond: masthead, titles, descriptions and pull quotes. Literata: body text.
+// IBM Plex Mono: data (dates, reading time, tags) and code.
+$display-font-family: "EB Garamond", Garamond, Georgia, serif;
+$body-font-family: "Literata", Georgia, serif;
+$mono-font-family: "IBM Plex Mono", Menlo, Consolas, monospace;
+
+$base-font-size: 19px;
+$base-line-height: 1.7;
 $base-font-weight: 400;
 $base-font-weight-bold: 700;
 
-// Colors
-// =============================================================================
-
-// Shades of gray (shared by both themes)
-// Hex values of Chalk's `lighten($gray-darkest, n)` scale, as the original build output them.
-
-$black: #000;
-$gray-darkest: #121111;
-$gray-darker: #393636;   // +15% lightness
-$gray-dark: #615b5b;     // +30%
-$gray: #888181;          // +45%
-$gray-light: #ada8a8;    // +60%
-$gray-lighter: #d2cfcf;  // +75%
-$gray-lightest: #ebeaea; // +85%
-$white: #fff;
-
-// Derived colors: Chalk computed these with darken/lighten. Hex values as Ruby Sass
-// output them; Dart Sass rounds some of them one step off.
-
-$accent-highlighted-light: #393636; // darken($gray-dark, 15)
-$accent-highlighted-dark: #ada8a8;  // darken($gray-lighter, 15)
-$code-background-light: #faf9f9;    // lighten($gray-lightest, 6)
-$code-background-dark: #050505;     // darken($gray-darkest, 5)
-
-// Brand colors
-
-$brand-success: #1fbf92;
-$brand-danger: #e74b3c;
-$brand-primary: #3449ed;
-$brand-warning: #f1c90b;
+// Spaced capitals: the masthead, the site links and section headings.
+$caps-letter-spacing: .14em;
 
 // Sizes
 // =============================================================================
 
-// Grid
+// The header bar is wider than the text column, so its edges frame the page.
+$header-max-width: 820px;
+$column-max-width: 620px;
+$gutter: 24px;
+$gutter-small: 20px;
 
-$columns: 12;
-$max-width: 650px;
-$gutter: 20px;
-$one-column: math.div(100%, $columns);
-$negative-gutter: 0 - $gutter;
+// The smallest touch target for links and buttons.
+$touch-target: 44px;
 
-// Font sizes
-
-$base-font-size: 16px;
-$base-line-height: 1.8;
-
-// Box sizes
-
-$base-border-radius: 4px;
+$base-border-radius: 3px;
 
 // Effects
 // =============================================================================
