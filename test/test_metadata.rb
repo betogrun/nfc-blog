@@ -86,8 +86,15 @@ class TestMetadata < Bridgetown::Test
     it "keeps the Jekyll title format" do
       html get "/posts/overwriting-pagy-navigation-helper"
 
-      assert_match(/\ANotes from a coder \| \S/, document.query_selector("title").text)
+      assert_match(/\AReflections & Refactors \| \S/, document.query_selector("title").text)
       assert_equal 1, document.query_selector_all("title").size
+    end
+
+    it "describes the home page with the main subtitle" do
+      html get "/"
+
+      assert_equal ["An adventure log on software, craft and AI."], meta("description")
+      assert_equal ["An adventure log on software, craft and AI."], meta("og:description")
     end
   end
 
