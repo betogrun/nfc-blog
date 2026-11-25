@@ -1,9 +1,23 @@
 # Site-wide settings used by layouts and components (reloaded live by `bin/bt start`).
-title: Notes from a coder
+title: Reflections & Refactors
 author: Alberto Rocha
-description: Notes, tips and tricks by Alberto Rocha.
+# The main subtitle: search results and share cards use it, and it is the first tagline.
+description: An adventure log on software, craft and AI.
 email: hello@alberto.dev
+# The old name stays as the Disqus shortname: readers never see it, and changing it means
+# migrating the threads.
 disqus: notesfromacoder
+# The subtitle under the masthead. The page carries the first one; a script rolls one per
+# visit. Keep the count a die size (4, 6, 8, 10, 12 or 20); test/test_taglines.rb checks it.
+taglines:
+  - An adventure log on software, craft and AI.
+  - Session notes from a long campaign in software and AI.
+  - "Software, craft and AI: the campaign so far."
+  - Leveling up in a craft that keeps changing the rules.
+  - The Dungeon Master is a language model now.
+  - The rules changed mid-campaign. Notes on software, craft and AI.
+  - Software, craft and AI, one session at a time.
+  - One engineer's campaign through software, craft and AI.
 social:
   x: betogrun
   github: betogrun
