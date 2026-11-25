@@ -2,36 +2,62 @@
 // Fonts
 // =============================================================================
 
-// Self-hosted copies of the Google Fonts the site used to load at runtime.
+// Self-hosted woff2 (Latin subset from Google Fonts), only the weights and styles the
+// site uses. EB Garamond and Literata are variable fonts cut to those weight ranges;
+// Literata keeps its optical-size axis.
 
 @font-face {
-  font-family: "Cormorant Garamond";
+  font-family: "EB Garamond";
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400 500;
   font-display: swap;
-  src: url("../fonts/Cormorant-Garamond-700.woff2") format("woff2");
+  src: url("../fonts/EB-Garamond-400-500.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 300;
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 400;
   font-display: swap;
-  src: url("../fonts/Lato-300.woff2") format("woff2");
+  src: url("../fonts/EB-Garamond-400-italic.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Lato";
+  font-family: "Literata";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/Literata-400-700.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Literata";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/Literata-400-italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../fonts/Lato-regular.woff2") format("woff2");
+  src: url("../fonts/IBM-Plex-Mono-400.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 700;
+  font-family: "IBM Plex Mono";
+  font-style: italic;
+  font-weight: 400;
   font-display: swap;
-  src: url("../fonts/Lato-700.woff2") format("woff2");
+  src: url("../fonts/IBM-Plex-Mono-400-italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/IBM-Plex-Mono-600.woff2") format("woff2");
 }
