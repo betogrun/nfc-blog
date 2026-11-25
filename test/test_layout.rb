@@ -12,7 +12,7 @@ class TestLayout < Bridgetown::Test
 
       assert_equal({ "Tags" => "/tags", "About" => "/about" }, links)
       assert_equal "/", header.query_selector(".site-name")[:href]
-      assert_equal "Notes from a coder", header.query_selector(".site-name").text.strip
+      assert_equal "Reflections & Refactors", header.query_selector(".site-name").text.strip
     end
 
     it "has a theme toggle button with an accessible name" do
@@ -26,13 +26,18 @@ class TestLayout < Bridgetown::Test
     end
 
     it "adds the subtitle under the bar only on the home" do
-      html get "/"
-
-      assert_equal "Notes, tips and tricks by Alberto Rocha.", document.query_selector(".site-tagline").text.strip
-
       html get PAGY
 
       assert_nil document.query_selector(".site-tagline")
+    end
+
+    it "shows the main subtitle under the bar on the home" do
+      html get "/"
+
+      tagline = document.query_selector(".site-header + main .site-tagline")
+
+      assert_equal "An adventure log on software, craft and AI.", tagline.text
+      assert_includes tagline.next_element.text, "The Dungeon Master is a language model now."
     end
   end
 

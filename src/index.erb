@@ -7,7 +7,7 @@ paginate:
   permalink: /posts/page/:num/
 ---
 
-<p class="site-tagline"><%= site.metadata.description %></p>
+<%= render Tagline.new(taglines: site.metadata.taglines) %>
 
 <ul class="article-list">
   <% paginator.resources.each do |post| %>
