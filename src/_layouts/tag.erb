@@ -6,11 +6,9 @@ layout: default
 <% if posts.any? %>
   <ul class="article-list">
     <% posts.each do |post| %>
-      <li class="article-list-item scrollappear">
-        <a href="<%= post.relative_url %>" title="<%= post.data.title %>">
-          <h5><%= post.data.title %></h5>
-        </a>
-        <p><%= post.data.description %></p>
+      <li class="article-list-item">
+        <a href="<%= post.relative_url %>"><h2><%= post.data.title %></h2></a>
+        <p class="article-list-description"><%= post.data.description %></p>
         <%= render ArticleMeta.new(post:) %>
       </li>
     <% end %>
