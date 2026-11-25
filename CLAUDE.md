@@ -79,9 +79,14 @@ Work is issue-driven, and Ruby code is written test-first.
 
 ## Frontend
 
-- Styles are the Chalk SCSS on Dart Sass with `@use`. Colors that change per theme
-  are CSS custom properties defined in `frontend/styles/_themes.scss`; use
-  `var(--name)` for them and the `$gray-*` variables for fixed colors.
+- Styles keep the Chalk SCSS structure on Dart Sass with `@use`, with a book-page look
+  (#116): EB Garamond for the masthead and titles, Literata for body text, IBM Plex
+  Mono for data and code, self-hosted in `frontend/fonts/`. Every color is a CSS custom
+  property in `frontend/styles/_themes.scss` (paper, ink, meta, rule and the code
+  palette); use `var(--name)`, and keep every text color at 4.5:1 or more on its
+  background in both themes.
+- A post's opening words are set in small caps by `OpeningPhrase`
+  (`plugins/opening_phrase.rb`), called from the post layout.
 - `@include theme(light|dark) { ... }` (in `_mixins.scss`) scopes styles to a theme:
   an explicit `data-theme` on `<html>` wins, otherwise the OS preference applies.
 - Icons: `render Icon.new("name")` inlines `frontend/icons/name.svg`.
