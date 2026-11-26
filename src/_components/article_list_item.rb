@@ -1,5 +1,5 @@
-# A post in the home and tag lists, set like a book's contents: the title, a dotted
-# leader and the date on one line, then the description and the meta line.
+# A post in the home and tag lists, after Chalk: the title on its own line, the
+# description, then the meta line with the date at its right end, and a light rule.
 class ArticleListItem < Bridgetown::Component
   def initialize(post:)
     @post = post

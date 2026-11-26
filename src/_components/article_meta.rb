@@ -1,6 +1,6 @@
 # The mono meta line of a post: ISO date, reading time and its tags. The post page
 # leaves out the tags (they go to "filed under"), and lists the date (it ends the
-# title's line, see ArticleListItem).
+# meta line on the right, see ArticleListItem).
 class ArticleMeta < Bridgetown::Component
   WORDS_PER_MINUTE = 250
 

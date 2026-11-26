@@ -61,3 +61,12 @@
   min-width: $touch-target;
   min-height: $touch-target;
 }
+
+// A text's opening words in small caps, as a book sets the start of a chapter (posts:
+// plugins/opening_phrase.rb; the About page marks its own).
+@mixin opening-phrase {
+  font-size: .82em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-strong);
+}

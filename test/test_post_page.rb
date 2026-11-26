@@ -7,21 +7,21 @@ class TestPostPage < Bridgetown::Test
   def squish(text) = text.split.join(" ")
 
   describe "article meta" do
-    it "shows the title, a dotted leader and the ISO date on one line in lists, like a contents page" do
+    it "shows the title on its own line in lists, and the ISO date at the end of the meta line" do
       html get "/tag/pagy/"
 
-      heading = document.query_selector(".article-list-item .article-list-heading")
+      item = document.query_selector(".article-list-item")
+      date = item.query_selector(".article-list-meta > time")
 
-      assert_equal "Overwriting the Pagy Navigation Helper", heading.query_selector("a[href='#{PAGY}'] h2").text.strip
-      assert_equal "true", heading.query_selector(".article-list-leader")["aria-hidden"]
-      assert_equal "2024-07-11", heading.query_selector("time").text.strip
-      assert_equal "2024-07-11", heading.query_selector("time")[:datetime]
+      assert_equal "Overwriting the Pagy Navigation Helper", item.query_selector("a[href='#{PAGY}'] h2").text.strip
+      assert_equal %w[2024-07-11 2024-07-11], [date.text.strip, date[:datetime]]
+      assert_empty item.query_selector_all(".article-list-leader")
     end
 
     it "shows the reading time and tag names linking to tag pages under the description in lists" do
       html get "/tag/pagy/"
 
-      meta = document.query_selector(".article-list-description + .article-meta")
+      meta = document.query_selector(".article-list-description + .article-list-meta > .article-meta")
 
       assert_equal "4 min · Rails, Pagy, Tailwind CSS, Daisy UI", squish(meta.text)
       assert_nil meta.query_selector("time")
