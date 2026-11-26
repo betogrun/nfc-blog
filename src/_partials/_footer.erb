@@ -1,9 +1,11 @@
-<footer class="footer scrollappear" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-  <p>
-    Notes, tips and tricks by
-    <a href="/about" title="About me"><%= metadata.author %></a>.
-  </p>
-  <p>
-    <a href="/tags" title="All tags">ALL TAGS</a>
-  </p>
+<footer class="site-footer">
+  <div class="site-dinkus" aria-hidden="true">· · ·</div>
+  <nav aria-label="Elsewhere">
+    <% Navigation.new(metadata:).links.each do |link| %>
+      <a href="<%= link.href %>" aria-label="<%= link.title %>"<% if link.external %> rel="noreferrer noopener" target="_blank"<% end %>>
+        <%= render Icon.new(link.icon) %>
+      </a>
+    <% end %>
+  </nav>
+  <p>© <%= Time.now.year %> <%= metadata.author %></p>
 </footer>

@@ -1,0 +1,129 @@
+// =============================================================================
+// Code
+// =============================================================================
+
+// Rouge highlighting with the muted printed-page palette, the same rules in both
+// themes; the colors come from _themes.scss.
+
+@use "../variables" as *;
+@use "../mixins" as *;
+
+code,
+pre {
+  font-family: $mono-font-family;
+}
+
+// Inline code
+code.highlighter-rouge {
+  padding: .1em .3em;
+  font-size: .82em;
+  color: var(--ink);
+  background: var(--code-background);
+  border-radius: 2px;
+}
+
+// Blocks
+div.highlight {
+  padding: 20px 22px;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--code-background);
+  border-radius: $base-border-radius;
+  pre {
+    margin: 0;
+  }
+}
+
+@include breakpoint(small) {
+  div.highlight {
+    padding: 16px;
+    margin-right: -$gutter-small;
+    margin-left: -$gutter-small;
+    font-size: 13px;
+    border-radius: 0;
+  }
+}
+
+// Tokens
+// =============================================================================
+
+.highlight {
+  // Comments
+  .c, .c1, .ch, .cm, .cs, .cd, .cpf {
+    font-style: italic;
+    color: var(--code-comment);
+  }
+
+  // Keywords, preprocessor, HTML tags
+  .k, .kd, .kn, .kp, .kr, .kv, .cp, .ow, .nt {
+    color: var(--code-keyword);
+  }
+
+  // Strings
+  .s, .s1, .s2, .sa, .sb, .sc, .sd, .sh, .si, .sx, .sr, .dl, .l, .ld {
+    color: var(--code-string);
+  }
+
+  // Constants, classes in use, types, builtins
+  .kc, .kt, .no, .nb, .bp, .nn, .ne {
+    color: var(--code-constant);
+  }
+
+  // Symbols, numbers, escapes, decorators, entities, labels
+  .ss, .se, .m, .mb, .mf, .mh, .mi, .mo, .mx, .il, .nd, .ni, .nl {
+    color: var(--code-number);
+  }
+
+  // Variables and attributes (YAML keys, HTML attributes)
+  .nv, .vi, .vc, .vg, .na {
+    color: var(--code-variable);
+  }
+
+  // Definitions. Rouge also marks method calls (`items.each`) as `nf`, so a function
+  // name is bold only right after a keyword (`def`, `function`).
+  .nc,
+  .k + .nf,
+  .kd + .nf {
+    font-weight: 600;
+    color: var(--ink-strong);
+  }
+
+  // Shell sessions and diffs
+  .gp {
+    color: var(--code-keyword);
+  }
+
+  .go {
+    color: var(--code-comment);
+  }
+
+  .gd {
+    color: var(--code-keyword);
+  }
+
+  .gi {
+    color: var(--code-string);
+  }
+
+  .gh,
+  .gu {
+    font-weight: 600;
+    color: var(--code-constant);
+  }
+
+  .gr,
+  .gt,
+  .err {
+    color: var(--code-keyword);
+  }
+
+  .ge {
+    font-style: italic;
+  }
+
+  .gs {
+    font-weight: 600;
+  }
+}

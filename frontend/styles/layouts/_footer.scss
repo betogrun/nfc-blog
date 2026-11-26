@@ -2,19 +2,46 @@
 // Footer
 // =============================================================================
 
+// A row of dots, echoing the masthead's, then the outside links as icons above the
+// copyright line. No rule: the pagination and the list end above it.
+
 @use "../variables" as *;
 @use "../mixins" as *;
 
-.footer {
-  display: block;
-  padding-top: 35px;
-  margin-bottom: 85px;
-  border-top: 1px solid var(--base-border-color);
-  p {
-    font-size: 15px;
-    color: $gray-light;
+.site-footer {
+  padding: 0 0 80px;
+  margin-top: 72px;
+  font-family: $mono-font-family;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--meta);
+  text-align: center;
+  .site-dinkus {
+    margin: 0 0 20px;
+    font-family: $display-font-family;
+  }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 10px;
+    margin-bottom: 4px;
   }
   a {
-    text-decoration: none;
+    @include touch-target;
+    color: var(--ink-strong);
+    &:hover {
+      color: var(--meta);
+    }
+  }
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@include breakpoint(small) {
+  .site-footer {
+    margin-top: 56px;
   }
 }

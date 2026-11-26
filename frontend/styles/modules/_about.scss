@@ -2,12 +2,70 @@
 // About
 // =============================================================================
 
+// Set like the other pages: the title centered, as on posts and Tags, and the text
+// opening in small caps. The photo, a cut-out on a transparent background, floats
+// beside the text, which follows its silhouette; it fades out at the bottom instead
+// of ending in a hard cut at the waist. The text itself is #122.
+
 @use "../variables" as *;
 @use "../mixins" as *;
 
 .about {
-  padding: 100px 0;
+  margin: 48px 0 64px;
   h1 {
-    margin: 50px 0 15px;
+    margin-bottom: 56px;
+    font-size: 50px;
+    line-height: 1.1;
+    text-align: center;
+  }
+  p {
+    margin-bottom: 24px;
+  }
+  .opening {
+    @include opening-phrase;
+  }
+  // Contains the float, so the footer never rides up beside the photo.
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+}
+
+.about-photo {
+  float: right;
+  width: 190px;
+  height: auto;
+  margin: 4px 0 12px 28px;
+  mask-image: linear-gradient(to bottom, #000 72%, transparent);
+  shape-margin: 12px;
+  shape-outside: url("/images/myself.png");
+}
+
+// The shirt and hair are black: a faint edge keeps the silhouette on the dark paper.
+@include theme(dark) {
+  .about-photo {
+    filter: drop-shadow(0 0 1px rgb(255 255 255 / 28%));
+  }
+}
+
+@include breakpoint(small) {
+  .about {
+    display: flex;
+    flex-direction: column;
+    margin: 32px 0 48px;
+    h1 {
+      margin-bottom: 28px;
+      font-size: 34px;
+    }
+  }
+
+  // Beside the photo the lines would hold three or four words: it sits centered
+  // between the title and the text instead.
+  .about-photo {
+    align-self: center;
+    float: none;
+    width: 140px;
+    margin: 0 0 24px;
   }
 }

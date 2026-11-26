@@ -1,0 +1,8 @@
+<li class="article-list-item">
+  <a href="<%= @post.relative_url %>"><h2><%= @post.data.title %></h2></a>
+  <p class="article-list-description"><%= @post.data.description %></p>
+  <div class="article-list-meta">
+    <time datetime="<%= date %>"><%= date %></time>
+    <%= render ArticleMeta.new(post: @post, date: false) %>
+  </div>
+</li>

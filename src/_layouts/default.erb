@@ -4,14 +4,12 @@
     <%= render "head", metadata: site.metadata %>
   </head>
   <body>
-    <main>
-      <div class="grid grid-centered">
-        <div class="grid-cell">
-          <%= render Navigation.new(metadata: site.metadata) %>
-          <%= yield %>
-          <%= render "footer", metadata: site.metadata %>
-        </div>
-      </div>
+    <%= render Navigation.new(metadata: site.metadata, tagline: data.tagline) %>
+    <main class="page">
+      <%= yield %>
     </main>
+    <div class="page">
+      <%= render "footer", metadata: site.metadata %>
+    </div>
   </body>
 </html>

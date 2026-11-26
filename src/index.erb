@@ -1,34 +1,32 @@
 ---
 layout: default
-title: "Notes from a coder"
-description: "Notes, tips and tricks by Alberto Rocha."
+title: "Reflections & Refactors"
+# The masthead shows the rolled tagline on the home only.
+tagline: true
 paginate:
   collection: posts
-  per_page: 4
+  per_page: 8
   permalink: /posts/page/:num/
 ---
 
 <ul class="article-list">
   <% paginator.resources.each do |post| %>
-    <li class="article-list-item scrollappear">
-      <a href="<%= post.relative_url %>" title="<%= post.data.title %>">
-        <h5>
-          <%= post.data.title %>
-          <%= render Icon.new("arrow-right") %>
-        </h5>
-      </a>
-      <p><%= post.data.description %></p>
-      <%= render ArticleMeta.new(post:) %>
-    </li>
-  <% end %>
-  <% if paginator.total_pages > 1 %>
-    <li class="article-pagination scrollappear">
-      <% if paginator.next_page %>
-        <a href="<%= paginator.next_page_path %>" class="article-pagination-left"><%= render Icon.new("arrow-left") %> Older posts</a>
-      <% end %>
-      <% if paginator.previous_page %>
-        <a href="<%= paginator.previous_page_path %>" class="article-pagination-right">Newer posts <%= render Icon.new("arrow-right") %></a>
-      <% end %>
-    </li>
+    <%= render ArticleListItem.new(post:) %>
   <% end %>
 </ul>
+
+<% if paginator.total_pages > 1 %>
+  <nav class="article-pagination" aria-label="Pagination">
+    <span>
+      <% if paginator.next_page %>
+        <a href="<%= paginator.next_page_path %>" class="article-pagination-older"><span aria-hidden="true">←</span> Older posts</a>
+      <% end %>
+    </span>
+    <span class="article-pagination-count">page <%= paginator.page %> of <%= paginator.total_pages %></span>
+    <span>
+      <% if paginator.previous_page %>
+        <a href="<%= paginator.previous_page_path %>" class="article-pagination-newer">Newer posts <span aria-hidden="true">→</span></a>
+      <% end %>
+    </span>
+  </nav>
+<% end %>

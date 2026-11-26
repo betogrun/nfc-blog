@@ -2,7 +2,8 @@
 # Every path below returned HTTP 200 and MUST keep resolving after the Bridgetown migration.
 # One path per line; blank lines and lines starting with "#" are ignored.
 #
-# Pagination pages depend on post count (4 per page); new posts may add more, never remove these.
+# Pagination pages: Jekyll served 4 posts a page. At today's page size, numbers past the last
+# real page forward to it (plugins/builders/legacy_pagination.rb); never remove these.
 /
 /about
 /tags

@@ -1,4 +1,4 @@
-# Notes from a coder
+# Reflections & Refactors
 
 [![CI](https://github.com/betogrun/nfc-blog/actions/workflows/ci.yml/badge.svg)](https://github.com/betogrun/nfc-blog/actions/workflows/ci.yml)
 
@@ -9,7 +9,8 @@ tricks on Ruby, Rails, Git and the tools around them.
 
 - [Bridgetown](https://www.bridgetownrb.com/) 2 with ERB templates and Ruby components
 - Posts in plain Markdown, highlighted by Rouge
-- The Chalk theme's SCSS on Dart Sass, bundled by esbuild; small vanilla JavaScript
+- The Chalk theme's SCSS structure on Dart Sass with a book-page look, bundled by esbuild;
+  small vanilla JavaScript
 - Ruby 4.0 and Node 26, pinned in `mise.toml`
 - Hosted on a Cloudflare Worker as static assets
 

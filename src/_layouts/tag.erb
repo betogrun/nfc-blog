@@ -3,16 +3,16 @@ layout: default
 ---
 <% posts = collections.posts.resources.select { it.data.tags&.include?(data.tag_slug) } %>
 
+<header class="tag-header">
+  <h1><%= data.title %></h1>
+  <% if posts.any? %>
+    <p class="tag-count"><%= posts.size %> <%= posts.one? ? "post" : "posts" %></p>
+  <% end %>
+</header>
 <% if posts.any? %>
   <ul class="article-list">
     <% posts.each do |post| %>
-      <li class="article-list-item scrollappear">
-        <a href="<%= post.relative_url %>" title="<%= post.data.title %>">
-          <h5><%= post.data.title %></h5>
-        </a>
-        <p><%= post.data.description %></p>
-        <%= render ArticleMeta.new(post:) %>
-      </li>
+      <%= render ArticleListItem.new(post:) %>
     <% end %>
   </ul>
 <% else %>

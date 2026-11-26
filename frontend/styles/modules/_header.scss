@@ -2,89 +2,142 @@
 // Header
 // =============================================================================
 
+// The same on every page: a thin line with the site links on the left and reader
+// preferences on the right, as wide as the text column, then the centered masthead
+// (the name, the tagline on the home, and a row of dots before the content).
+
 @use "../variables" as *;
 @use "../mixins" as *;
 
-.header-nav {
-  display: block;
-  padding: 75px 0 20px;
-  border-bottom: 1px solid var(--base-border-color);
+.site-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: $column-max-width + 2 * $gutter;
+  padding: 8px $gutter 0;
+  margin: 0 auto;
+  font-family: $display-font-family;
+  font-size: 13px;
+  letter-spacing: $caps-letter-spacing;
+  text-transform: uppercase;
+  color: var(--meta);
 }
 
-.header-logo {
-  display: inline-block;
-  font-family: $serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--header-logo-color);
+.site-nav {
+  display: flex;
+  gap: 24px;
+  a {
+    padding: 12px 0;
+    color: inherit;
+    text-decoration: none;
+    &:hover {
+      color: var(--ink-strong);
+    }
+  }
+}
+
+.theme-toggle {
+  @include touch-target;
+  padding: 0;
+  margin-right: -13px; // aligns the icon, not its touch area, with the column edge
+  cursor: pointer;
+  background: none;
+  border: 0;
+  &:hover {
+    color: var(--ink-strong);
+  }
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.site-masthead {
+  padding: 36px $gutter 0;
+  font-family: $display-font-family;
+  line-height: 1.6;
+  text-align: center;
+}
+
+// The name: letter-spaced caps with an italic ampersand.
+.site-name {
+  @include spaced-caps(.32em);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--ink-strong);
   text-decoration: none;
+  white-space: nowrap;
 }
 
-.header-links {
-  float: right;
-  padding: 0;
-  margin: 15px 0 0;
-  list-style: none;
-  li {
-    display: inline-block;
-    margin-left: 20px;
-    vertical-align: middle;
-    &:first-child {
-      margin-left: 0;
-    }
-    a {
-      font-size: 18px;
-      color: var(--header-link-color);
-      cursor: pointer;
-      svg {
-        width: 16px;
-        height: 16px;
-        fill: var(--header-link-color);
-      }
-      &:hover svg {
-        fill: var(--header-link-color-hover);
-      }
-    }
-  }
+// The spaces around the ampersand keep the name readable as text (screen readers,
+// copying); negative word spacing cancels them, and the margins set the gaps. Each gap
+// is about twice the letter spacing, so the two words read apart; the right margin is
+// larger because the italic ampersand leans toward the second word.
+.site-name:has(.site-name-amp) {
+  word-spacing: -.57em;
 }
 
-.header-tags {
-  padding: 0;
-  margin: 30px 0 0;
-  list-style: none;
-  li {
-    display: inline-block;
-    padding-right: 10px;
-    a {
-      display: inline-block;
-      color: var(--header-link-color);
-      text-decoration: none;
-      &:hover { color: var(--header-link-color-hover); }
-    }
-  }
+.site-name-amp {
+  display: inline-block;
+  margin: 0 .45em 0 .22em;
+  font-size: 1.35em;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
-@include breakpoint(extra-small) {
-  .header-nav {
-    text-align: center;
-  }
-  .header-links {
-    display: block;
-    float: none;
-    text-align: center;
-    li {
-      margin: 0 10px;
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-  .header-tags {
-    margin: 20px 0 0;
-    text-align: center;
+// The home's rolled tagline (src/_components/tagline.rb).
+.site-tagline {
+  margin-top: 12px;
+  font-size: 20px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--meta);
+}
 
-    li {
-      padding: 0 5px;
-    }
+.site-dinkus {
+  @include spaced-caps(.6em);
+  margin-top: 28px;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--meta);
+  text-transform: none;
+}
+
+@include breakpoint(small) {
+  .site-bar {
+    padding: 4px $gutter-small 0;
+  }
+
+  .site-nav {
+    gap: 20px;
+  }
+
+  .site-masthead {
+    padding: 24px $gutter-small 0;
+  }
+
+  .site-name {
+    @include spaced-caps(.22em);
+    font-size: 17px;
+  }
+
+  .site-name:has(.site-name-amp) {
+    word-spacing: -.47em;
+  }
+
+  // The longer taglines wrap to two lines here; reserving both keeps the height the
+  // same whichever one the visit rolls.
+  .site-tagline {
+    min-height: 2.8em;
+    margin-top: 8px;
+    font-size: 17px;
+  }
+
+  .site-dinkus {
+    margin-top: 18px;
+    font-size: 18px;
   }
 }

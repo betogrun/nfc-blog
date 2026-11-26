@@ -4,7 +4,7 @@ Guidance for working in this repository.
 
 ## Project
 
-"Notes from a coder", a personal tech blog by Alberto Rocha, served at
+"Reflections & Refactors", a personal tech blog by Alberto Rocha, served at
 https://blog.albertorocha.me.
 
 ## Layout
@@ -73,21 +73,31 @@ Work is issue-driven, and Ruby code is written test-first.
 - **Preserve URLs.** Every path in `test/fixtures/legacy_urls.txt` must keep
   resolving: they are indexed by search engines and linked from elsewhere, and a
   broken link loses both. Posts live at `/posts/:slug` (no trailing slash), tags
-  at `/tag/:slug/`, pagination at `/posts/page/:num/`.
+  at `/tag/:slug/`, pagination at `/posts/page/:num/` (8 posts a page; the Jekyll page
+  numbers past the last real page forward to it, see `plugins/builders/legacy_pagination.rb`).
 - **Don't rewrite post prose.** Mechanical conversions (e.g. `{% highlight %}` →
   fenced code) are fine; wording changes need the author's approval.
 
 ## Frontend
 
-- Styles are the Chalk SCSS on Dart Sass with `@use`. Colors that change per theme
-  are CSS custom properties defined in `frontend/styles/_themes.scss`; use
-  `var(--name)` for them and the `$gray-*` variables for fixed colors.
+- Styles keep the Chalk SCSS structure on Dart Sass with `@use`, with a book-page look
+  (#116): EB Garamond for the masthead and titles, Literata for body text, IBM Plex
+  Mono for data and code, self-hosted in `frontend/fonts/`. Every color is a CSS custom
+  property in `frontend/styles/_themes.scss` (paper, ink, meta, rule and the code
+  palette); use `var(--name)`, and keep every text color at 4.5:1 or more on its
+  background in both themes.
+- A post's opening words are set in small caps by `OpeningPhrase`
+  (`plugins/opening_phrase.rb`), called from the post layout.
 - `@include theme(light|dark) { ... }` (in `_mixins.scss`) scopes styles to a theme:
   an explicit `data-theme` on `<html>` wins, otherwise the OS preference applies.
 - Icons: `render Icon.new("name")` inlines `frontend/icons/name.svg`.
 - `<head>` metadata (Open Graph, Twitter card, canonical) comes from bridgetown-seo-tag
   via the `seo_metadata` helper (`plugins/builders/seo_metadata.rb`); don't hand-write
   those tags. Site-wide values live in `src/_data/site_metadata.yml`.
+- The home's subtitle, in the masthead under the name, rolls one of `taglines` (in `site_metadata.yml`) per
+  visit; the first is the main subtitle and the site `description`. Keep the count a die
+  size (4, 6, 8, 10, 12 or 20) and each tagline within the length `test/test_taglines.rb`
+  allows. The Disqus shortname stays `notesfromacoder`, the old name.
 - Visual checks: headless Chromium screenshots of `bin/bt start`; simulate the dark
   OS setting with `--blink-settings=preferredColorScheme=0`.
 
