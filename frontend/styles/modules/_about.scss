@@ -2,9 +2,10 @@
 // About
 // =============================================================================
 
-// The heading, then the text in the post body's column and type, with the photo (a
-// cut-out on a transparent background) floated beside it; the text follows the
-// silhouette (#119, AboutB on the canvas).
+// Set like the other pages: the title centered, as on posts and Tags, and the text
+// opening in small caps. The photo, a cut-out on a transparent background, floats
+// beside the text, which follows its silhouette; it fades out at the bottom instead
+// of ending in a hard cut at the waist. The text itself is #122.
 
 @use "../variables" as *;
 @use "../mixins" as *;
@@ -12,12 +13,16 @@
 .about {
   margin: 48px 0 64px;
   h1 {
-    margin-bottom: 32px;
+    margin-bottom: 56px;
     font-size: 50px;
     line-height: 1.1;
+    text-align: center;
   }
   p {
     margin-bottom: 24px;
+  }
+  .opening {
+    @include opening-phrase;
   }
   // Contains the float, so the footer never rides up beside the photo.
   &::after {
@@ -32,6 +37,7 @@
   width: 190px;
   height: auto;
   margin: 4px 0 12px 28px;
+  mask-image: linear-gradient(to bottom, #000 72%, transparent);
   shape-margin: 12px;
   shape-outside: url("/images/myself.png");
 }
@@ -45,23 +51,21 @@
 
 @include breakpoint(small) {
   .about {
+    display: flex;
+    flex-direction: column;
     margin: 32px 0 48px;
     h1 {
+      margin-bottom: 28px;
       font-size: 34px;
     }
   }
 
-  // Beside the photo the lines would hold three or four words: the photo goes above
-  // the heading instead.
-  .about {
-    display: flex;
-    flex-direction: column;
-  }
-
+  // Beside the photo the lines would hold three or four words: it sits centered
+  // between the title and the text instead.
   .about-photo {
-    order: -1;
+    align-self: center;
     float: none;
     width: 140px;
-    margin: 0 0 20px;
+    margin: 0 0 24px;
   }
 }

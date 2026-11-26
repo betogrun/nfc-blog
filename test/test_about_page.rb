@@ -13,6 +13,12 @@ class TestAboutPage < Bridgetown::Test
       assert_equal 3, document.query_selector_all(".about .about-photo ~ p").length
     end
 
+    it "opens the text with its first words in small caps, like a post" do
+      html get "/about"
+
+      assert_equal "Hello!", document.query_selector(".about p:first-of-type .opening").text.strip
+    end
+
     it "drops the old spacers and scroll-appear markup" do
       html get "/about"
 
