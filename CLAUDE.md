@@ -73,7 +73,8 @@ Work is issue-driven, and Ruby code is written test-first.
 - **Preserve URLs.** Every path in `test/fixtures/legacy_urls.txt` must keep
   resolving: they are indexed by search engines and linked from elsewhere, and a
   broken link loses both. Posts live at `/posts/:slug` (no trailing slash), tags
-  at `/tag/:slug/`, pagination at `/posts/page/:num/`.
+  at `/tag/:slug/`, pagination at `/posts/page/:num/` (8 posts a page; the Jekyll page
+  numbers past the last real page forward to it, see `plugins/builders/legacy_pagination.rb`).
 - **Don't rewrite post prose.** Mechanical conversions (e.g. `{% highlight %}` →
   fenced code) are fine; wording changes need the author's approval.
 

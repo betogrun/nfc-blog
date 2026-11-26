@@ -1,0 +1,15 @@
+<!doctype html>
+<%# A page kept only so an old URL answers: it sends the reader on and stays out of
+    search (see plugins/builders/legacy_pagination.rb). %>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%= site.metadata.title %> | <%= data.title %></title>
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="<%= absolute_url(data.forward_to) %>">
+    <meta http-equiv="refresh" content="0; url=<%= data.forward_to %>">
+  </head>
+  <body>
+    <p>This page has moved to <a href="<%= data.forward_to %>"><%= absolute_url(data.forward_to) %></a>.</p>
+  </body>
+</html>

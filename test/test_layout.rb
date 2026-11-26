@@ -2,6 +2,11 @@ require "minitest_helper"
 
 class TestLayout < Bridgetown::Test
   PAGY = "/posts/overwriting-pagy-navigation-helper".freeze
+  PER_PAGE = 8
+  POST_COUNT = Dir[File.expand_path("../src/_posts/*.md", __dir__)].count do |path|
+    !File.read(path).match?(/^published: false$/)
+  end
+  PAGE_COUNT = (POST_COUNT / PER_PAGE.to_f).ceil
 
   describe "header" do
     it "puts the site links and the theme toggle on a line above the masthead" do
@@ -48,6 +53,15 @@ class TestLayout < Bridgetown::Test
       links.each { refute_nil it.query_selector("svg path") }
     end
 
+    it "opens with a row of dots instead of a rule, echoing the masthead" do
+      html get "/"
+
+      dinkus = document.query_selector(".site-footer > .site-dinkus:first-child")
+
+      assert_equal "true", dinkus["aria-hidden"]
+      assert_equal "· · ·", dinkus.text.strip
+    end
+
     it "has the copyright line" do
       html get "/"
 
@@ -56,12 +70,32 @@ class TestLayout < Bridgetown::Test
   end
 
   describe "home" do
-    it "lists four posts with their meta" do
+    it "lists eight posts with their meta" do
       html get "/"
 
-      assert_equal 4, document.query_selector_all(".article-list-item .article-meta").size
+      assert_equal [PER_PAGE, POST_COUNT].min, document.query_selector_all(".article-list-item .article-meta").size
+    end
+  end
+
+  describe "pagination" do
+    it "lists the rest on the next page" do
+      html get "/posts/page/2/"
+
+      assert_equal POST_COUNT - PER_PAGE, document.query_selector_all(".article-list-item").size
     end
 
+    it "says which page this is between the older and newer links" do
+      html get "/"
+
+      pagination = document.query_selector("nav.article-pagination")
+
+      assert_equal "page 1 of #{PAGE_COUNT}", pagination.query_selector(".article-pagination-count").text.strip
+      assert_equal "/posts/page/2/", pagination.query_selector("a.article-pagination-older")[:href]
+      assert_nil pagination.query_selector("a.article-pagination-newer")
+    end
+  end
+
+  describe "home masthead" do
     it "shows the subtitle in the masthead only on the home" do
       html get PAGY
 

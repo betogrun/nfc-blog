@@ -5,7 +5,7 @@ title: "Reflections & Refactors"
 tagline: true
 paginate:
   collection: posts
-  per_page: 4
+  per_page: 8
   permalink: /posts/page/:num/
 ---
 
@@ -17,11 +17,16 @@ paginate:
 
 <% if paginator.total_pages > 1 %>
   <nav class="article-pagination" aria-label="Pagination">
-    <% if paginator.next_page %>
-      <a href="<%= paginator.next_page_path %>" class="article-pagination-older"><span aria-hidden="true">←</span> Older posts</a>
-    <% end %>
-    <% if paginator.previous_page %>
-      <a href="<%= paginator.previous_page_path %>" class="article-pagination-newer">Newer posts <span aria-hidden="true">→</span></a>
-    <% end %>
+    <span>
+      <% if paginator.next_page %>
+        <a href="<%= paginator.next_page_path %>" class="article-pagination-older"><span aria-hidden="true">←</span> Older posts</a>
+      <% end %>
+    </span>
+    <span class="article-pagination-count">page <%= paginator.page %> of <%= paginator.total_pages %></span>
+    <span>
+      <% if paginator.previous_page %>
+        <a href="<%= paginator.previous_page_path %>" class="article-pagination-newer">Newer posts <span aria-hidden="true">→</span></a>
+      <% end %>
+    </span>
   </nav>
 <% end %>
