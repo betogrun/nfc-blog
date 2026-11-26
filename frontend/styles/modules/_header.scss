@@ -70,14 +70,16 @@
 }
 
 // The spaces around the ampersand keep the name readable as text (screen readers,
-// copying); negative word spacing cancels them, and the margins set the gaps.
+// copying); negative word spacing cancels them, and the margins set the gaps. Each gap
+// is about twice the letter spacing, so the two words read apart; the right margin is
+// larger because the italic ampersand leans toward the second word.
 .site-name:has(.site-name-amp) {
   word-spacing: -.57em;
 }
 
 .site-name-amp {
   display: inline-block;
-  margin: 0 .3em 0 .05em;
+  margin: 0 .45em 0 .22em;
   font-size: 1.35em;
   font-style: italic;
   font-weight: 400;
