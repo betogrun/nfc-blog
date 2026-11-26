@@ -8,8 +8,9 @@
 // of ending in a hard cut at the waist. The text itself is #122.
 //
 // The dark theme swaps in the same photo with the T-shirt recolored oat (#125), so
-// it doesn't melt into the dark paper. Both files share one silhouette, so the text
-// wraps the same way; both images are lazy, so only the one shown downloads.
+// it doesn't melt into the dark paper: a <picture> source picks the file, so only the
+// photo shown downloads. Both files share one silhouette, so the text wraps the same
+// way; each theme takes its wrap shape from its own photo, so the other never loads.
 
 @use "../variables" as *;
 @use "../mixins" as *;
@@ -46,20 +47,16 @@
   shape-outside: url("/images/myself.png");
 }
 
-.about-photo-dark {
-  display: none;
+// The <picture> only picks the file: the photo floats and centers as if it stood alone.
+.about picture {
+  display: contents;
 }
 
 // The hair is black: a faint edge keeps its outline on the dark paper.
 @include theme(dark) {
   .about-photo {
     filter: drop-shadow(0 0 1px rgb(255 255 255 / 28%));
-  }
-  .about-photo:not(.about-photo-dark) {
-    display: none;
-  }
-  .about-photo-dark {
-    display: block;
+    shape-outside: url("/images/myself-dark-theme.png");
   }
 }
 
