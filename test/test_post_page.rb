@@ -6,7 +6,7 @@ class TestPostPage < Bridgetown::Test
 
   def squish(text) = text.split.join(" ")
 
-  describe "article meta" do
+  describe "list item" do
     it "shows the title on its own line in lists, and the ISO date at the end of the meta line" do
       html get "/tag/pagy/"
 
@@ -34,9 +34,13 @@ class TestPostPage < Bridgetown::Test
 
       tags = document.query_selector(".article-list-meta .article-meta-divider + .article-meta-tags")
 
-      assert_equal %w[/tag/rails/ /tag/pagy/ /tag/tailwindcss/ /tag/daisyui/], tags.query_selector_all("a").map { it[:href] }
-    end
+      hrefs = tags.query_selector_all("a").map { it[:href] }
 
+      assert_equal %w[/tag/rails/ /tag/pagy/ /tag/tailwindcss/ /tag/daisyui/], hrefs
+    end
+  end
+
+  describe "article meta" do
     READING_TIMES.each do |slug, minutes|
       it "keeps the Jekyll reading time for #{slug}" do
         html get "/posts/#{slug}"
