@@ -62,7 +62,7 @@
 // The name: letter-spaced caps with an italic ampersand.
 .site-name {
   @include spaced-caps(.32em);
-  font-size: 18px;
+  font-size: 26px;
   font-weight: 500;
   color: var(--ink-strong);
   text-decoration: none;
@@ -119,7 +119,7 @@
 
   .site-name {
     @include spaced-caps(.22em);
-    font-size: 14px;
+    font-size: 17px;
   }
 
   .site-name:has(.site-name-amp) {
