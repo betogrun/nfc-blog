@@ -2,19 +2,43 @@
 // About
 // =============================================================================
 
+// A small round photo on a paper plate, then the heading and the text in the
+// post body's column and size (#119).
+
 @use "../variables" as *;
 @use "../mixins" as *;
 
-// The page's content and structure are #119; these rules only keep it readable.
 .about {
-  margin: 48px 0 0;
-  img {
-    max-width: 240px;
-  }
+  margin: 48px 0 64px;
   h1 {
-    margin: 40px 0 24px;
-    font-size: 40px;
+    margin-bottom: 32px;
+    font-size: 50px;
     line-height: 1.1;
     text-align: center;
+  }
+  p {
+    margin-bottom: 24px;
+  }
+}
+
+// The photo is a portrait with a transparent background: crop it to the head and
+// shoulders from the top, over the plate color.
+.about-photo {
+  display: block;
+  width: 132px;
+  height: 132px;
+  margin: 0 auto 28px;
+  object-fit: cover;
+  object-position: 50% 0;
+  background: var(--photo-plate);
+  border-radius: 50%;
+}
+
+@include breakpoint(small) {
+  .about {
+    margin: 32px 0 48px;
+    h1 {
+      font-size: 34px;
+    }
   }
 }
