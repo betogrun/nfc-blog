@@ -22,7 +22,7 @@ class TestAboutPage < Bridgetown::Test
       assert_equal 2, photos.length
       assert_equal ["/images/myself-white-shirt.png", "Alberto Rocha"], [dark[:src], dark[:alt]]
       assert_equal %w[190 286], [dark[:width], dark[:height]]
-      assert_equal %w[lazy lazy], photos.map { it[:loading] } # only the shown one downloads
+      assert_equal(%w[lazy lazy], photos.map { it[:loading] }) # only the shown one downloads
     end
 
     it "opens the text with its first words in small caps, like a post" do
