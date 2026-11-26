@@ -28,6 +28,15 @@ class TestPostPage < Bridgetown::Test
       assert_equal "/tag/pagy/", meta.query_selector("a[href*='pagy']")[:href]
     end
 
+    # Phones put the tags on a line of their own, as Chalk did.
+    it "groups the tag links in lists, after their own divider" do
+      html get "/tag/pagy/"
+
+      tags = document.query_selector(".article-list-meta .article-meta-divider + .article-meta-tags")
+
+      assert_equal %w[/tag/rails/ /tag/pagy/ /tag/tailwindcss/ /tag/daisyui/], tags.query_selector_all("a").map { it[:href] }
+    end
+
     READING_TIMES.each do |slug, minutes|
       it "keeps the Jekyll reading time for #{slug}" do
         html get "/posts/#{slug}"

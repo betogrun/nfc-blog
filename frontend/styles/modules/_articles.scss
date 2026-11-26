@@ -81,8 +81,8 @@
   }
 }
 
-// On phones a long tag list would push the date onto a line of its own, at the right
-// edge of one post and not the next. The line flows as text instead, date first.
+// On phones the line stacks as Chalk's did: the date and reading time, then the tags
+// on a line of their own, so a long tag list never wraps mid-line or strands the date.
 @include breakpoint(small) {
   .article-list-meta {
     display: block;
@@ -91,6 +91,12 @@
     line-height: 1.6;
     .article-meta {
       display: inline;
+    }
+    .article-meta-divider:has(+ .article-meta-tags) {
+      display: none;
+    }
+    .article-meta-tags {
+      display: block;
     }
     time {
       font-size: 12px;

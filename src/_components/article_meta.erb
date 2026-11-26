@@ -4,6 +4,6 @@
   <% end %>
   <%= minutes %> min
   <% if tags.any? %>
-    <span class="article-meta-divider" aria-hidden="true"> · </span><% tags.each_with_index do |tag, index| %><%= ", " if index.positive? %><a href="<%= tag.href %>"><%= tag.name %></a><% end %>
+    <span class="article-meta-divider" aria-hidden="true"> · </span><span class="article-meta-tags"><% tags.each_with_index do |tag, index| %><%= ", " if index.positive? %><a href="<%= tag.href %>"><%= tag.name %></a><% end %></span>
   <% end %>
 </p>
