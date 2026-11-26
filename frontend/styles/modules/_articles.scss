@@ -19,6 +19,9 @@
 // Lists (home and tag pages)
 // =============================================================================
 
+// Centered on the masthead's axis, like a book's contents; phones align them left
+// (below), where titles and descriptions wrap and ragged centered lines read worse.
+
 .article-list {
   padding: 0;
   margin: 40px 0 0;
@@ -27,6 +30,8 @@
 
 .article-list-item {
   margin-bottom: 44px;
+  text-align: center;
+  text-wrap: balance;
   > a {
     text-decoration: none;
     &:hover h2 {
@@ -48,7 +53,8 @@
 }
 
 .article-list-description {
-  margin-top: 4px;
+  max-width: 520px;
+  margin: 4px auto 0;
   font-family: $display-font-family;
   font-size: 19px;
   font-style: italic;
@@ -67,8 +73,8 @@
 
 .article-pagination {
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: center;
+  gap: 40px;
   padding-top: 16px;
   margin-top: 16px;
   font-family: $display-font-family;
@@ -82,10 +88,6 @@
       text-decoration: underline;
     }
   }
-}
-
-.article-pagination-newer {
-  margin-left: auto;
 }
 
 // Article page
@@ -312,8 +314,25 @@
     margin-top: 28px;
   }
 
-  .article-list-item h2 {
-    font-size: 22px;
+  .article-list-item {
+    text-align: left;
+    text-wrap: pretty;
+    h2 {
+      font-size: 22px;
+    }
+  }
+
+  .article-list-description {
+    margin-left: 0;
+  }
+
+  .article-pagination {
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .article-pagination-newer {
+    margin-left: auto;
   }
 
   .article {
