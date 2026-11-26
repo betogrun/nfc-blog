@@ -17,6 +17,24 @@
   }
 }
 
+// A tag's page (src/_layouts/tag.erb): its name, centered like the other page titles,
+// and the number of posts under it in mono.
+.tag-header {
+  margin: 48px 0 0;
+  text-align: center;
+  h1 {
+    font-size: 50px;
+    line-height: 1.1;
+  }
+}
+
+.tag-count {
+  margin-top: 12px;
+  font-family: $mono-font-family;
+  font-size: 13px;
+  color: var(--meta);
+}
+
 // Each tag's size grows with its post count (set inline in src/tags.erb).
 // A tag never breaks across lines ("DAISY" / "UI (1)" on phones).
 .tag-cloud {
@@ -36,6 +54,13 @@
 }
 
 @include breakpoint(small) {
+  .tag-header {
+    margin-top: 32px;
+    h1 {
+      font-size: 34px;
+    }
+  }
+
   .tags-page {
     margin-top: 32px;
     h1 {
