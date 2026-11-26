@@ -77,7 +77,7 @@ class TestMetadata < Bridgetown::Test
           assert_equal 1, meta(name).size, "#{name} on #{path}"
         end
         assert_equal "#{SITE}#{path}", meta("og:url").first
-        assert_equal "#{SITE}/images/og-image.jpg", meta("og:image").first
+        assert_equal "#{SITE}/images/og-image-2026.jpg", meta("og:image").first
         assert_equal "summary", meta("twitter:card").first
         assert_equal ["@betogrun"], meta("twitter:creator")
       end
