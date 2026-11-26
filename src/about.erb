@@ -6,7 +6,13 @@ permalink: /about.*
 ---
 <div class="about">
   <h1><%= data.description %></h1>
-  <img class="about-photo" src="/images/myself.png" alt="Alberto Rocha" width="190" height="286" />
+  <%# The dark theme shows the photo with a light T-shirt. The source follows the OS
+      setting, so the browser fetches only that photo; theme.js points it at a saved
+      or toggled choice instead. %>
+  <picture>
+    <source srcset="/images/myself-dark-theme.png" media="(prefers-color-scheme: dark)" data-theme-source>
+    <img class="about-photo" src="/images/myself.png" alt="Alberto Rocha" width="190" height="286" />
+  </picture>
   <p>
     <span class="opening">Hello!</span> My name is Alberto Rocha and I am a seasoned software engineer with over 15 years of experience.
     My expertise lies in full-stack and back-end development, with a focus on using Ruby on Rails to build high-quality
