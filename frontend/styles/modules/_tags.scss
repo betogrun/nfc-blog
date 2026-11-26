@@ -18,8 +18,10 @@
 }
 
 // Each tag's size grows with its post count (set inline in src/tags.erb).
+// A tag never breaks across lines ("DAISY" / "UI (1)" on phones).
 .tag-cloud {
   font-family: $mono-font-family;
+  white-space: nowrap;
   line-height: 2;
   color: var(--ink-strong);
   text-decoration: none;
