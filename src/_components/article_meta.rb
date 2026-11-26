@@ -1,4 +1,6 @@
-# The mono meta line of a post: ISO date, reading time and, in lists, its tags.
+# The mono meta line of a post: ISO date, reading time and its tags. The post page
+# leaves out the tags (they go to "filed under"), and lists the date (it ends the
+# title's line, see ArticleListItem).
 class ArticleMeta < Bridgetown::Component
   WORDS_PER_MINUTE = 250
 
@@ -11,12 +13,15 @@ class ArticleMeta < Bridgetown::Component
     Array(post.data.tags).map { Tag.new(it, names[it]&.name || it) }
   end
 
-  def initialize(post:, tags: true)
+  def self.date(post) = post.date.strftime("%Y-%m-%d")
+
+  def initialize(post:, date: true, tags: true)
     @post = post
+    @show_date = date
     @show_tags = tags
   end
 
-  def date = @post.date.strftime("%Y-%m-%d")
+  def date = self.class.date(@post)
 
   # Same formula as the Chalk theme, so reading times don't change.
   def minutes = (@post.content.split.size + WORDS_PER_MINUTE) / WORDS_PER_MINUTE

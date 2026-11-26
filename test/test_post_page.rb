@@ -7,14 +7,24 @@ class TestPostPage < Bridgetown::Test
   def squish(text) = text.split.join(" ")
 
   describe "article meta" do
-    it "shows the ISO date, reading time and tag names linking to tag pages in lists" do
+    it "shows the title, a dotted leader and the ISO date on one line in lists, like a contents page" do
       html get "/tag/pagy/"
 
-      meta = document.query_selector(".article-list-item .article-meta")
+      heading = document.query_selector(".article-list-item .article-list-heading")
 
-      assert_includes meta.text, "2024-07-11"
-      assert_equal "2024-07-11", meta.query_selector("time")[:datetime]
-      assert_equal(["Rails", "Pagy", "Tailwind CSS", "Daisy UI"], meta.query_selector_all("a").map { it.text.strip })
+      assert_equal "Overwriting the Pagy Navigation Helper", heading.query_selector("a[href='#{PAGY}'] h2").text.strip
+      assert_equal "true", heading.query_selector(".article-list-leader")["aria-hidden"]
+      assert_equal "2024-07-11", heading.query_selector("time").text.strip
+      assert_equal "2024-07-11", heading.query_selector("time")[:datetime]
+    end
+
+    it "shows the reading time and tag names linking to tag pages under the description in lists" do
+      html get "/tag/pagy/"
+
+      meta = document.query_selector(".article-list-description + .article-meta")
+
+      assert_equal "4 min · Rails, Pagy, Tailwind CSS, Daisy UI", squish(meta.text)
+      assert_nil meta.query_selector("time")
       assert_equal "/tag/pagy/", meta.query_selector("a[href*='pagy']")[:href]
     end
 

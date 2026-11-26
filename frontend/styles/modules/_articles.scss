@@ -19,8 +19,9 @@
 // Lists (home and tag pages)
 // =============================================================================
 
-// Centered on the masthead's axis, like a book's contents; phones align them left
-// (below), where titles and descriptions wrap and ragged centered lines read worse.
+// Set like a book's contents (src/_components/article_list_item.erb): the title, a
+// dotted leader and the date fill the column from edge to edge, lining up with the
+// site links and the theme toggle above.
 
 .article-list {
   padding: 0;
@@ -30,17 +31,7 @@
 
 .article-list-item {
   margin-bottom: 44px;
-  text-align: center;
-  text-wrap: balance;
-  > a {
-    text-decoration: none;
-    &:hover h2 {
-      text-decoration: underline;
-      text-decoration-color: var(--rule);
-      text-decoration-thickness: 1px;
-      text-underline-offset: .15em;
-    }
-  }
+  text-wrap: pretty;
   h2 {
     font-size: 25px;
     font-weight: 500;
@@ -52,9 +43,38 @@
   }
 }
 
+.article-list-heading {
+  display: flex;
+  gap: 12px;
+  // The leader and date follow the title's last line when it wraps.
+  align-items: baseline;
+  align-items: last baseline;
+  > a {
+    text-decoration: none;
+    &:hover h2 {
+      text-decoration: underline;
+      text-decoration-color: var(--rule);
+      text-decoration-thickness: 1px;
+      text-underline-offset: .15em;
+    }
+  }
+  time {
+    flex: none;
+    font-family: $mono-font-family;
+    font-size: 13px;
+    color: var(--meta);
+  }
+}
+
+.article-list-leader {
+  flex: 1 1 24px;
+  min-width: 24px;
+  border-bottom: 2px dotted var(--rule);
+  transform: translateY(-.3em);
+}
+
 .article-list-description {
-  max-width: 520px;
-  margin: 4px auto 0;
+  margin-top: 4px;
   font-family: $display-font-family;
   font-size: 19px;
   font-style: italic;
@@ -73,8 +93,8 @@
 
 .article-pagination {
   display: flex;
-  justify-content: center;
-  gap: 40px;
+  justify-content: space-between;
+  gap: 16px;
   padding-top: 16px;
   margin-top: 16px;
   font-family: $display-font-family;
@@ -88,6 +108,10 @@
       text-decoration: underline;
     }
   }
+}
+
+.article-pagination-newer {
+  margin-left: auto;
 }
 
 // Article page
@@ -314,25 +338,12 @@
     margin-top: 28px;
   }
 
-  .article-list-item {
-    text-align: left;
-    text-wrap: pretty;
-    h2 {
-      font-size: 22px;
-    }
+  .article-list-item h2 {
+    font-size: 22px;
   }
 
-  .article-list-description {
-    margin-left: 0;
-  }
-
-  .article-pagination {
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .article-pagination-newer {
-    margin-left: auto;
+  .article-list-heading time {
+    font-size: 12px;
   }
 
   .article {

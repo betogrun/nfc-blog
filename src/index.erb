@@ -11,11 +11,7 @@ paginate:
 
 <ul class="article-list">
   <% paginator.resources.each do |post| %>
-    <li class="article-list-item">
-      <a href="<%= post.relative_url %>"><h2><%= post.data.title %></h2></a>
-      <p class="article-list-description"><%= post.data.description %></p>
-      <%= render ArticleMeta.new(post:) %>
-    </li>
+    <%= render ArticleListItem.new(post:) %>
   <% end %>
 </ul>
 
