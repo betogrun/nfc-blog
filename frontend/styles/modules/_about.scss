@@ -2,8 +2,9 @@
 // About
 // =============================================================================
 
-// A small round photo on a paper plate, then the heading and the text in the
-// post body's column and size (#119).
+// The heading, then the text in the post body's column and type, with the photo (a
+// cut-out on a transparent background) floated beside it; the text follows the
+// silhouette (#119, AboutB on the canvas).
 
 @use "../variables" as *;
 @use "../mixins" as *;
@@ -14,24 +15,32 @@
     margin-bottom: 32px;
     font-size: 50px;
     line-height: 1.1;
-    text-align: center;
   }
   p {
     margin-bottom: 24px;
   }
+  // Contains the float, so the footer never rides up beside the photo.
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
 }
 
-// The photo is a portrait with a transparent background: crop it to the head and
-// shoulders from the top, over the plate color.
 .about-photo {
-  display: block;
-  width: 132px;
-  height: 132px;
-  margin: 0 auto 28px;
-  object-fit: cover;
-  object-position: 50% 0;
-  background: var(--photo-plate);
-  border-radius: 50%;
+  float: right;
+  width: 190px;
+  height: auto;
+  margin: 4px 0 12px 28px;
+  shape-margin: 12px;
+  shape-outside: url("/images/myself.png");
+}
+
+// The shirt and hair are black: a faint edge keeps the silhouette on the dark paper.
+@include theme(dark) {
+  .about-photo {
+    filter: drop-shadow(0 0 1px rgb(255 255 255 / 28%));
+  }
 }
 
 @include breakpoint(small) {
@@ -40,5 +49,19 @@
     h1 {
       font-size: 34px;
     }
+  }
+
+  // Beside the photo the lines would hold three or four words: the photo goes above
+  // the heading instead.
+  .about {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about-photo {
+    order: -1;
+    float: none;
+    width: 140px;
+    margin: 0 0 20px;
   }
 }
