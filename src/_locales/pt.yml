@@ -24,6 +24,8 @@ pt:
     share: compartilhar
     link_copied: link copiado
     copy_failed: não foi possível copiar
+    copy_link: copiar link
+    email: e-mail
     more_posts: Mais posts
     contents: Sumário
     enable_javascript: Ative o JavaScript para ver os comentários.

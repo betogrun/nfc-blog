@@ -48,10 +48,11 @@ class TestCheckLinks < Minitest::Test
   end
 
   # Static hosts serve /posts/slug from posts/slug.html and /tag/x/ from tag/x/index.html.
+  # The share row's email link (#145) has no recipient: the reader picks one.
   def test_passes_when_links_resolve_the_way_the_host_serves_them
     page "index.html", %(<a href="/posts/hello">post</a> <a href="/tag/ruby/">tag</a> <img src="/images/a.png" alt="a">)
     page "posts/hello.html", %(<a href="/">home</a> <a href="#comments">comments</a><div id="comments"></div>)
-    page "tag/ruby/index.html", "tag"
+    page "tag/ruby/index.html", %(<a href="mailto:?subject=Ruby&amp;body=https%3A%2F%2Fblog.example.test%2F">email</a>)
     write "images/a.png", ""
 
     assert_empty problems

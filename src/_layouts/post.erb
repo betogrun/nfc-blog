@@ -23,8 +23,10 @@ layout: default
     <span class="article-share" hidden><span aria-hidden="true"> · </span><button type="button" data-share
         data-share-title="<%= data.title %>" data-share-url="<%= absolute_url resource.relative_url %>"
         data-share-copied="<%= t("post.link_copied") %>" data-share-failed="<%= t("post.copy_failed") %>"
+        aria-expanded="false" aria-controls="<%= ShareLinks.id %>"
         aria-live="polite"><%= t("post.share") %></button></span>
   </p>
+  <%= render ShareLinks.new(title: data.title, url: absolute_url(resource.relative_url)) %>
 </article>
 
 <nav class="article-nav" aria-label="<%= t("post.more_posts") %>">

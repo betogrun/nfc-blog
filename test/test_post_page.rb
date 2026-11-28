@@ -71,14 +71,13 @@ class TestPostPage < Bridgetown::Test
       assert_equal "/tag/rails/", filed.query_selector("a")[:href]
     end
 
-    it "offers a native share button, hidden until JavaScript shows it" do
+    it "offers a share button, hidden until JavaScript shows it" do
       html get PAGY
 
       share = document.query_selector(".article-filed .article-share[hidden] button[data-share]")
 
       assert_equal "https://blog.albertorocha.me#{PAGY}", share["data-share-url"]
       assert_equal "Overwriting the Pagy Navigation Helper", share["data-share-title"]
-      assert_empty document.query_selector_all("a[href*='twitter.com/intent'], a[href*='x.com/intent']")
     end
 
     it "links to the older post and to the home" do

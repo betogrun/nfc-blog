@@ -29,6 +29,8 @@ en:
     share: share
     link_copied: link copied
     copy_failed: copy failed
+    copy_link: copy link
+    email: email
     more_posts: More posts
     contents: Contents
     enable_javascript: Please enable JavaScript to view the comments.
