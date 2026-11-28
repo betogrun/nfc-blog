@@ -72,6 +72,8 @@ module Commands
         checks: CHECKS,
         disable_external: !external,
         swap_urls: { %r{\A#{Regexp.escape(site_url.chomp("/"))}(?:/|\z)} => "/" },
+        # The share row's email link has no recipient: the reader picks one.
+        ignore_empty_mailto: true,
         log_level: :error
       }
     end
