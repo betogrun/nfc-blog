@@ -119,6 +119,9 @@ Work is issue-driven, and Ruby code is written test-first.
   background in both themes.
 - A post's opening words are set in small caps by `OpeningPhrase`
   (`plugins/opening_phrase.rb`), called from the post layout.
+- Every h2–h4 in a post links to itself through a `#` that `HeadingAnchors`
+  (`plugins/heading_anchors.rb`) appends in the post layout, using Kramdown's ids. Don't change
+  how ids are generated: shared links point at them.
 - `@include theme(light|dark) { ... }` (in `_mixins.scss`) scopes styles to a theme:
   an explicit `data-theme` on `<html>` wins, otherwise the OS preference applies.
 - Code blocks in posts get a copy button from `frontend/javascript/copy_code.js` (#143), with
