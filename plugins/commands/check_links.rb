@@ -25,7 +25,8 @@ module Commands
         "http://stackoverflow.com/questions/2423777/is-it-possible-to-create-a-remote-repo-on-github-from-the-cli-" \
         "without-opening-br/10325316#10325316 is not an HTTPS link"
       ],
-      "posts/publishing-ruby-gems-with-github-actions.html" => ["'a' tag is missing a reference"]
+      "posts/publishing-ruby-gems-with-github-actions.html" => ["'a' tag is missing a reference"],
+      "pt/posts/publishing-ruby-gems-with-github-actions.html" => ["'a' tag is missing a reference"]
     }.freeze
 
     CHECKS = %w[Links Images Scripts Favicon OpenGraph].freeze

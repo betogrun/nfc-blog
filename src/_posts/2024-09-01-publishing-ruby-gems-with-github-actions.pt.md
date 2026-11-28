@@ -1,30 +1,30 @@
 ---
 layout: post
 title: "Publicando gems Ruby com GitHub Actions"
-description: "Automate the release of Ruby gems with GitHub Actions"
+description: "Automatize a publicação de gems Ruby com GitHub Actions"
 tags: [automation, ruby, git, github]
 ---
 
-In this post, I will demonstrate how GitHub Actions can be used to automate the process of publishing gems whenever a new version is created.
+Neste post, vou mostrar como usar o GitHub Actions para automatizar a publicação de gems sempre que uma nova versão é criada.
 
-###### We will cover the following topics:
-- Creating and publishing gems
-- Introduction to GitHub Actions
-- Gem versioning and changelog management
-- Setting up GitHub Actions for gem publishing
-- Automating the publishing process through tag creation
+###### Vamos ver os seguintes tópicos:
+- Criação e publicação de gems
+- Introdução ao GitHub Actions
+- Versionamento de gems e gestão do changelog
+- Configuração do GitHub Actions para publicar gems
+- Automação da publicação com a criação de tags
 
-### Creating and Publishing Gems
+### Criação e publicação de gems
 
-In Ruby, code libraries are called gems. They can be found and installed from a public repository called [RubyGems](https://rubygems.org/){:target="_blank"}, which is the main hosting and management service for gems in the Ruby community. 
+Em Ruby, bibliotecas de código são chamadas de gems. Elas podem ser encontradas e instaladas a partir de um repositório público chamado [RubyGems](https://rubygems.org/){:target="_blank"}, o principal serviço de hospedagem e gestão de gems da comunidade Ruby.
 
-To create a new gem, you can use the `bundle gem` command, which is provided by the `bundler` gem. 
+Para criar uma nova gem, você pode usar o comando `bundle gem`, que vem com a gem `bundler`.
 
 ```shell
 $ bundle gem my_gem
 ```
 
-This command will generate the necessary files and directories for the gem.
+Esse comando gera os arquivos e diretórios necessários para a gem.
 
 ```shell
 my_gem
@@ -41,25 +41,25 @@ my_gem
     └── spec_helper.rb
 ```
 
-Once the gem is ready, you can build it using the `gem build` command, which will create a `.gem` file that can be published to RubyGems.
+Quando a gem estiver pronta, você pode gerá-la com o comando `gem build`, que cria um arquivo `.gem` que pode ser publicado no RubyGems.
 
 ```shell
 $ gem build my_gem.gemspec
 ```
 
-After building the gem, you can publish it to RubyGems using the `gem push` command.
+Depois de gerar a gem, você pode publicá-la no RubyGems com o comando `gem push`.
 
 ```shell
 $ gem push my_gem-0.1.0.gem
 ```
 
-PS: You need to have a RubyGems account and be authenticated to publish gems.
+PS: é preciso ter uma conta no RubyGems e estar autenticado para publicar gems.
 
 ### GitHub Actions
 
-Similar to other CI/CD tools, GitHub Actions allows you to automate tasks like testing, linting, and deployments. The configuration is done through YAML files that define which processes will be executed based on specific events, such as a commit to a particular branch.
+Como outras ferramentas de CI/CD, o GitHub Actions permite automatizar tarefas como testes, lint e deploys. A configuração é feita em arquivos YAML que definem quais processos serão executados a partir de eventos específicos, como um commit em determinada branch.
 
-The example below shows a simple GitHub Actions workflow that will run the tests for a Ruby application whenever a new commit is pushed to the `main` branch:
+O exemplo abaixo mostra um workflow simples do GitHub Actions que roda os testes de uma aplicação Ruby sempre que um novo commit é enviado para a branch `main`:
 
 ```yaml
 name: RSpec tests
@@ -89,22 +89,22 @@ jobs:
       run: bundle exec rspec
 ```
 
-### Gem versioning and changelog management
+### Versionamento de gems e gestão do changelog
 
-When we are satisfied with the gem code and want to release a new version, we need to follow some practices to ensure that the gem is correctly versioned and documented.
+Quando estamos satisfeitos com o código da gem e queremos lançar uma nova versão, precisamos seguir algumas práticas para garantir que a gem fique corretamente versionada e documentada.
 
-Let's use the [lean-microsoft-graph](https://github.com/betogrun/lean-microsoft-graph){:target="_blank"} gem as an example, where a new feature was added and some dependencies were updated in this [Pull Request]().
+Vamos usar como exemplo a gem [lean-microsoft-graph](https://github.com/betogrun/lean-microsoft-graph){:target="_blank"}, em que uma nova funcionalidade foi adicionada e algumas dependências foram atualizadas neste [Pull Request]().
 
-After merging the code, we can create a new Pull Request changing the version number and updating the `CHANGELOG.md` file.
+Depois do merge do código, podemos criar um novo Pull Request alterando o número da versão e atualizando o arquivo `CHANGELOG.md`.
 
-Before proceding, it is important to mention the [Semantic Versioning](https://semver.org/){:target="_blank"} guidelines, that follows the format `MAJOR.MINOR.PATCH`. 
+Antes de continuar, vale mencionar as diretrizes do [Versionamento Semântico](https://semver.org/lang/pt-BR/){:target="_blank"}, que seguem o formato `MAJOR.MINOR.PATCH`.
 
-###### The version number is incremented based on the type of changes made:
-- **Major**: for incompatible API changes
-- **Minor**: for new functionality in a backwards-compatible manner
-- **Patch**: for backwards-compatible bug fixes
+###### O número da versão é incrementado de acordo com o tipo de mudança:
+- **Major**: para mudanças incompatíveis na API
+- **Minor**: para novas funcionalidades compatíveis com versões anteriores
+- **Patch**: para correções de bugs compatíveis com versões anteriores
 
-The version file is located at `lib/lean/microsoft/graph/version.rb`. Since a new feature was added without breaking changes, we will increment the minor version to `3`. So the new version will be `0.3.4`.
+O arquivo de versão fica em `lib/lean/microsoft/graph/version.rb`. Como uma nova funcionalidade foi adicionada sem quebrar compatibilidade, vamos incrementar a versão minor para `3`. Assim, a nova versão será `0.3.4`.
 
 ```ruby
 module LeanMicrosoftGraph
@@ -112,7 +112,7 @@ module LeanMicrosoftGraph
 end
 ```
 
-Now we need to update the `CHANGELOG.md` file with the changes made in the new version.
+Agora precisamos atualizar o arquivo `CHANGELOG.md` com as mudanças da nova versão.
 
 ```markdown
 # Changelog
@@ -134,27 +134,27 @@ Now we need to update the `CHANGELOG.md` file with the changes made in the new v
 [0.3.4]: https://github.com/betogrun/lean-microsoft-graph/releases/tag/v0.3.4
 ```
 
-Please, take a look at the [Keep a Changelog](https://keepachangelog.com/){:target="_blank"} website for more information on how to document the changes in the `CHANGELOG.md` file.
+Dê uma olhada no site [Keep a Changelog](https://keepachangelog.com/pt-BR/){:target="_blank"} para saber mais sobre como documentar as mudanças no arquivo `CHANGELOG.md`.
 
-At this point, we could build and publish the gem manually, but we want to automate this process using GitHub Actions.
+Neste ponto, poderíamos gerar e publicar a gem manualmente, mas queremos automatizar esse processo com o GitHub Actions.
 
-### Setting up GitHub Actions for gem publishing
+### Configuração do GitHub Actions para publicar gems
 
-To automate the process, we need to create a GitHub Workflow, which is a YAML file located in the .github/workflows directory. If it doesn't already exist, we can create it manually or use GitHub to generate an initial file. In the case of the [lean-microsoft-graph](https://github.com/betogrun/lean-microsoft-graph){:target="_blank"} gem, there was already a ruby.yml file responsible for running unit tests, as seen in this [Pull Request](https://github.com/betogrun/lean-microsoft-graph/pull/19/files){:target="_blank"}.
+Para automatizar o processo, precisamos criar um workflow do GitHub, que é um arquivo YAML no diretório .github/workflows. Se ele ainda não existir, podemos criá-lo manualmente ou usar o GitHub para gerar um arquivo inicial. No caso da gem [lean-microsoft-graph](https://github.com/betogrun/lean-microsoft-graph){:target="_blank"}, já havia um arquivo ruby.yml responsável por rodar os testes unitários, como mostra este [Pull Request](https://github.com/betogrun/lean-microsoft-graph/pull/19/files){:target="_blank"}.
 
 
-Github actions will need an authentication token to publish the gem to RubyGems. This token should be stored in the repository secrets and passed to the workflow as an environment variable. The token can be obtained from RubyGems website.
+O GitHub Actions vai precisar de um token de autenticação para publicar a gem no RubyGems. Esse token deve ser guardado nos secrets do repositório e passado ao workflow como variável de ambiente. O token pode ser obtido no site do RubyGems.
 
-###### Follow these steps to add the token to the repository secrets:
-1. Go to `Settings` in the repository.
-2. Navigate to `Secrets and variables` and click on `Actions`.
-3. Click on `New repository secret`.
-4. Name the secret RUBYGEMS_AUTH_TOKEN, paste the obtained token, and click `Add Secret`.
+###### Siga estes passos para adicionar o token aos secrets do repositório:
+1. Vá em `Settings` no repositório.
+2. Navegue até `Secrets and variables` e clique em `Actions`.
+3. Clique em `New repository secret`.
+4. Dê ao secret o nome RUBYGEMS_AUTH_TOKEN, cole o token obtido e clique em `Add Secret`.
 
-Now we need to add a new job to the existing YAML file to handle the steps required to publish the gem.
-We could also handle the publication process in a separate workflow file, but in this case, we will add it to the existing file.
+Agora precisamos adicionar um novo job ao arquivo YAML existente para cuidar dos passos necessários para publicar a gem.
+Também poderíamos cuidar da publicação em um arquivo de workflow separado, mas neste caso vamos adicioná-la ao arquivo existente.
 
-Let's add a new job called `publish` to the existing YAML file:
+Vamos adicionar um novo job chamado `publish` ao arquivo YAML existente:
 
 ```yaml
 jobs:
@@ -164,12 +164,12 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
 ```
 
-###### In the example above, we:
-- Added the `needs` keyword to specify that the publish job should wait for the test job to complete successfully before running. This creates a dependency that ensures the tests are executed first.
-- Specified the environment where the job will run. In this example, the job runs on the latest version of Ubuntu.
-- Included a condition to the job to ensure that it only runs when a new tag starting with `v` is created, indicating a version release.
+###### No exemplo acima, nós:
+- Adicionamos a palavra-chave `needs` para indicar que o job de publicação deve esperar o job de testes terminar com sucesso antes de rodar. Isso cria uma dependência que garante que os testes sejam executados primeiro.
+- Definimos o ambiente em que o job vai rodar. Neste exemplo, o job roda na versão mais recente do Ubuntu.
+- Incluímos uma condição no job para garantir que ele só rode quando uma nova tag começando com `v` for criada, indicando o lançamento de uma versão.
 
-Now, we need to define the step to set up the environment. In this example, we set up Ruby and define the Ruby version to use:
+Agora precisamos definir o passo que prepara o ambiente. Neste exemplo, configuramos o Ruby e definimos a versão a ser usada:
 
 ```yaml
   steps:
@@ -181,8 +181,8 @@ Now, we need to define the step to set up the environment. In this example, we s
         ruby-version: '3.4'  # Specify the Ruby version to use
 ```
 
-Lastly, we need to add the step to build and publish the gem.<br>
-First, we create the `.gem` directory and the credentials file. Then, we set the permissions for the file and write the authentication token to it.
+Por fim, precisamos adicionar o passo que gera e publica a gem.<br>
+Primeiro, criamos o diretório `.gem` e o arquivo de credenciais. Depois, definimos as permissões do arquivo e gravamos nele o token de autenticação.
 
 ```yaml
     - name: Publish to RubyGems
@@ -193,21 +193,21 @@ First, we create the `.gem` directory and the credentials file. Then, we set the
         printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
 ```
 
-Then we build the gem and push it to RubyGems:
+Em seguida, geramos a gem e a enviamos para o RubyGems:
 
 ```yaml
         gem build *.gemspec
         gem push *.gem
 ```
 
-We can't forget to use the `env` keyword to pass the RubyGems authentication token from the repository secrets:
+Não podemos esquecer de usar a palavra-chave `env` para passar o token de autenticação do RubyGems a partir dos secrets do repositório:
 
 ```yaml
       env:
         GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_AUTH_TOKEN  }}
 ```
 
-The complete job for publishing the gem should look like this:
+O job completo de publicação da gem deve ficar assim:
 
 ```yaml
 publish:
@@ -232,38 +232,38 @@ publish:
           GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_AUTH_TOKEN  }}
 ```
 
-### Automating the publishing process through tag creation
+### Automação da publicação com a criação de tags
 
-Finally, after merging the [Pull Request](https://github.com/betogrun/lean-microsoft-graph/pull/60) that updates the gem version and the changelog, the next step is to create a new tag for the new version by running the following command:
+Por fim, depois do merge do [Pull Request](https://github.com/betogrun/lean-microsoft-graph/pull/60) que atualiza a versão da gem e o changelog, o próximo passo é criar uma nova tag para a nova versão com o seguinte comando:
 
 ```shell
 $ git tag -a v0.3.4 -m "Version 0.3.4"
 ```
 
-The `-a` flag creates an annotated tag, and the `-m` flag adds a message to the tag. Both are optional.
+A flag `-a` cria uma tag anotada, e a flag `-m` adiciona uma mensagem à tag. As duas são opcionais.
 
-After that, we need to push the tag to the remote repository on GitHub:
+Depois disso, precisamos enviar a tag para o repositório remoto no GitHub:
 
 ```shell
 $ git push origin v0.3.4
 ```
 
-After pushing the tag, the GitHub Actions workflow will be triggered, and the gem will be built and published to RubyGems.
+Depois que a tag é enviada, o workflow do GitHub Actions é disparado, e a gem é gerada e publicada no RubyGems.
 
-The result of the workflow can be checked in the Actions tab of the repository.
+O resultado do workflow pode ser conferido na aba Actions do repositório.
 
-![Github actions workflow](/images/post_2024_8_30/github-actions.png){: .zooming}
+![Workflow do GitHub Actions](/images/post_2024_8_30/github-actions.png){: .zooming}
 
-The new version of the gem will be available on RubyGems, and the changes will be reflected in the [gem page](https://rubygems.org/gems/lean-microsoft-graph){:target="_blank"}.
+A nova versão da gem fica disponível no RubyGems, e as mudanças aparecem na [página da gem](https://rubygems.org/gems/lean-microsoft-graph){:target="_blank"}.
 
-### Conclusion
+### Conclusão
 
-This post demonstrated how to automate the process of publishing Ruby gems using GitHub Actions, and also covered the best practices for versioning and changelog management.<br>
-Please fell free to share how you are using GitHub Actions to automate your workflows and your favorite approaches to gem versioning and publishing.
+Este post mostrou como automatizar a publicação de gems Ruby com o GitHub Actions e também passou pelas boas práticas de versionamento e de gestão do changelog.<br>
+Fique à vontade para contar como você usa o GitHub Actions para automatizar seus workflows e quais são suas abordagens preferidas para versionar e publicar gems.
 
-### References
+### Referências
 
 - [RubyGems](https://rubygems.org/){:target="_blank"}
-- [GitHub Actions](https://docs.github.com/en/actions){:target="_blank"}
-- [Semantic Versioning](https://semver.org/){:target="_blank"}
-- [Keep a Changelog](https://keepachangelog.com/){:target="_blank"}
+- [GitHub Actions](https://docs.github.com/pt/actions){:target="_blank"}
+- [Versionamento Semântico](https://semver.org/lang/pt-BR/){:target="_blank"}
+- [Keep a Changelog](https://keepachangelog.com/pt-BR/){:target="_blank"}

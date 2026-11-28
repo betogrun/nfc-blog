@@ -107,13 +107,15 @@ class TestCheckLinks < Minitest::Test
   end
 
   # Entries for pages missing from a build are skipped, so a renamed post must take its
-  # entry along; otherwise the entry would silently stop doing anything.
+  # entry along; otherwise the entry would silently stop doing anything. A translation
+  # (slug.pt.md) is built under pt/.
   def test_known_failures_belong_to_existing_posts
     sources = Dir[File.expand_path("../src/_posts/*.md", __dir__)]
-    slugs = sources.map { File.basename(it, ".md").sub(/\A\d{4}-\d{2}-\d{2}-/, "") }
+    paths = sources.map { File.basename(it, ".md").sub(/\A\d{4}-\d{2}-\d{2}-/, "").split(".") }
+                   .map { |slug, locale| [locale, "posts/#{slug}.html"].compact.join("/") }
 
     Commands::CheckLinks::KNOWN_FAILURES.each_key do |path|
-      assert_includes slugs.map { "posts/#{it}.html" }, path
+      assert_includes paths, path
     end
   end
 
