@@ -36,6 +36,24 @@ https://blog.albertorocha.me.
 - Every tag in a post's `tags:` needs an entry in `src/_data/tags.yml` (slug →
   display name); a test fails otherwise. Each tag gets a `/tag/<slug>/` page.
 - Drafts: `published: false` in front matter; preview with `bin/bt start -U`.
+- Translations (#127): a Portuguese version sits next to its original as
+  `YYYY-MM-DD-<slug>.pt.md`, with the same slug and tags, and is served at `/pt/posts/<slug>`.
+  Code blocks stay as in the original. The author approves every translation.
+
+## Portuguese version
+
+- English at the root, Portuguese under `/pt/` with the same paths, through Bridgetown's
+  i18n (`available_locales` in `config/initializers.rb`). Site pages (home, tags, 404,
+  feed) use `locale: multi`; the About page has `about.pt.erb`.
+- Interface strings live in `src/_locales/{en,pt}.yml` and render with `t()` in templates
+  (`I18n.t` in Ruby); don't hardcode interface text. Tag names that differ in Portuguese go
+  under `tag_names` in `pt.yml`.
+- `Locales` (`plugins/locales.rb`) gives a path in a language (`Locales.path("/tags")`), the
+  posts in a language and a page's versions; use it for every internal link.
+- The header's `EN · PT` selector and the `hreflang` links show only on pages that exist in
+  both languages. A script in `<head>` sends a reader whose browser prefers Portuguese to the
+  translation, and a language picked in the selector is saved and always wins.
+- `src/feed.erb` renders one Atom feed per language (`/feed.xml`, `/pt/feed.xml`).
 
 ## Language
 
@@ -97,7 +115,8 @@ Work is issue-driven, and Ruby code is written test-first.
 - The home's subtitle, in the masthead under the name, rolls one of `taglines` (in `site_metadata.yml`) per
   visit; the first is the main subtitle and the site `description`. Keep the count a die
   size (4, 6, 8, 10, 12 or 20) and each tagline within the length `test/test_taglines.rb`
-  allows. The Disqus shortname stays `notesfromacoder`, the old name.
+  allows. The Portuguese ones sit under `pt:` in the same file, one per English tagline.
+  The Disqus shortname stays `notesfromacoder`, the old name.
 - Visual checks: headless Chromium screenshots of `bin/bt start`; simulate the dark
   OS setting with `--blink-settings=preferredColorScheme=0`.
 
