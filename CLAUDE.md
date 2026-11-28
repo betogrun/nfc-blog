@@ -39,6 +39,12 @@ https://blog.albertorocha.me.
 - Translations (#127): a Portuguese version sits next to its original as
   `YYYY-MM-DD-<slug>.pt.md`, with the same slug and tags, and is served at `/pt/posts/<slug>`.
   Code blocks stay as in the original. The author approves every translation.
+- Portuguese style: Brazilian, a little informal but correct, no slang or regional
+  expressions. "Você" for the reader ("a gente" now and then); "pra" rather than "para".
+  Keep the English terms Brazilian developers use (commit, branch, merge, pull request,
+  deploy, workflow, job, token, secrets, tag, changelog; "a gem", feminine) and translate
+  the rest (repositório, versão, testes). No enclitic pronouns ("gerá-la"): rephrase
+  instead. Shorter, more direct sentences than the original are fine.
 
 ## Portuguese version
 
