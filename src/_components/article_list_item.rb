@@ -6,4 +6,6 @@ class ArticleListItem < Bridgetown::Component
   end
 
   def date = ArticleMeta.date(@post)
+
+  def datetime = ArticleMeta.datetime(@post)
 end

@@ -3,6 +3,7 @@ pt:
   lang: pt-BR
   og_locale: pt_BR
   language_name: Português
+  date_format: "%d/%m/%Y"
   tagline:
     rolled: tirou {roll} num d{sides}
   nav:

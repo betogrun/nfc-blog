@@ -4,6 +4,8 @@ en:
   lang: en
   og_locale: en_US
   language_name: English
+  # Post dates, as strftime formats.
+  date_format: "%Y-%m-%d"
   tagline:
     # The subtitle's tooltip; {roll} and {sides} are filled in by the page's script.
     rolled: rolled a {roll} on a d{sides}
