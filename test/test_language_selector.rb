@@ -63,6 +63,31 @@ class TestLanguageSelector < Bridgetown::Test
     end
   end
 
+  describe "browser language" do
+    it "has a script that can send the reader to their language, where there is a translation" do
+      html get GEMS
+
+      script = document.query_selector("head script[data-language-redirect]")
+
+      assert_includes script.text, "navigator.languages"
+      assert_equal "en", document.query_selector("html")["data-locale"]
+
+      html get PAGY
+
+      assert_nil document.query_selector("head script[data-language-redirect]")
+    end
+
+    it "runs before the stylesheet, so the page doesn't flash in the other language" do
+      html get GEMS
+
+      children = document.query_selector("head").children.to_a
+      script = children.index { it.name == "script" && it["data-language-redirect"] }
+      stylesheet = children.index { it.name == "link" && it[:rel] == "stylesheet" }
+
+      assert_operator script, :<, stylesheet
+    end
+  end
+
   describe "head" do
     it "lists both versions with hreflang, English as the default" do
       html get GEMS_PT
