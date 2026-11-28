@@ -27,6 +27,10 @@ pt:
     more_posts: Mais posts
     contents: Sumário
     enable_javascript: Ative o JavaScript para ver os comentários.
+  code:
+    copy: Copiar
+    copied: Copiado
+    copy_failed: Falha ao copiar
   pagination:
     label: Paginação
     older: Posts mais antigos

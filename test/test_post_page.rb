@@ -103,6 +103,22 @@ class TestPostPage < Bridgetown::Test
 
       assert_equal "In this post,", document.query_selector(".article-content p:first-of-type .opening").text
     end
+
+    # The copy buttons on code blocks are added by JavaScript (#143), which reads its
+    # labels from the post body so they come from the locale files.
+    {
+      PAGY => ["Copy", "Copied", "Copy failed"],
+      "/pt/posts/publishing-ruby-gems-with-github-actions" => ["Copiar", "Copiado", "Falha ao copiar"]
+    }.each do |path, labels|
+      it "hands the code copy button its labels in the page's language on #{path}" do
+        html get path
+
+        content = document.query_selector(".article-content")
+        rendered = %w[data-copy data-copy-copied data-copy-failed].map { content[it] }
+
+        assert_equal labels, rendered
+      end
+    end
   end
 
   describe "comments" do

@@ -32,6 +32,11 @@ en:
     more_posts: More posts
     contents: Contents
     enable_javascript: Please enable JavaScript to view the comments.
+  code:
+    # The button that copies a code block (console blocks copy only their commands).
+    copy: Copy
+    copied: Copied
+    copy_failed: Copy failed
   pagination:
     label: Pagination
     older: Older posts
