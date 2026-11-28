@@ -29,6 +29,7 @@ pt:
     more_posts: Mais posts
     contents: Sumário
     enable_javascript: Ative o JavaScript para ver os comentários.
+    section_link: Link pra esta seção
   code:
     copy: Copiar
     copied: Copiado
