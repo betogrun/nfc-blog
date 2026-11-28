@@ -8,7 +8,8 @@
 
 @use "mixins" as *;
 
-@include theme(light) {
+// The light palette, also the one on paper (_print.scss).
+@mixin light-colors {
   color-scheme: light;
   --page-background: #fbfaf7;
   --ink: #2b2926;         // body text
@@ -23,6 +24,10 @@
   --code-number: #8b5a14; // symbols and numbers
   --code-variable: #2f6a73;
   --code-comment: #6b665c;
+}
+
+@include theme(light) {
+  @include light-colors;
 }
 
 @include theme(dark) {
