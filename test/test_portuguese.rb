@@ -25,20 +25,13 @@ class TestPortuguese < Bridgetown::Test
       assert_equal "Publicando gems Ruby com GitHub Actions", document.query_selector(".article-header h1").text.strip
     end
 
-    it "keeps each home to the posts in its language" do
+    it "keeps translations off the English home" do
       html get "/"
 
       titles = document.query_selector_all(".article-list-item h2").map { it.text.strip }
 
       assert_includes titles, "Publishing Ruby Gems with GitHub Actions"
       refute_includes titles, "Publicando gems Ruby com GitHub Actions"
-
-      html get "/pt/"
-
-      hrefs = document.query_selector_all(".article-list-item > a").map { it[:href] }
-
-      assert_includes hrefs, GEMS_PT
-      assert_empty(hrefs.reject { it.start_with?("/pt/") })
     end
 
     it "points the older-post link at a post in the same language" do
@@ -102,7 +95,7 @@ class TestPortuguese < Bridgetown::Test
   end
 
   describe "site pages" do
-    it "has the tags page in Portuguese, counting only Portuguese posts" do
+    it "has the tags page in Portuguese" do
       html get "/pt/tags"
 
       assert_equal "pt-BR", document.query_selector("html")[:lang]
@@ -114,12 +107,6 @@ class TestPortuguese < Bridgetown::Test
 
       assert_equal "Automação", document.query_selector(".tag-header h1").text.strip
       assert_includes document.query_selector_all(".article-list-item > a").map { it[:href] }, GEMS_PT
-    end
-
-    it "says a tag has no posts yet in Portuguese" do
-      html get "/pt/tag/design/"
-
-      assert_includes document.query_selector(".article-empty").text, "Ainda não há posts em Design."
     end
 
     it "has the About page in Portuguese" do

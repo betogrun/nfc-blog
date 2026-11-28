@@ -9,11 +9,14 @@ paginate:
   collection: posts
   per_page: 8
   permalink: /posts/page/:num/
+  # Both homes page through the English posts; /pt/ shows each one's translation where
+  # there is one (Locales.translation), so the pages match.
+  locale: en
 ---
 
 <ul class="article-list">
   <% paginator.resources.each do |post| %>
-    <%= render ArticleListItem.new(post:) %>
+    <%= render ArticleListItem.new(post: Locales.translation(post) || post) %>
   <% end %>
 </ul>
 

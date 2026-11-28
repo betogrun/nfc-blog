@@ -9,7 +9,7 @@ locale_overrides:
 permalink: /:locale/tags.*
 sitemap: false
 ---
-<% counts = Locales.posts(data.locale).flat_map { it.data.tags || [] }.tally.sort.to_h %>
+<% counts = Locales.listed_posts(data.locale).flat_map { it.data.tags || [] }.tally.sort.to_h %>
 
 <div class="tags-page">
   <h1 class="tags-page-header">

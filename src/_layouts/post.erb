@@ -27,8 +27,8 @@ layout: default
 </article>
 
 <nav class="article-nav" aria-label="<%= t("post.more_posts") %>">
-  <%# Posts are sorted newest first, so the next one in the same language is the older post. %>
-  <% posts = Locales.posts(data.locale) %>
+  <%# Lists are newest first, so the next one in this language's list is the older post. %>
+  <% posts = Locales.listed_posts(data.locale) %>
   <% if (older = posts[posts.index(resource) + 1]) %>
     <a href="<%= older.relative_url %>" class="article-nav-older"><span aria-hidden="true">←</span> <%= older.data.title %></a>
   <% end %>

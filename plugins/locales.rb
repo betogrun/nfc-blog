@@ -13,6 +13,17 @@ module Locales
     Bridgetown::Current.site.collections.posts.resources.select { it.data.locale == locale.to_sym }
   end
 
+  # The posts a list shows in a language: every post, as its translation where one exists.
+  # Translations only exist for English posts, so the English list holds them all.
+  def self.listed_posts(locale = I18n.locale)
+    posts(DEFAULT).map { translation(it, locale) || it }
+  end
+
+  # A post's version in a language, if there is one.
+  def self.translation(post, locale = I18n.locale)
+    post.all_locales.find { it.data.locale == locale.to_sym }
+  end
+
   # The versions of a page, as { locale => path }, when it exists in more than one
   # language. Translations share the path after the language prefix. A page with
   # `translations: false` has none, even if the other language has the same path.

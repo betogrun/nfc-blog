@@ -56,6 +56,9 @@ https://blog.albertorocha.me.
   under `tag_names` in `pt.yml`.
 - `Locales` (`plugins/locales.rb`) gives a path in a language (`Locales.path("/tags")`), the
   posts in a language and a page's versions; use it for every internal link.
+- Portuguese lists (home, tags, tag pages, older-post link) show every post: the translation
+  where there is one, otherwise the English post marked "em inglês" (`Locales.listed_posts`).
+  Portuguese tag pages exist only for tags with posts; the Portuguese feed has translations only.
 - The header's `EN · PT` selector and the `hreflang` links show only on pages that exist in
   both languages. A script in `<head>` sends a reader whose browser prefers Portuguese to the
   translation, and a language picked in the selector is saved and always wins.

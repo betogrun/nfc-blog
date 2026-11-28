@@ -23,6 +23,8 @@ en:
     email: Email
     rss: RSS feed
   post:
+    # After the title of a post listed in the other language.
+    other_language: in Portuguese
     filed_under: filed under
     share: share
     link_copied: link copied

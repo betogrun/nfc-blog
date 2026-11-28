@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<% posts = Locales.posts(data.locale).select { it.data.tags&.include?(data.tag_slug) } %>
+<% posts = Locales.listed_posts(data.locale).select { it.data.tags&.include?(data.tag_slug) } %>
 
 <header class="tag-header">
   <h1><%= data.title %></h1>
