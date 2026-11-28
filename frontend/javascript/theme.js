@@ -6,7 +6,7 @@ const prefersDark = window.matchMedia("(prefers-color-scheme: dark)")
 const currentTheme = () => root.dataset.theme || (prefersDark.matches ? "dark" : "light")
 
 // A <picture> source marked data-theme-source holds the dark theme's image and follows
-// the OS setting; point it at an explicit choice instead (see src/about.erb).
+// the OS setting; point it at an explicit choice instead (see src/_partials/_about_photo.erb).
 const syncThemeSources = () => {
   if (!root.dataset.theme) return
   document.querySelectorAll("[data-theme-source]").forEach((source) => {

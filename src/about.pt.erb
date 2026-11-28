@@ -6,11 +6,7 @@ permalink: /:locale/about.*
 ---
 <div class="about">
   <h1><%= data.description %></h1>
-  <%# The same photo as the English page (src/about.erb), and the same theme handling. %>
-  <picture>
-    <source srcset="/images/myself-dark-theme.png" media="(prefers-color-scheme: dark)" data-theme-source>
-    <img class="about-photo" src="/images/myself.png" alt="Alberto Rocha" width="190" height="286" />
-  </picture>
+  <%= render "about_photo" %>
   <p>
     <span class="opening">Olá!</span> Meu nome é Alberto Rocha e sou engenheiro de software, com mais de 15 anos de experiência.
     Minha especialidade é o desenvolvimento full-stack e back-end, principalmente com Ruby on Rails,

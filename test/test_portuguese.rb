@@ -114,6 +114,7 @@ class TestPortuguese < Bridgetown::Test
 
       assert_equal "pt-BR", document.query_selector("html")[:lang]
       assert_equal "Sobre mim", document.query_selector(".about h1").text.strip
+      refute_nil document.query_selector(".about h1 + picture source[data-theme-source]")
     end
 
     it "has a Portuguese 404 page under /pt/" do
