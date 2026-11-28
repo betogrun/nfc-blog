@@ -8,19 +8,29 @@ tags: [git]
 Sometimes we realize that a problematic file was added and commited by mistake, others we just commit the right files in the wrong branch.
 For these cases we can easely undo the commit following the example bellow:
 
-```bash
-#Some file is modified
-echo "something wrong here" >> new_file.txt
-#The change is commited
+Some file is modified:
+
+```console?prompt=$
+$ echo "something wrong here" >> new_file.txt
+```
+
+The change is commited:
+
+```console?prompt=$
 $ git commit -m "Something wrong!"
-#After realize the mistake, use the follwing commmand:
+```
+
+After realize the mistake, use the follwing commmand:
+
+```console?prompt=$
 $ git reset HEAD~
 Unstaged changes after reset:
 M	new_file.txt
 ```
 
 The changes will be unstaged:
-```bash
+
+```console?prompt=$
 $ git status
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
