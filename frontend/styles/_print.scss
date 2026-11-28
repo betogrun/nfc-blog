@@ -1,0 +1,246 @@
+// =============================================================================
+// Print
+// =============================================================================
+
+// A post on paper (or saved as PDF): the light palette on white whatever the screen
+// theme, the text at book size, nothing to click, and each link's destination written
+// out. Used last in index.scss, so these rules win over the screen ones they match.
+
+@use "variables" as *;
+@use "themes";
+
+@page {
+  margin: 18mm 20mm 20mm;
+}
+
+@media print {
+  // The theme rules use two-part selectors (_mixins.scss); doubling :root matches them.
+  :root:root {
+    @include themes.light-colors;
+    --page-background: #fff;
+  }
+
+  html,
+  body {
+    font-size: 11pt;
+    line-height: 1.5;
+    background: #fff;
+  }
+
+  // The page is narrower than the small breakpoint, so its phone rules apply here too;
+  // the column takes the whole width between the page margins instead.
+  .page {
+    max-width: none;
+    padding: 0;
+  }
+
+  // Nothing interactive
+  // ===========================================================================
+
+  .site-bar,
+  .site-tagline,
+  .site-masthead .site-dinkus,
+  .article-share,
+  .share-links, // #145
+  .article-nav,
+  .article-comments,
+  #disqus_thread,
+  .article-content .heading-anchor, // #146
+  .code-copy, // #143
+  .article-pagination,
+  main > .topic-index, // the home's; the Topics page keeps its own
+  .site-footer .site-dinkus,
+  .site-footer-about,
+  .site-footer nav {
+    display: none !important;
+  }
+
+  // The masthead: just the name and byline, small, so the page says where it is from.
+  .site-masthead {
+    padding: 0;
+  }
+
+  .site-name {
+    font-size: 10pt;
+  }
+
+  .site-byline {
+    margin-top: 0;
+    font-size: 8pt;
+    a {
+      padding: 0;
+      text-decoration: none;
+    }
+  }
+
+  .site-footer {
+    padding: 0;
+    margin-top: 24pt;
+    font-size: 7.5pt;
+  }
+
+  // Posts
+  // ===========================================================================
+
+  .article {
+    margin: 20pt 0 0;
+  }
+
+  .article-header {
+    margin-bottom: 24pt;
+    h1 {
+      margin-top: 8pt;
+      font-size: 24pt;
+    }
+  }
+
+  .article-meta,
+  .article-filed {
+    font-size: 8pt;
+  }
+
+  .article-meta a {
+    text-decoration: none;
+  }
+
+  .article-description {
+    max-width: none;
+    margin-top: 8pt;
+    font-size: 13pt;
+  }
+
+  .article-filed {
+    margin-top: 18pt;
+  }
+
+  .article-content {
+    p,
+    ul,
+    ol,
+    dl,
+    table,
+    img,
+    .highlighter-rouge,
+    .embed-responsive {
+      margin-bottom: 10pt;
+    }
+
+    h1,
+    h2 {
+      margin: 22pt 0 8pt;
+      font-size: 10pt;
+    }
+
+    h3 {
+      margin: 18pt 0 6pt;
+      font-size: 14pt;
+    }
+
+    h4 {
+      margin: 14pt 0 5pt;
+      font-size: 12.5pt;
+    }
+
+    h5,
+    h6 {
+      margin: 12pt 0 4pt;
+      font-size: 9pt;
+    }
+
+    blockquote {
+      padding: 0 24pt;
+      margin: 18pt 0;
+      font-size: 14pt;
+    }
+
+    hr {
+      margin: 18pt 0;
+    }
+
+    sup a.footnote {
+      font-size: 7pt;
+    }
+
+    .footnotes::before {
+      margin: 18pt 0 12pt;
+    }
+
+    // An outside link writes out where it goes: "text (https://…)". Links whose text
+    // already is the URL, the "Sources" lists under an h6, don't repeat it; links to
+    // this page (#…) and to the blog's own paths don't start with http.
+    a[href^="http"]:not(h6 + ul a)::after {
+      content: " (" attr(href) ")";
+      font-family: $mono-font-family;
+      font-size: .78em;
+      color: var(--meta);
+      overflow-wrap: anywhere;
+    }
+  }
+
+  // Page flow
+  // ===========================================================================
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    break-after: avoid;
+  }
+
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  img,
+  figure,
+  .embed-responsive,
+  tr {
+    max-width: 100%;
+    break-inside: avoid;
+  }
+
+  // Code
+  // ===========================================================================
+
+  // Long lines wrap instead of running off the page; a thin border replaces the fill,
+  // which browsers drop by default; a block that fits on one page stays on it. #143's
+  // copy button leaves a strip above the code on screen, reset here.
+  .article-content .highlighter-rouge,
+  div.highlight {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  div.highlight,
+  div.highlighter-rouge:has(> .code-copy) div.highlight {
+    padding: 8pt 10pt;
+    overflow: visible;
+    font-size: 8.5pt;
+    line-height: 1.5;
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: $base-border-radius;
+    break-inside: avoid;
+    pre {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  code.highlighter-rouge {
+    padding: 0;
+    background: none;
+  }
+
+  // Other pages
+  // ===========================================================================
+
+  // The About photo's faint edge is for dark paper only.
+  :root:root .about-photo {
+    filter: none;
+  }
+}
