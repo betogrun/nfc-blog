@@ -139,6 +139,10 @@ Work is issue-driven, and Ruby code is written test-first.
   size (4, 6, 8, 10, 12 or 20) and each tagline within the length `test/test_taglines.rb`
   allows. The Portuguese ones sit under `pt:` in the same file, one per English tagline.
   The Disqus shortname stays `notesfromacoder`, the old name.
+- The share button after "filed under" (#145) opens the system share sheet on phones (Web Share
+  API and a coarse pointer); elsewhere it shows and hides the `ShareLinks` row under it (copy
+  link, LinkedIn, Bluesky, X, Hacker News, Reddit, email), built in Ruby from the post's title
+  and URL. Plain links only: no third-party scripts or tracking parameters.
 - Visual checks: headless Chromium screenshots of `bin/bt start`; simulate the dark
   OS setting with `--blink-settings=preferredColorScheme=0`.
 
