@@ -418,6 +418,79 @@
   margin-top: 24px;
 }
 
+// Heading anchors: a "#" after each h2-h4 of a post, linking the heading to itself (see
+// plugins/heading_anchors.rb). Where there is no hover it follows the heading text, always
+// visible in the meta color; on desktops it hangs in the left margin and shows on hover or
+// focus. The link keeps the heading's font and line height, so its line sits on the
+// heading's first line; the smaller mono "#" is the inner span.
+.article-content {
+  h2,
+  h3,
+  h4 {
+    scroll-margin-top: 32px;
+  }
+
+  .heading-anchor {
+    position: relative;
+    color: var(--meta);
+    text-decoration: none;
+    &:hover {
+      color: var(--ink-strong);
+    }
+    // A larger target for fingers, without moving the text around it.
+    &::after {
+      position: absolute;
+      inset: -10px -8px;
+      content: "";
+    }
+    span {
+      font-family: $mono-font-family;
+      font-size: .7em;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+  }
+
+  // h2 is set small, in spaced caps; its "#" keeps close to the letters' size.
+  h2 .heading-anchor span {
+    font-size: .9em;
+  }
+}
+
+@media (hover: hover) and (min-width: 768px) {
+  .article-content {
+    h2,
+    h3,
+    h4 {
+      position: relative;
+      &:hover .heading-anchor {
+        opacity: 1;
+      }
+    }
+
+    .heading-anchor {
+      position: absolute;
+      top: 0;
+      right: 100%;
+      padding-right: .45em;
+      opacity: 0;
+      transition: opacity $base-transition-speed linear, color $base-transition-speed linear;
+      &:focus-visible {
+        opacity: 1;
+      }
+    }
+
+    // h2 is centered, so its "#" stays next to the text instead of the far margin; out of
+    // the flow, it leaves the centering alone.
+    h2 .heading-anchor {
+      top: auto;
+      right: auto;
+      padding: 0 0 0 .45em;
+    }
+  }
+}
+
 // Responsive
 // =============================================================================
 

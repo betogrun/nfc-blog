@@ -34,6 +34,8 @@ en:
     more_posts: More posts
     contents: Contents
     enable_javascript: Please enable JavaScript to view the comments.
+    # The accessible name of the "#" link after a heading in a post.
+    section_link: Link to this section
   code:
     # The button that copies a code block (console blocks copy only their commands).
     copy: Copy

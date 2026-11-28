@@ -12,7 +12,7 @@ layout: default
 
   <div class="article-content" data-copy="<%= t("code.copy") %>"
     data-copy-copied="<%= t("code.copied") %>" data-copy-failed="<%= t("code.copy_failed") %>">
-    <%= OpeningPhrase.wrap(yield).html_safe %>
+    <%= HeadingAnchors.add(OpeningPhrase.wrap(yield), label: t("post.section_link")).html_safe %>
   </div>
 
   <p class="article-filed">
