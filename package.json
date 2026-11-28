@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "esbuild": "node esbuild.config.js --minify",
-    "esbuild-dev": "node esbuild.config.js --watch"
+    "esbuild-dev": "node esbuild.config.js --watch",
+    "test": "node --test test/javascript/"
   },
   "devDependencies": {
     "cf": "1.0.0-rc.2",

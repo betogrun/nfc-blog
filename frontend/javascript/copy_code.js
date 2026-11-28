@@ -1,6 +1,8 @@
 // A copy button on every code block in a post (#143). Added here rather than in the HTML,
 // so it only shows where the Clipboard API can work. Labels come from the post body's
-// data- attributes, rendered from the locale files.
+// data- attributes, rendered from the locale files; what gets copied is in code_text.js.
+import { textToCopy } from "./code_text"
+
 const MESSAGE_FOR = 2000
 
 export function setupCopyButtons() {
@@ -28,7 +30,7 @@ export function setupCopyButtons() {
 
       button.addEventListener("click", async () => {
         try {
-          await navigator.clipboard.writeText(textToCopy(block, code))
+          await navigator.clipboard.writeText(textToCopy(languageOf(block), piecesOf(code)))
           say(copied)
         } catch {
           say(failed)
@@ -40,59 +42,14 @@ export function setupCopyButtons() {
   })
 }
 
-// Shell scripts in posts often show a `$ ` before commands, mixed with lines that have none
-// (`touch file` then `$ git add file`), so these lose the prompt and keep every line.
-const SHELLS = ["bash", "shell", "sh", "zsh"]
-
-function textToCopy(block, code) {
-  const text = code.textContent.replace(/\n$/, "")
-  if (block.classList.contains("language-console")) return commands(code) ?? text
-  if (SHELLS.some((shell) => block.classList.contains(`language-${shell}`))) return text.replace(/^\$ /gm, "")
-
-  return text
+// Kramdown sets the fence's language as a `language-<name>` class on the wrapper.
+function languageOf(block) {
+  return [...block.classList].find((name) => name.startsWith("language-"))?.slice("language-".length)
 }
 
-// A shell prompt, `$` or `%`, maybe after a `user@host:path` with no spaces. Rouge guesses
-// prompts, and also marks output such as `  #another` or `abc..def  master ->` as `.gp`.
-const PROMPT = /^\S*[$%]$/
-
-// The commands of a console session: the lines that start with a prompt, without it, and
-// none of the output. A command ending in `\` carries on to the next line. Blocks without
-// any prompt are copied as they are, so this returns null for them.
-function commands(code) {
-  const lines = [{ prompt: false, text: "" }]
-
-  code.childNodes.forEach((node) => {
-    const pieces = node.textContent.split("\n")
-    const isPrompt = node.nodeType === Node.ELEMENT_NODE && node.classList.contains("gp") &&
-      PROMPT.test(node.textContent)
-
-    pieces.forEach((piece, index) => {
-      if (index > 0) lines.push({ prompt: false, text: "" })
-      const line = lines.at(-1)
-
-      if (isPrompt && line.text.trim() === "") {
-        line.prompt = true
-        line.text = ""
-      } else {
-        line.text += piece
-      }
-    })
-  })
-
-  if (!lines.some((line) => line.prompt)) return null
-
-  const kept = []
-  let continues = false
-  lines.forEach((line) => {
-    if (line.prompt) {
-      kept.push(line.text.trim())
-    } else if (continues) {
-      kept.push(line.text)
-    } else {
-      return
-    }
-    continues = kept.at(-1).trimEnd().endsWith("\\")
-  })
-  return kept.join("\n")
+function piecesOf(code) {
+  return [...code.childNodes].map((node) => ({
+    text: node.textContent,
+    prompt: node.nodeType === Node.ELEMENT_NODE && node.classList.contains("gp")
+  }))
 }

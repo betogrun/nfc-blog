@@ -9,7 +9,8 @@ STEPS = {
   "Style: Ruby" => %w[bin/rubocop],
   "Build: production" => [{ "BRIDGETOWN_ENV" => "production" }, "bin/bridgetown", "deploy"],
   "Links" => %w[bin/bridgetown check_links],
-  "Tests" => %w[bin/bridgetown test]
+  "Tests" => %w[bin/bridgetown test],
+  "Tests: JavaScript" => %w[npm test --silent]
 }.freeze
 
 def clock = Process.clock_gettime(Process::CLOCK_MONOTONIC)
