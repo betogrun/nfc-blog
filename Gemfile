@@ -27,8 +27,7 @@ git_source(:codeberg) { "https://codeberg.org/#{it}.git" }
 # and then run `bundle update bridgetown`
 gem "bridgetown", "~> 2.2.2"
 
-# Plugins: Atom feed, sitemap and SEO/Open Graph metadata
-gem "bridgetown-feed", "~> 4.0"
+# Plugins: sitemap and SEO/Open Graph metadata
 gem "bridgetown-seo-tag", "~> 7.0"
 gem "bridgetown-sitemap", "~> 3.0"
 

@@ -108,6 +108,16 @@
   }
 }
 
+// "em inglês" after the title of a post not translated yet.
+.article-list-language {
+  margin-left: .4em;
+  font-family: $mono-font-family;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--meta);
+  white-space: nowrap;
+}
+
 .article-list-description {
   margin-top: 4px;
   font-family: $display-font-family;

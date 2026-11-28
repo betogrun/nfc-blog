@@ -21,6 +21,11 @@ Bridgetown.configure do |_config|
   # Available options are `erb` (default), `serbea`, or `liquid`
   template_engine "erb"
 
+  # English at the root, Portuguese under /pt/.
+  # https://www.bridgetownrb.com/docs/internationalization
+  available_locales %i[en pt]
+  default_locale :en
+
   # Other options you might want to investigate:
 
   # See list of timezone values here:
@@ -28,9 +33,8 @@ Bridgetown.configure do |_config|
   #
   # timezone "America/Los_Angeles"
 
-  # Atom feed at /feed.xml, sitemap at /sitemap.xml, and <head> metadata via the
-  # `seo` helper (settings in src/_data/site_metadata.yml).
-  init :"bridgetown-feed"
+  # Sitemap at /sitemap.xml, and <head> metadata via the `seo` helper (settings in
+  # src/_data/site_metadata.yml). The Atom feeds come from src/feed.erb.
   init :"bridgetown-sitemap"
   init :"bridgetown-seo-tag"
 
@@ -42,7 +46,7 @@ Bridgetown.configure do |_config|
 
   # Posts keep their Jekyll URLs: /posts/:slug (served from posts/:slug.html).
   # https://www.bridgetownrb.com/docs/content/permalinks
-  permalink "/posts/:slug.*"
+  permalink "/:locale/posts/:slug.*"
 
   # Optionally host your site off a path, e.g. /blog. If you set this option,
   # ensure you use the `relative_url` helper for all links and assets in your HTML.

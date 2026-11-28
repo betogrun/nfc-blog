@@ -3,8 +3,9 @@ require "minitest_helper"
 class TestLayout < Bridgetown::Test
   PAGY = "/posts/overwriting-pagy-navigation-helper".freeze
   PER_PAGE = 8
+  # English posts only: translations are named slug.pt.md.
   POST_COUNT = Dir[File.expand_path("../src/_posts/*.md", __dir__)].count do |path|
-    !File.read(path).match?(/^published: false$/)
+    !path.end_with?(".pt.md") && !File.read(path).match?(/^published: false$/)
   end
   PAGE_COUNT = (POST_COUNT / PER_PAGE.to_f).ceil
 

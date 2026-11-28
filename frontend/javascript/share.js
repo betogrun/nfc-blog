@@ -6,7 +6,7 @@ export function setupShareButtons() {
   if (!navigator.share && !navigator.clipboard) return
 
   document.querySelectorAll("[data-share]").forEach((button) => {
-    const { shareTitle: title, shareUrl: url } = button.dataset
+    const { shareTitle: title, shareUrl: url, shareCopied: copied, shareFailed: failed } = button.dataset
     const label = button.textContent
 
     const say = (message) => {
@@ -17,9 +17,9 @@ export function setupShareButtons() {
     const copy = async () => {
       try {
         await navigator.clipboard.writeText(url)
-        say("link copied")
+        say(copied)
       } catch {
-        say("copy failed")
+        say(failed)
       }
     }
 

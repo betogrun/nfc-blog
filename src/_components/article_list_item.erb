@@ -1,8 +1,8 @@
-<li class="article-list-item">
-  <a href="<%= @post.relative_url %>"><h2><%= @post.data.title %></h2></a>
+<li class="article-list-item"<% if other_language? %> lang="<%= t("lang", locale: @post.data.locale) %>"<% end %>>
+  <a href="<%= @post.relative_url %>"><h2><%= @post.data.title %><% if other_language? %> <span class="article-list-language" lang="<%= t("lang") %>"><%= t("post.other_language") %></span><% end %></h2></a>
   <p class="article-list-description"><%= @post.data.description %></p>
   <div class="article-list-meta">
-    <time datetime="<%= date %>"><%= date %></time>
+    <time datetime="<%= datetime %>"><%= date %></time>
     <%= render ArticleMeta.new(post: @post, date: false) %>
   </div>
 </li>

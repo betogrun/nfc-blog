@@ -93,7 +93,7 @@ jobs:
 
 When we are satisfied with the gem code and want to release a new version, we need to follow some practices to ensure that the gem is correctly versioned and documented.
 
-Let's use the [lean-microsoft-graph](https://github.com/betogrun/lean-microsoft-graph){:target="_blank"} gem as an example, where a new feature was added and some dependencies were updated in this [Pull Request]().
+Let's use the [lean-microsoft-graph](https://github.com/betogrun/lean-microsoft-graph){:target="_blank"} gem as an example, where a new feature was added and some dependencies were updated in this [Pull Request](https://github.com/betogrun/lean-microsoft-graph/pull/58){:target="_blank"}.
 
 After merging the code, we can create a new Pull Request changing the version number and updating the `CHANGELOG.md` file.
 
@@ -104,7 +104,7 @@ Before proceding, it is important to mention the [Semantic Versioning](https://s
 - **Minor**: for new functionality in a backwards-compatible manner
 - **Patch**: for backwards-compatible bug fixes
 
-The version file is located at `lib/lean/microsoft/graph/version.rb`. Since a new feature was added without breaking changes, we will increment the minor version to `3`. So the new version will be `0.3.4`.
+The version file is located at `lib/lean/microsoft/graph/version.rb`. A new feature without breaking changes calls for a minor bump, which would make it `0.4.0`; this release went out as a patch, `0.3.4`, so that is the version used from here on.
 
 ```ruby
 module LeanMicrosoftGraph
@@ -219,7 +219,7 @@ publish:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'
+          ruby-version: '3.4'
       - name: Publish to RubyGems
         run: |
           mkdir -p $HOME/.gem
@@ -234,7 +234,7 @@ publish:
 
 ### Automating the publishing process through tag creation
 
-Finally, after merging the [Pull Request](https://github.com/betogrun/lean-microsoft-graph/pull/60) that updates the gem version and the changelog, the next step is to create a new tag for the new version by running the following command:
+Finally, after merging the [Pull Request](https://github.com/betogrun/lean-microsoft-graph/pull/60){:target="_blank"} that updates the gem version and the changelog, the next step is to create a new tag for the new version by running the following command:
 
 ```shell
 $ git tag -a v0.3.4 -m "Version 0.3.4"

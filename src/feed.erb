@@ -1,0 +1,40 @@
+---
+# One Atom feed per language: /feed.xml and /pt/feed.xml, each with its own posts. Entry
+# ids keep bridgetown-feed's format, so feed readers don't show old posts as new.
+# ERB escapes every value, which is the XML escaping the feed needs.
+layout: none
+locale: multi
+permalink: /:locale/feed.xml
+sitemap: false
+---
+<?xml version="1.0" encoding="utf-8"?>
+<% metadata = site.metadata %>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="<%= t("lang") %>">
+  <generator uri="https://bridgetownrb.com/" version="<%= Bridgetown::VERSION %>">Bridgetown</generator>
+  <link href="<%= absolute_url resource.relative_url %>" rel="self" type="application/atom+xml" />
+  <link href="<%= absolute_url Locales.path("/") %>" rel="alternate" type="text/html" hreflang="<%= I18n.locale %>" />
+  <updated><%= site.time.xmlschema %></updated>
+  <id><%= absolute_url(resource.relative_url) %></id>
+  <title type="html"><%= smartify(metadata.title) %></title>
+  <subtitle><%= Locales.metadata(metadata, :description) %></subtitle>
+  <author>
+    <name><%= metadata.author %></name>
+  </author>
+  <% Locales.posts(data.locale).first(10).each do |post| %>
+    <% url = absolute_url(post.relative_url) %>
+    <entry>
+      <title type="html"><%= normalize_whitespace(strip_html(smartify(post.data.title))) %></title>
+      <link href="<%= url %>" rel="alternate" type="text/html" title="<%= post.data.title %>" />
+      <published><%= post.date.xmlschema %></published>
+      <updated><%= post.date.xmlschema %></updated>
+      <id><%= absolute_url(post.id) %></id>
+      <content type="html" xml:base="<%= url %>"><%= post.content.strip %></content>
+      <author>
+        <name><%= metadata.author %></name>
+      </author>
+      <% Array(post.data.tags).each do |tag| %>
+        <category term="<%= tag %>" />
+      <% end %>
+    </entry>
+  <% end %>
+</feed>

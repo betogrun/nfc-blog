@@ -1,12 +1,12 @@
 ---
 layout: default
 ---
-<% posts = collections.posts.resources.select { it.data.tags&.include?(data.tag_slug) } %>
+<% posts = Locales.listed_posts(data.locale).select { it.data.tags&.include?(data.tag_slug) } %>
 
 <header class="tag-header">
   <h1><%= data.title %></h1>
   <% if posts.any? %>
-    <p class="tag-count"><%= posts.size %> <%= posts.one? ? "post" : "posts" %></p>
+    <p class="tag-count"><%= t("tag.count", count: posts.size) %></p>
   <% end %>
 </header>
 <% if posts.any? %>
@@ -16,5 +16,5 @@ layout: default
     <% end %>
   </ul>
 <% else %>
-  <p class="article-empty">There are no posts in <%= data.tag_slug %>.</p>
+  <p class="article-empty"><%= t("tag.empty", name: data.title) %></p>
 <% end %>

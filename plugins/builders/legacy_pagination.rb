@@ -15,7 +15,8 @@ class Builders::LegacyPagination < SiteBuilder
 
   private
 
-  def last_page = [(site.collections.posts.resources.size / per_page.to_f).ceil, 1].max
+  # Only the English home has legacy pages.
+  def last_page = [(Locales.posts(Locales::DEFAULT).size / per_page.to_f).ceil, 1].max
 
   # The home's page size, from its front matter (src/index.erb).
   def per_page = site.collections.pages.resources.filter_map { it.data.paginate&.per_page }.first

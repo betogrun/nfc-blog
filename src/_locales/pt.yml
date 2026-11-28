@@ -1,0 +1,49 @@
+# Portuguese interface strings; the keys mirror en.yml.
+pt:
+  lang: pt-BR
+  og_locale: pt_BR
+  language_name: Português
+  date_format: "%d/%m/%Y"
+  tagline:
+    rolled: tirou {roll} num d{sides}
+  nav:
+    tags: Tags
+    about: Sobre
+    site: Site
+    language: Idioma
+  theme:
+    switch: Alternar tema
+    to_dark: Mudar pro tema escuro
+    to_light: Mudar pro tema claro
+  footer:
+    elsewhere: Redes e contato
+    email: E-mail
+    rss: Feed RSS
+  post:
+    other_language: em inglês
+    filed_under: arquivado em
+    share: compartilhar
+    link_copied: link copiado
+    copy_failed: não foi possível copiar
+    more_posts: Mais posts
+    contents: Sumário
+    enable_javascript: Ative o JavaScript para ver os comentários.
+  pagination:
+    label: Paginação
+    older: Posts mais antigos
+    newer: Posts mais recentes
+    count: página %{page} de %{total}
+  tag:
+    count:
+      one: "%{count} post"
+      other: "%{count} posts"
+    empty: Ainda não há posts em %{name}.
+  tags:
+    title: Tags
+    see_all: Ver todos os posts com a tag %{name}
+  not_found:
+    lost: Parece que você se perdeu.
+    back_html: Vamos voltar pra <a href="%{home}">página inicial</a>!
+  # Tag names that differ from src/_data/tags.yml.
+  tag_names:
+    automation: Automação

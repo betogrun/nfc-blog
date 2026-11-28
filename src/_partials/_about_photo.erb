@@ -1,0 +1,7 @@
+<%# The About photo, in both languages. The dark theme shows the photo with a light T-shirt.
+    The source follows the OS setting, so the browser fetches only that photo; theme.js points
+    it at a saved or toggled choice instead. %>
+<picture>
+  <source srcset="/images/myself-dark-theme.png" media="(prefers-color-scheme: dark)" data-theme-source>
+  <img class="about-photo" src="/images/myself.png" alt="Alberto Rocha" width="190" height="286" />
+</picture>

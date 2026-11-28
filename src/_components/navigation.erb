@@ -1,18 +1,30 @@
 <header class="site-header">
   <div class="site-bar">
-    <nav class="site-nav" aria-label="Site">
+    <nav class="site-nav" aria-label="<%= t("nav.site") %>">
       <% site_links.each do |name, href| %>
         <a href="<%= href %>"><%= name %></a>
       <% end %>
     </nav>
-    <button type="button" class="theme-toggle" aria-label="Switch theme" data-theme-toggle>
-      <%= render Icon.new("theme") %>
-    </button>
+    <div class="site-prefs">
+      <% if @alternates.any? %>
+        <nav class="language-nav" aria-label="<%= t("nav.language") %>">
+          <% @alternates.each_with_index do |(locale, href), index| %>
+            <% if index.positive? %><span aria-hidden="true">·</span><% end %>
+            <a href="<%= href %>" hreflang="<%= locale %>" lang="<%= t("lang", locale:) %>"
+              aria-label="<%= t("language_name", locale:) %>" data-locale="<%= locale %>"<% if locale == I18n.locale %> aria-current="true"<% end %>><%= locale.upcase %></a>
+          <% end %>
+        </nav>
+      <% end %>
+      <button type="button" class="theme-toggle" aria-label="<%= t("theme.switch") %>" data-theme-toggle
+        data-label-dark="<%= t("theme.to_dark") %>" data-label-light="<%= t("theme.to_light") %>">
+        <%= render Icon.new("theme") %>
+      </button>
+    </div>
   </div>
   <div class="site-masthead">
-    <a href="/" class="site-name"><% first, last = name_parts %><%= first %><% if last %> <span class="site-name-amp">&amp;</span> <%= last %><% end %></a>
+    <a href="<%= home %>" class="site-name"><% first, last = name_parts %><%= first %><% if last %> <span class="site-name-amp">&amp;</span> <%= last %><% end %></a>
     <% if @tagline %>
-      <%= render Tagline.new(taglines: @metadata.taglines) %>
+      <%= render Tagline.new(taglines:, rolled: t("tagline.rolled")) %>
     <% end %>
     <div class="site-dinkus" aria-hidden="true">· · ·</div>
   </div>

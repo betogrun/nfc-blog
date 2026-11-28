@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="<%= t("lang") %>" data-locale="<%= I18n.locale %>">
   <head>
     <%= render "head", metadata: site.metadata %>
   </head>
   <body>
-    <%= render Navigation.new(metadata: site.metadata, tagline: data.tagline) %>
+    <%= render Navigation.new(metadata: site.metadata, tagline: data.tagline, alternates: Locales.alternates(resource)) %>
     <main class="page">
       <%= yield %>
     </main>

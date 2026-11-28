@@ -1,19 +1,25 @@
-# The mono meta line of a post: ISO date, reading time and its tags. The post page
+# The mono meta line of a post: date, reading time and its tags. The post page
 # leaves out the tags (they go to "filed under"), and lists the date (it ends the
 # meta line on the right, see ArticleListItem).
 class ArticleMeta < Bridgetown::Component
   WORDS_PER_MINUTE = 250
 
   Tag = Data.define(:slug, :name) do
-    def href = "/tag/#{slug}/"
+    def href = Locales.path("/tag/#{slug}/")
   end
 
-  def self.tags(post)
-    names = Bridgetown::Current.site.data.tags
-    Array(post.data.tags).map { Tag.new(it, names[it]&.name || it) }
+  def self.tags(post) = Array(post.data.tags).map { Tag.new(it, tag_name(it)) }
+
+  # A tag's display name: src/_data/tags.yml, or its translation in src/_locales.
+  def self.tag_name(slug)
+    I18n.t("tag_names.#{slug}", default: Bridgetown::Current.site.data.tags[slug]&.name || slug)
   end
 
-  def self.date(post) = post.date.strftime("%Y-%m-%d")
+  # The date as the page's language writes it (ISO in English, dd/mm/yyyy in Portuguese);
+  # `datetime` keeps ISO for machines.
+  def self.date(post) = post.date.strftime(I18n.t("date_format"))
+
+  def self.datetime(post) = post.date.strftime("%Y-%m-%d")
 
   def initialize(post:, date: true, tags: true)
     @post = post
@@ -22,6 +28,8 @@ class ArticleMeta < Bridgetown::Component
   end
 
   def date = self.class.date(@post)
+
+  def datetime = self.class.datetime(@post)
 
   # Same formula as the Chalk theme, so reading times don't change.
   def minutes = (@post.content.split.size + WORDS_PER_MINUTE) / WORDS_PER_MINUTE
