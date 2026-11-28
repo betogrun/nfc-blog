@@ -331,6 +331,22 @@
   }
 }
 
+// A button that reads like the links around it.
+%link-button {
+  padding: 12px 0;
+  margin: -12px 0;
+  color: var(--ink-strong);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: .2em;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
 // "filed under" tags and the share button, after the text.
 .article-filed {
   margin-top: 32px;
@@ -338,18 +354,40 @@
   font-size: 13px;
   color: var(--meta);
   button {
-    padding: 12px 0;
-    margin: -12px 0;
-    color: var(--ink-strong);
-    text-decoration: underline;
-    text-decoration-color: var(--rule);
-    text-underline-offset: .2em;
-    cursor: pointer;
-    background: none;
-    border: 0;
-    &:hover {
-      text-decoration-color: currentColor;
-    }
+    @extend %link-button;
+  }
+}
+
+// The share links the share button shows and hides on desktops (#145), on a line of their
+// own under a dotted rule. Vertical padding keeps the touch targets tall.
+.share-links {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 12px 0 0;
+  margin: 14px 0 0;
+  font-family: $mono-font-family;
+  font-size: 13px;
+  line-height: 2;
+  color: var(--meta);
+  list-style: none;
+  border-top: 1px dotted var(--rule);
+  &[hidden] {
+    display: none;
+  }
+  // After each item rather than before the next, so a wrapped line doesn't start with one.
+  li:not(:last-child)::after {
+    white-space: pre;
+    content: " · ";
+    content: " · " / "";
+  }
+  a {
+    padding: 10px 0;
+    margin: -10px 0;
+  }
+  button {
+    @extend %link-button;
+    padding: 10px 0;
+    margin: -10px 0;
   }
 }
 
