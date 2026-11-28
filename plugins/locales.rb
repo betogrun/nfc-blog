@@ -14,8 +14,11 @@ module Locales
   end
 
   # The versions of a page, as { locale => path }, when it exists in more than one
-  # language. Translations share the path after the language prefix.
+  # language. Translations share the path after the language prefix. A page with
+  # `translations: false` has none, even if the other language has the same path.
   def self.alternates(page)
+    return {} if page.data["translations"] == false
+
     path = unprefixed(page.respond_to?(:relative_url) ? page.relative_url : page.url)
     versions = I18n.available_locales.to_h { [it, path(path, it)] }.select { |_, url| urls.include?(url) }
     versions.size > 1 ? versions : {}

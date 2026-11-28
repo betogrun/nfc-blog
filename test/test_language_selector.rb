@@ -56,6 +56,18 @@ class TestLanguageSelector < Bridgetown::Test
       end
     end
 
+    # A redirect would replace the address the reader mistyped, and the other language's
+    # 404 is no translation of a missing page.
+    it "is left out of the 404 pages, with no hreflang or redirect" do
+      ["/404.html", "/pt/404.html"].each do |path|
+        html get path
+
+        assert_nil selector, path
+        assert_empty alternates, path
+        assert_nil document.query_selector("script[data-language-redirect]"), path
+      end
+    end
+
     it "is left out where there is no translation" do
       html get PAGY
 

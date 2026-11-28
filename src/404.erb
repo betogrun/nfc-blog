@@ -8,6 +8,8 @@ locale_overrides:
     description: "Página não encontrada"
 # Cloudflare serves the nearest 404.html, so /pt/ paths get the Portuguese one.
 permalink: /:locale/404.html
+# No selector, hreflang or redirect: a redirect would replace the mistyped address.
+translations: false
 sitemap: false
 layout: default
 ---
