@@ -3,6 +3,8 @@ layout: default
 title: "Reflections & Refactors"
 # The masthead shows the rolled tagline on the home only.
 tagline: true
+# One home per language: / and /pt/, each listing its own posts.
+locale: multi
 paginate:
   collection: posts
   per_page: 8
@@ -16,16 +18,16 @@ paginate:
 </ul>
 
 <% if paginator.total_pages > 1 %>
-  <nav class="article-pagination" aria-label="Pagination">
+  <nav class="article-pagination" aria-label="<%= t("pagination.label") %>">
     <span>
       <% if paginator.next_page %>
-        <a href="<%= paginator.next_page_path %>" class="article-pagination-older"><span aria-hidden="true">←</span> Older posts</a>
+        <a href="<%= paginator.next_page_path %>" class="article-pagination-older"><span aria-hidden="true">←</span> <%= t("pagination.older") %></a>
       <% end %>
     </span>
-    <span class="article-pagination-count">page <%= paginator.page %> of <%= paginator.total_pages %></span>
+    <span class="article-pagination-count"><%= t("pagination.count", page: paginator.page, total: paginator.total_pages) %></span>
     <span>
       <% if paginator.previous_page %>
-        <a href="<%= paginator.previous_page_path %>" class="article-pagination-newer">Newer posts <span aria-hidden="true">→</span></a>
+        <a href="<%= paginator.previous_page_path %>" class="article-pagination-newer"><%= t("pagination.newer") %> <span aria-hidden="true">→</span></a>
       <% end %>
     </span>
   </nav>

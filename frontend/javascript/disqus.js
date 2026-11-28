@@ -3,10 +3,11 @@ export function setupDisqus() {
   const thread = document.getElementById("disqus_thread")
   if (!thread) return
 
-  const { disqusShortname, disqusIdentifier, disqusUrl } = thread.dataset
+  const { disqusShortname, disqusIdentifier, disqusUrl, disqusLanguage } = thread.dataset
   window.disqus_config = function () {
     this.page.identifier = disqusIdentifier
     this.page.url = disqusUrl
+    this.language = disqusLanguage
   }
 
   const script = document.createElement("script")

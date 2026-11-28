@@ -1,6 +1,6 @@
 <footer class="site-footer">
   <div class="site-dinkus" aria-hidden="true">· · ·</div>
-  <nav aria-label="Elsewhere">
+  <nav aria-label="<%= t("footer.elsewhere") %>">
     <% Navigation.new(metadata:).links.each do |link| %>
       <a href="<%= link.href %>" aria-label="<%= link.title %>"<% if link.external %> rel="noreferrer noopener" target="_blank"<% end %>>
         <%= render Icon.new(link.icon) %>

@@ -18,7 +18,8 @@ export function setupThemeToggle() {
   const toggles = document.querySelectorAll("[data-theme-toggle]")
   const label = () => {
     const next = currentTheme() === "dark" ? "light" : "dark"
-    toggles.forEach((toggle) => toggle.setAttribute("aria-label", `Switch to ${next} theme`))
+    // The labels come translated from the page (data-label-dark, data-label-light).
+    toggles.forEach((toggle) => toggle.setAttribute("aria-label", next === "dark" ? toggle.dataset.labelDark : toggle.dataset.labelLight))
   }
 
   toggles.forEach((toggle) => {

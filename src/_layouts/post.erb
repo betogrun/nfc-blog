@@ -17,26 +17,29 @@ layout: default
   <p class="article-filed">
     <% tags = ArticleMeta.tags(resource) %>
     <% if tags.any? %>
-      filed under <% tags.each_with_index do |tag, index| %><%= ", " if index.positive? %><a href="<%= tag.href %>"><%= tag.name %></a><% end %>
+      <%= t("post.filed_under") %> <% tags.each_with_index do |tag, index| %><%= ", " if index.positive? %><a href="<%= tag.href %>"><%= tag.name %></a><% end %>
     <% end %>
     <span class="article-share" hidden><span aria-hidden="true"> · </span><button type="button" data-share
         data-share-title="<%= data.title %>" data-share-url="<%= absolute_url resource.relative_url %>"
-        aria-live="polite">share</button></span>
+        data-share-copied="<%= t("post.link_copied") %>" data-share-failed="<%= t("post.copy_failed") %>"
+        aria-live="polite"><%= t("post.share") %></button></span>
   </p>
 </article>
 
-<nav class="article-nav" aria-label="More posts">
-  <%# Posts are sorted newest first, so the next resource is the older post. %>
-  <% if (older = resource.next_resource) %>
+<nav class="article-nav" aria-label="<%= t("post.more_posts") %>">
+  <%# Posts are sorted newest first, so the next one in the same language is the older post. %>
+  <% posts = Locales.posts(data.locale) %>
+  <% if (older = posts[posts.index(resource) + 1]) %>
     <a href="<%= older.relative_url %>" class="article-nav-older"><span aria-hidden="true">←</span> <%= older.data.title %></a>
   <% end %>
-  <a href="/" class="article-nav-contents">Contents</a>
+  <a href="<%= Locales.path("/") %>" class="article-nav-contents"><%= t("post.contents") %></a>
 </nav>
 
 <% if site.metadata.disqus %>
   <div id="disqus_thread" class="article-comments"
     data-disqus-shortname="<%= site.metadata.disqus %>"
     data-disqus-identifier="<%= resource.relative_url %>"
-    data-disqus-url="<%= absolute_url resource.relative_url %>"></div>
-  <noscript>Please enable JavaScript to view the comments.</noscript>
+    data-disqus-url="<%= absolute_url resource.relative_url %>"
+    data-disqus-language="<%= t("lang").tr("-", "_") %>"></div>
+  <noscript><%= t("post.enable_javascript") %></noscript>
 <% end %>

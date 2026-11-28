@@ -2,20 +2,24 @@
 layout: default
 title: "Tags"
 description: "Tag cloud from all the posts"
-permalink: /tags.*
+locale: multi
+locale_overrides:
+  pt:
+    description: "Nuvem de tags de todos os posts"
+permalink: /:locale/tags.*
 sitemap: false
 ---
-<% counts = collections.posts.resources.flat_map { it.data.tags || [] }.tally.sort.to_h %>
+<% counts = Locales.posts(data.locale).flat_map { it.data.tags || [] }.tally.sort.to_h %>
 
 <div class="tags-page">
   <h1 class="tags-page-header">
-    Tags
+    <%= t("tags.title") %>
   </h1>
 
   <% counts.each do |slug, count| %>
-    <% name = (site.data.tags[slug]&.name || slug).upcase %>
+    <% name = ArticleMeta.tag_name(slug).upcase %>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a class="tag-cloud" href="/tag/<%= slug %>/" title="See all posts by <%= name %> tag"
+    <a class="tag-cloud" href="<%= Locales.path("/tag/#{slug}/") %>" title="<%= t("tags.see_all", name:) %>"
       style="font-size: <%= count * 15 + 120 %>%">
       <span><%= name %><small>(<%= count %>)</small></span>
     </a>

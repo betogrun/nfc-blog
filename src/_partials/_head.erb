@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <%= seo_metadata %>
-<%= feed_meta %>
+<link type="application/atom+xml" rel="alternate" href="<%= absolute_url Locales.path("/feed.xml") %>" title="<%= metadata.title %>">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/images/apple-touch-icon-dark.png">
 

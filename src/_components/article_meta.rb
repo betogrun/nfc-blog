@@ -5,12 +5,14 @@ class ArticleMeta < Bridgetown::Component
   WORDS_PER_MINUTE = 250
 
   Tag = Data.define(:slug, :name) do
-    def href = "/tag/#{slug}/"
+    def href = Locales.path("/tag/#{slug}/")
   end
 
-  def self.tags(post)
-    names = Bridgetown::Current.site.data.tags
-    Array(post.data.tags).map { Tag.new(it, names[it]&.name || it) }
+  def self.tags(post) = Array(post.data.tags).map { Tag.new(it, tag_name(it)) }
+
+  # A tag's display name: src/_data/tags.yml, or its translation in src/_locales.
+  def self.tag_name(slug)
+    I18n.t("tag_names.#{slug}", default: Bridgetown::Current.site.data.tags[slug]&.name || slug)
   end
 
   def self.date(post) = post.date.strftime("%Y-%m-%d")

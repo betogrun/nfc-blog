@@ -52,8 +52,6 @@ GEM
       streamlined (>= 0.6.0)
       tilt (~> 2.0)
       zeitwerk (>= 2.7.3)
-    bridgetown-feed (4.0.0)
-      bridgetown (>= 1.2.0)
     bridgetown-foundation (2.2.2)
       dry-inflector (>= 1.0)
       hash_with_dot_access (~> 2.0)
@@ -290,7 +288,6 @@ PLATFORMS
 
 DEPENDENCIES
   bridgetown (~> 2.2.2)
-  bridgetown-feed (~> 4.0)
   bridgetown-seo-tag (~> 7.0)
   bridgetown-sitemap (~> 3.0)
   html-proofer (~> 5.0)
@@ -316,7 +313,6 @@ CHECKSUMS
   bridgetown (2.2.2) sha256=3240782f693c34087ee387cfb5d11036a4ddd4c9bfbfc090e6122d51f50e8a1f
   bridgetown-builder (2.2.2) sha256=dd07b3d3da84888e34747fefaf3869e7c23689ac5ace33c1ec17e145007b41ae
   bridgetown-core (2.2.2) sha256=0997587871c7e06a979fd7530fc93f852eededb25cb6ee117e5107acda49ff7d
-  bridgetown-feed (4.0.0) sha256=bd41d17f34a8bbaac8db66fe89a91b3959e797a24551ab695e899a89994ae6bb
   bridgetown-foundation (2.2.2) sha256=7275e87f4d36a09e51bb7c9f7d3b92eac4539b606fb722975edcb4853074df65
   bridgetown-paginate (2.2.2) sha256=0aa8dffa779b5f53db4a9d7e36c27d7cf2d7c0f9845a1ee2c004296814e8f4fb
   bridgetown-seo-tag (7.0.1) sha256=bc876c646822c392ce14123d111bdc2a62f05f5a14fa86c3d42e269900b02e5b

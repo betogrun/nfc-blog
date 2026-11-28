@@ -1,0 +1,40 @@
+# Interface strings, read with t() in layouts and components. Portuguese is in pt.yml.
+en:
+  # The <html lang> and hreflang code.
+  lang: en
+  nav:
+    tags: Tags
+    about: About
+    site: Site
+  theme:
+    switch: Switch theme
+    to_dark: Switch to dark theme
+    to_light: Switch to light theme
+  footer:
+    elsewhere: Elsewhere
+    email: Email
+    rss: RSS feed
+  post:
+    filed_under: filed under
+    share: share
+    link_copied: link copied
+    copy_failed: copy failed
+    more_posts: More posts
+    contents: Contents
+    enable_javascript: Please enable JavaScript to view the comments.
+  pagination:
+    label: Pagination
+    older: Older posts
+    newer: Newer posts
+    count: page %{page} of %{total}
+  tag:
+    count:
+      one: "%{count} post"
+      other: "%{count} posts"
+    empty: There are no posts in %{name}.
+  tags:
+    title: Tags
+    see_all: See all posts by %{name} tag
+  not_found:
+    lost: Looks like you got lost.
+    back_html: Let's get you back to the <a href="%{home}">homepage</a>!

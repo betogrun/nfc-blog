@@ -1,7 +1,13 @@
 ---
 title: "Page not found"
 description: "Page not found"
-permalink: /404.html
+locale: multi
+locale_overrides:
+  pt:
+    title: "Página não encontrada"
+    description: "Página não encontrada"
+# Cloudflare serves the nearest 404.html, so /pt/ paths get the Portuguese one.
+permalink: /:locale/404.html
 sitemap: false
 layout: default
 ---
@@ -9,9 +15,9 @@ layout: default
 <div class="notfound-wrapper">
   <div class="notfound-content">
     <p>
-      Looks like you got lost.
+      <%= t("not_found.lost") %>
       <br>
-      Let's get you back to the <a href="/">homepage</a>!
+      <%= t("not_found.back_html", home: Locales.path("/")) %>
     </p>
   </div>
 </div>
