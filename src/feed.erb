@@ -12,7 +12,7 @@ sitemap: false
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="<%= t("lang") %>">
   <generator uri="https://bridgetownrb.com/" version="<%= Bridgetown::VERSION %>">Bridgetown</generator>
   <link href="<%= absolute_url resource.relative_url %>" rel="self" type="application/atom+xml" />
-  <link href="<%= absolute_url Locales.path("/") %>" rel="alternate" type="text/html" hreflang="<%= t("lang") %>" />
+  <link href="<%= absolute_url Locales.path("/") %>" rel="alternate" type="text/html" hreflang="<%= I18n.locale %>" />
   <updated><%= site.time.xmlschema %></updated>
   <id><%= absolute_url(resource.relative_url) %></id>
   <title type="html"><%= smartify(metadata.title) %></title>

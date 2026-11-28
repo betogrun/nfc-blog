@@ -10,7 +10,7 @@
         <nav class="language-nav" aria-label="<%= t("nav.language") %>">
           <% @alternates.each_with_index do |(locale, href), index| %>
             <% if index.positive? %><span aria-hidden="true">·</span><% end %>
-            <a href="<%= href %>" hreflang="<%= t("lang", locale:) %>" lang="<%= t("lang", locale:) %>"
+            <a href="<%= href %>" hreflang="<%= locale %>" lang="<%= t("lang", locale:) %>"
               aria-label="<%= t("language_name", locale:) %>" data-locale="<%= locale %>"<% if locale == I18n.locale %> aria-current="true"<% end %>><%= locale.upcase %></a>
           <% end %>
         </nav>

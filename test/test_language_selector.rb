@@ -31,7 +31,7 @@ class TestLanguageSelector < Bridgetown::Test
     it "links each language to the same page in it" do
       html get GEMS
 
-      assert_equal([GEMS_PT, "pt-BR", "pt"], choices["PT"].then { [it[:href], it[:hreflang], it["data-locale"]] })
+      assert_equal([GEMS_PT, "pt", "pt"], choices["PT"].then { [it[:href], it[:hreflang], it["data-locale"]] })
 
       html get GEMS_PT
 
@@ -101,10 +101,11 @@ class TestLanguageSelector < Bridgetown::Test
   end
 
   describe "head" do
+    # The same codes as the sitemap (bridgetown-sitemap); <html lang> stays pt-BR.
     it "lists both versions with hreflang, English as the default" do
       html get GEMS_PT
 
-      assert_equal({ "en" => "#{SITE}#{GEMS}", "pt-BR" => "#{SITE}#{GEMS_PT}", "x-default" => "#{SITE}#{GEMS}" },
+      assert_equal({ "en" => "#{SITE}#{GEMS}", "pt" => "#{SITE}#{GEMS_PT}", "x-default" => "#{SITE}#{GEMS}" },
                    alternates)
     end
 

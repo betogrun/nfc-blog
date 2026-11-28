@@ -15,7 +15,7 @@ class LanguageRedirect < Bridgetown::Component
         .find((language) => language === "en" || language === "pt")
       const wanted = saved || (browser === "pt" ? "pt" : null)
       const version = wanted && wanted !== page &&
-        document.querySelector(`link[rel="alternate"][hreflang^="${wanted}"]`)
+        document.querySelector(`link[rel="alternate"][hreflang="${wanted}"]`)
       if (version) location.replace(new URL(version.href).pathname + location.search + location.hash)
     } catch {}
   JS

@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <%= seo_metadata %>
-<%# Each version of the page, for search engines; English is the default. %>
+<%# Each version of the page, for search engines; English is the default. hreflang uses the
+    locale code, as the sitemap does; <html lang> keeps the full one (pt-BR). %>
 <% if (alternates = Locales.alternates(resource)).any? %>
   <% alternates.each do |locale, path| %>
-    <link rel="alternate" hreflang="<%= t("lang", locale:) %>" href="<%= absolute_url path %>">
+    <link rel="alternate" hreflang="<%= locale %>" href="<%= absolute_url path %>">
   <% end %>
   <link rel="alternate" hreflang="x-default" href="<%= absolute_url alternates[Locales::DEFAULT] %>">
   <%= render LanguageRedirect.new %>
