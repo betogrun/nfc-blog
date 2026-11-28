@@ -10,9 +10,9 @@ en:
     # The subtitle's tooltip; {roll} and {sides} are filled in by the page's script.
     rolled: rolled a {roll} on a d{sides}
   nav:
-    tags: Tags
     about: About
-    site: Site
+    # Before the author's name under the masthead.
+    by: by
     language: Language
   theme:
     switch: Switch theme

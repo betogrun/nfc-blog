@@ -2,8 +2,9 @@
 // Footer
 // =============================================================================
 
-// A row of dots, echoing the masthead's, then the outside links as icons above the
-// copyright line. No rule: the pagination and the list end above it.
+// A row of dots, echoing the masthead's, a link to About for readers who end a post
+// wondering who wrote it, then the outside links as icons above the copyright line.
+// No rule: the pagination and the list end above it.
 
 @use "../variables" as *;
 @use "../mixins" as *;
@@ -37,6 +38,21 @@
   svg {
     width: 18px;
     height: 18px;
+  }
+  // In the spaced caps the header's links used to have.
+  .site-footer-about {
+    @include touch-target;
+    @include spaced-caps($caps-letter-spacing);
+    font-family: $display-font-family;
+    font-size: 13px;
+    color: var(--meta);
+    text-decoration: none;
+  }
+  a.site-footer-about:hover {
+    color: var(--ink-strong);
+  }
+  span.site-footer-about {
+    color: var(--ink-strong);
   }
 }
 

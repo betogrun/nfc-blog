@@ -2,9 +2,9 @@
 // Header
 // =============================================================================
 
-// The same on every page: a thin line with the site links on the left and reader
-// preferences on the right, as wide as the text column, then the centered masthead
-// (the name, the tagline on the home, and a row of dots before the content).
+// The same on every page: a thin line with the reader's preferences on the right, as
+// wide as the text column, then the centered masthead (the name, the byline, the
+// tagline on the home, and a row of dots before the content).
 
 @use "../variables" as *;
 @use "../mixins" as *;
@@ -12,7 +12,8 @@
 .site-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  min-height: 52px;
   max-width: $column-max-width + 2 * $gutter;
   padding: 8px $gutter 0;
   margin: 0 auto;
@@ -21,19 +22,6 @@
   letter-spacing: $caps-letter-spacing;
   text-transform: uppercase;
   color: var(--meta);
-}
-
-.site-nav {
-  display: flex;
-  gap: 24px;
-  a {
-    padding: 12px 0;
-    color: inherit;
-    text-decoration: none;
-    &:hover {
-      color: var(--ink-strong);
-    }
-  }
 }
 
 // Reader preferences: the language selector, then the theme toggle.
@@ -115,6 +103,30 @@
   text-transform: none;
 }
 
+// "by Alberto Rocha" under the name, on every page: the way to the About page, as an
+// author's line on a title page. On the About page the name is plain text.
+.site-byline {
+  margin-top: 6px;
+  font-size: 14px;
+  letter-spacing: $caps-letter-spacing;
+  text-transform: uppercase;
+  color: var(--meta);
+  a,
+  span {
+    color: var(--ink-strong);
+  }
+  a {
+    padding: 10px 0; // a taller touch area, without moving the lines around it
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    &:hover {
+      text-decoration-color: var(--ink-strong);
+    }
+  }
+}
+
 // The home's rolled tagline (src/_components/tagline.rb).
 .site-tagline {
   margin-top: 12px;
@@ -138,10 +150,6 @@
     padding: 4px $gutter-small 0;
   }
 
-  .site-nav {
-    gap: 20px;
-  }
-
   .site-masthead {
     padding: 24px $gutter-small 0;
   }
@@ -155,11 +163,19 @@
     word-spacing: -.47em;
   }
 
+  .site-byline {
+    margin-top: 4px;
+    font-size: 12.5px;
+  }
+
   // The longer taglines wrap to two lines here; reserving both keeps the height the
-  // same whichever one the visit rolls.
+  // same whichever one the visit rolls. A one-line tagline sits in the middle of them.
   .site-tagline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-height: 2.8em;
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 17px;
   }
 

@@ -4,12 +4,12 @@
     <%= render "head", metadata: site.metadata %>
   </head>
   <body>
-    <%= render Navigation.new(metadata: site.metadata, tagline: data.tagline, alternates: Locales.alternates(resource)) %>
+    <%= render Navigation.new(metadata: site.metadata, tagline: data.tagline, alternates: Locales.alternates(resource), page: resource) %>
     <main class="page">
       <%= yield %>
     </main>
     <div class="page">
-      <%= render "footer", metadata: site.metadata %>
+      <%= render "footer", metadata: site.metadata, page: resource %>
     </div>
   </body>
 </html>
