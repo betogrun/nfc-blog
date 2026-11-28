@@ -122,7 +122,8 @@ Work is issue-driven, and Ruby code is written test-first.
 - `@include theme(light|dark) { ... }` (in `_mixins.scss`) scopes styles to a theme:
   an explicit `data-theme` on `<html>` wins, otherwise the OS preference applies.
 - Code blocks in posts get a copy button from `frontend/javascript/copy_code.js` (#143), with
-  labels from `data-copy*` attributes on `.article-content`. `console` blocks copy only the
+  labels from `data-copy*` attributes on `.article-content`, in a strip above the code. What it
+  copies is decided in `code_text.js`, a pure module tested with `npm test` (`node --test`). `console` blocks copy only the
   commands after a `$` or `%` prompt; Rouge also marks some output as a prompt (`.gp`).
   `bash`, `shell`, `sh` and `zsh` blocks lose a leading `$ ` on each line and keep every line.
 - Icons: `render Icon.new("name")` inlines `frontend/icons/name.svg`.
@@ -167,6 +168,7 @@ Work is issue-driven, and Ruby code is written test-first.
 | New draft post              | `bin/bt new_post "Title"` |
 | Console                     | `bin/bt console` |
 | Run tests                   | `bin/bt test`    |
+| Run JavaScript tests        | `npm test`       |
 | Lint (autofix: `-a`)        | `bin/rubocop`    |
 | Link check (`--external` adds outside links) | `bin/bt check_links` |
 | Full CI gate                | `bin/ci`         |

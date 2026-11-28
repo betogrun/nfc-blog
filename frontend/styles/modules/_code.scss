@@ -55,17 +55,20 @@ div.highlight {
 // =============================================================================
 
 // Added by copy_code.js (#143) on the wrapper rather than on div.highlight, so it stays
-// in the corner while the code scrolls sideways. Always visible, for touch screens.
+// in the corner while the code scrolls sideways. Always visible, for touch screens. The
+// code starts below it, since a long first line would otherwise run under it.
 div.highlighter-rouge {
   position: relative;
 }
 
-// It lines up with the first line of code (20px padding, 14px × 1.65 lines, a 26px box),
-// so a one-line block has it centered.
+div.highlighter-rouge:has(> .code-copy) div.highlight {
+  padding-top: 46px;
+}
+
 .code-copy {
   position: absolute;
-  top: 18px;
-  right: 14px;
+  top: 10px;
+  right: 12px;
   padding: 3px 9px;
   font-family: $mono-font-family;
   font-size: 12px;
@@ -94,11 +97,6 @@ div.highlighter-rouge {
 
   &:focus-visible {
     color: var(--ink-strong);
-  }
-
-  @include breakpoint(small) {
-    top: 14px;
-    right: 12px;
   }
 }
 
