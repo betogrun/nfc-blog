@@ -1,0 +1,8 @@
+<ul id="<%= self.class.id %>" class="share-links" hidden>
+  <li class="share-links-copy"><button type="button" data-share-copy data-share-url="<%= @url %>"
+      data-share-copied="<%= t("post.link_copied") %>" data-share-failed="<%= t("post.copy_failed") %>"
+      aria-live="polite"><%= t("post.copy_link") %></button></li>
+  <% links.each do |link| %>
+    <li><a href="<%= link.href %>"<% if link.external? %> target="_blank" rel="noopener"<% end %>><%= link.name %></a></li>
+  <% end %>
+</ul>
