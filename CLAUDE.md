@@ -118,6 +118,9 @@ Work is issue-driven, and Ruby code is written test-first.
   (`plugins/opening_phrase.rb`), called from the post layout.
 - `@include theme(light|dark) { ... }` (in `_mixins.scss`) scopes styles to a theme:
   an explicit `data-theme` on `<html>` wins, otherwise the OS preference applies.
+- Code blocks in posts get a copy button from `frontend/javascript/copy_code.js` (#143), with
+  labels from `data-copy*` attributes on `.article-content`. `console` blocks copy only the
+  commands after a `$` or `%` prompt; Rouge also marks some output as a prompt (`.gp`).
 - Icons: `render Icon.new("name")` inlines `frontend/icons/name.svg`.
 - `<head>` metadata (Open Graph, Twitter card, canonical) comes from bridgetown-seo-tag
   via the `seo_metadata` helper (`plugins/builders/seo_metadata.rb`); don't hand-write
