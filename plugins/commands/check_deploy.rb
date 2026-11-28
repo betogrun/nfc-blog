@@ -3,16 +3,21 @@ require "nokolexbor"
 require_relative "site_url"
 
 # `bin/bt check_deploy URL` checks a deployed copy of the site (a Cloudflare preview or
-# production): every legacy URL, sitemap URL and feed link answers 200 without redirecting,
-# unknown paths get the 404 page with status 404, and no page was rewritten by Cloudflare.
+# production): every legacy URL, sitemap URL (translations included) and feed link answers 200
+# without redirecting, unknown paths get their language's 404 page with status 404, and no
+# page was rewritten by Cloudflare.
 # Registered with the CLI in config/custom_commands.rb.
 module Commands
   class CheckDeploy < Bridgetown::Command
     include SiteUrl
 
     LEGACY_URLS = File.expand_path("../../test/fixtures/legacy_urls.txt", __dir__)
-    FEEDS = %w[/sitemap.xml /feed.xml /robots.txt].freeze
-    MISSING_PAGE = "/check-deploy-missing-page".freeze
+    FEEDS = %w[/sitemap.xml /feed.xml /pt/feed.xml /robots.txt].freeze
+    # A missing path in each language, and the <html lang> its 404 page must have.
+    MISSING_PAGES = {
+      "/check-deploy-missing-page" => 'lang="en"',
+      "/pt/check-deploy-missing-page" => 'lang="pt-BR"'
+    }.freeze
     NOT_FOUND_MARKER = 'class="notfound-wrapper"'.freeze # from src/404.erb
 
     Response = Data.define(:status, :body, :location) do
@@ -53,15 +58,19 @@ module Commands
       (legacy_paths + FEEDS).each { responses[it] }
       linked_paths(responses, site_url).each { responses[it] }
 
-      responses.flat_map { |path, response| page_problems(path, response) } +
-        not_found_problems(host.get(MISSING_PAGE))
+      responses.flat_map { |path, response| page_problems(path, response) } + missing_page_problems(host)
     end
 
-    # Paths of the site's own URLs in the sitemap and the feed's entries.
+    def self.missing_page_problems(host)
+      MISSING_PAGES.flat_map { |path, lang| not_found_problems(path, host.get(path), lang) }
+    end
+
+    # Paths of the site's own URLs in the sitemap (with each page's translations) and the
+    # feeds' entries.
     def self.linked_paths(responses, site_url)
       origin = site_url.chomp("/")
-      urls = xml_values(responses["/sitemap.xml"], "loc") +
-             xml_values(responses["/feed.xml"], "entry link[rel='alternate']")
+      urls = xml_values(responses["/sitemap.xml"], "loc, xhtml\\:link") +
+             %w[/feed.xml /pt/feed.xml].flat_map { xml_values(responses[it], "entry link[rel='alternate']") }
 
       urls.filter_map { it.delete_prefix(origin) if it.start_with?("#{origin}/") }
     end
@@ -83,11 +92,11 @@ module Commands
       end
     end
 
-    def self.not_found_problems(response)
+    def self.not_found_problems(path, response, lang)
       if response.status != 404
-        ["#{MISSING_PAGE}: status #{response.status}, expected 404"]
-      elsif !response.body.include?(NOT_FOUND_MARKER)
-        ["#{MISSING_PAGE}: status 404 without the site's 404 page"]
+        ["#{path}: status #{response.status}, expected 404"]
+      elsif !(response.body.include?(NOT_FOUND_MARKER) && response.body.include?(lang))
+        ["#{path}: status 404 without the site's 404 page"]
       else
         []
       end
