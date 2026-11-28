@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <%= seo_metadata %>
+<%# Each version of the page, for search engines; English is the default. %>
+<% if (alternates = Locales.alternates(resource)).any? %>
+  <% alternates.each do |locale, path| %>
+    <link rel="alternate" hreflang="<%= t("lang", locale:) %>" href="<%= absolute_url path %>">
+  <% end %>
+  <link rel="alternate" hreflang="x-default" href="<%= absolute_url alternates[Locales::DEFAULT] %>">
+<% end %>
 <link type="application/atom+xml" rel="alternate" href="<%= absolute_url Locales.path("/feed.xml") %>" title="<%= metadata.title %>">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/images/apple-touch-icon-dark.png">

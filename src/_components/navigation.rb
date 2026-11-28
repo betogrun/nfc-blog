@@ -4,9 +4,12 @@
 class Navigation < Bridgetown::Component
   Link = Data.define(:icon, :title, :href, :external)
 
-  def initialize(metadata:, tagline: false)
+  # alternates: the page's versions, { locale => path } (Locales.alternates); the language
+  # selector shows only when there is more than one.
+  def initialize(metadata:, tagline: false, alternates: {})
     @metadata = metadata
     @tagline = tagline
+    @alternates = alternates
   end
 
   def site_links = { I18n.t("nav.tags") => Locales.path("/tags"), I18n.t("nav.about") => Locales.path("/about") }

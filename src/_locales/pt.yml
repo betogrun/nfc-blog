@@ -1,10 +1,13 @@
 # Portuguese interface strings; the keys mirror en.yml.
 pt:
   lang: pt-BR
+  og_locale: pt_BR
+  language_name: Português
   nav:
     tags: Tags
     about: Sobre
     site: Site
+    language: Idioma
   theme:
     switch: Mudar o tema
     to_dark: Mudar para o tema escuro

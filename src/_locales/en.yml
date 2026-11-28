@@ -1,11 +1,14 @@
 # Interface strings, read with t() in layouts and components. Portuguese is in pt.yml.
 en:
-  # The <html lang> and hreflang code.
+  # The <html lang> and hreflang code, the Open Graph locale, and the language's own name.
   lang: en
+  og_locale: en_US
+  language_name: English
   nav:
     tags: Tags
     about: About
     site: Site
+    language: Language
   theme:
     switch: Switch theme
     to_dark: Switch to dark theme
