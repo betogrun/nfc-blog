@@ -13,7 +13,7 @@ This post shows a strange behavior I faced when I tried to use an old Ruby versi
 
 I installed Ruby 2.4.3 and set it locally without problems:
 
-```console
+```console?prompt=$
 $ asdf install ruby 2.4.3
 $ asdf local ruby 2.4.3
 
@@ -25,7 +25,7 @@ ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-linux]
 
 Everything seemed fine until I try to install the gems for this version:
 
-```console
+```console?prompt=$
 $ bundle install
 asdf: No version set for command bundle
 you might want to add one of the following in your .tool-versions file:
@@ -35,7 +35,7 @@ ruby 2.6.3
 
 Checking the `.tool-versions`  file also displayed the expected version:
 
-```console
+```console?prompt=$
 $ cat .tool-versions
 ruby 2.4.3
 ```
@@ -48,7 +48,7 @@ The actual problem was the message provided by asdf was not clear enough as poin
 I wasn't able to run `bundle install` because I didn't have bundler for this Ruby version.<br>
 Installing bundler solved the issue:
 
-```console
+```console?prompt=$
 $ gem install bundler
 ```
 

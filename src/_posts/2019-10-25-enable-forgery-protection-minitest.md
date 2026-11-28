@@ -8,7 +8,7 @@ tags: [ruby, rails, minitest]
 
 By default, protection against forgery is disabled on test environment for Rails applications.
 
-```console
+```console?prompt=$
 config.action_controller.allow_forgery_protection = false
 ```
 

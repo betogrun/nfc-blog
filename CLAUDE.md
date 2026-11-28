@@ -30,7 +30,10 @@ https://blog.albertorocha.me.
   `template_engine: none`, so ERB or Liquid in a post renders as text. That keeps
   code samples (`<%= ... %>`, `${{ secrets.X }}`) safe without escaping. Don't
   add template tags or components to posts.
-- Code: fenced blocks with a language (```` ```ruby ````). Images:
+- Code: fenced blocks with a language (```` ```ruby ````). Shell sessions (commands after a
+  `$`, with their output) are ```` ```console?prompt=$ ````: the option stops Rouge from
+  reading output such as `<file>` or `->` as a prompt, and the class stays `language-console`.
+  Images:
   `![alt](/images/<folder>/<file>.png){: .zooming}` with the file in `src/images/`.
   Links opening a new tab: `[text](url){:target="_blank"}`.
 - Every tag in a post's `tags:` needs an entry in `src/_data/tags.yml` (slug →

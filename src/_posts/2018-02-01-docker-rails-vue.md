@@ -78,7 +78,7 @@ volumes:
 The commands bellow assumes you have docker installed:
 
 
-```console
+```console?prompt=$
 $ docker-compose build
 $ docker-compose run --rm web bin/setup
 $ docker-compose up
