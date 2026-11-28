@@ -10,13 +10,12 @@ class TestLayout < Bridgetown::Test
   PAGE_COUNT = (POST_COUNT / PER_PAGE.to_f).ceil
 
   describe "header" do
-    it "puts the site links and the theme toggle on a line above the masthead" do
+    it "keeps only the reader preferences on the line above the masthead" do
       html get PAGY
 
       bar = document.query_selector(".site-header > .site-bar")
-      links = bar.query_selector_all(".site-nav a").to_h { [it.text.strip, it[:href]] }
 
-      assert_equal({ "Tags" => "/tags", "About" => "/about" }, links)
+      assert_nil bar.query_selector(".site-nav")
       refute_nil bar.query_selector("button[data-theme-toggle]")
       assert_equal "site-masthead", bar.next_element[:class]
     end
@@ -103,10 +102,10 @@ class TestLayout < Bridgetown::Test
       assert_nil document.query_selector(".site-tagline")
     end
 
-    it "shows the main subtitle between the name and the dots on the home" do
+    it "shows the main subtitle between the byline and the dots on the home" do
       html get "/"
 
-      tagline = document.query_selector(".site-masthead .site-name + .site-tagline")
+      tagline = document.query_selector(".site-masthead .site-byline + .site-tagline")
 
       assert_equal "An adventure log on software, craft and AI.", tagline.text
       assert_includes tagline.next_element.text, "The Dungeon Master is a language model now."

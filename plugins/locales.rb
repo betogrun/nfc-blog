@@ -30,10 +30,13 @@ module Locales
   def self.alternates(page)
     return {} if page.data["translations"] == false
 
-    path = unprefixed(page.respond_to?(:relative_url) ? page.relative_url : page.url)
+    path = unprefixed(url(page))
     versions = I18n.available_locales.to_h { [it, path(path, it)] }.select { |_, url| urls.include?(url) }
     versions.size > 1 ? versions : {}
   end
+
+  # A page's path: resources have a relative URL, generated pages (tag pages) a URL.
+  def self.url(page) = page.respond_to?(:relative_url) ? page.relative_url : page.url
 
   def self.unprefixed(path)
     others = I18n.available_locales - [DEFAULT]

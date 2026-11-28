@@ -1,0 +1,16 @@
+<section class="topic-index"<% if @heading %> aria-labelledby="topic-index-heading"<% end %>>
+  <% if @heading %>
+    <h2 id="topic-index-heading"><%= t("tags.title") %></h2>
+  <% end %>
+  <ul>
+    <% @topics.each do |topic| %>
+      <li>
+        <a href="<%= topic.tag.href %>">
+          <span class="topic-index-name"><%= topic.tag.name %></span>
+          <span class="topic-index-leader" aria-hidden="true"></span>
+          <span class="topic-index-count"><%= topic.count %></span>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</section>

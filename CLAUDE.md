@@ -34,7 +34,8 @@ https://blog.albertorocha.me.
   `![alt](/images/<folder>/<file>.png){: .zooming}` with the file in `src/images/`.
   Links opening a new tab: `[text](url){:target="_blank"}`.
 - Every tag in a post's `tags:` needs an entry in `src/_data/tags.yml` (slug →
-  display name); a test fails otherwise. Each tag gets a `/tag/<slug>/` page.
+  display name); a test fails otherwise. Each tag gets a `/tag/<slug>/` page and a line in
+  the topic index. The interface calls tags "Topics" ("Assuntos"); URLs keep `tag`.
 - Drafts: `published: false` in front matter; preview with `bin/bt start -U`.
 - Translations (#127): a Portuguese version sits next to its original as
   `YYYY-MM-DD-<slug>.pt.md`, with the same slug and tags, and is served at `/pt/posts/<slug>`.
@@ -121,7 +122,11 @@ Work is issue-driven, and Ruby code is written test-first.
 - `<head>` metadata (Open Graph, Twitter card, canonical) comes from bridgetown-seo-tag
   via the `seo_metadata` helper (`plugins/builders/seo_metadata.rb`); don't hand-write
   those tags. Site-wide values live in `src/_data/site_metadata.yml`.
-- The home's subtitle, in the masthead under the name, rolls one of `taglines` (in `site_metadata.yml`) per
+- The header has no site links (#141): its top line holds the language selector and the theme
+  toggle, and the masthead signs every page "by Alberto Rocha", linking to About; the footer
+  links to About too. `TopicIndex` (every tag, alphabetical, with its post count) closes every
+  home page and makes up the Topics page at `/tags`.
+- The home's subtitle, in the masthead under the name and the byline, rolls one of `taglines` (in `site_metadata.yml`) per
   visit; the first is the main subtitle and the site `description`. Keep the count a die
   size (4, 6, 8, 10, 12 or 20) and each tagline within the length `test/test_taglines.rb`
   allows. The Portuguese ones sit under `pt:` in the same file, one per English tagline.

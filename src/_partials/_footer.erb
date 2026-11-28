@@ -1,7 +1,13 @@
+<% navigation = Navigation.new(metadata:, page:) %>
 <footer class="site-footer">
   <div class="site-dinkus" aria-hidden="true">· · ·</div>
+  <% if navigation.about_page? %>
+    <span class="site-footer-about" aria-current="page"><%= t("nav.about") %></span>
+  <% else %>
+    <a class="site-footer-about" href="<%= navigation.about_path %>"><%= t("nav.about") %></a>
+  <% end %>
   <nav aria-label="<%= t("footer.elsewhere") %>">
-    <% Navigation.new(metadata:).links.each do |link| %>
+    <% navigation.links.each do |link| %>
       <a href="<%= link.href %>" aria-label="<%= link.title %>"<% if link.external %> rel="noreferrer noopener" target="_blank"<% end %>>
         <%= render Icon.new(link.icon) %>
       </a>

@@ -42,12 +42,15 @@ class TestPortuguese < Bridgetown::Test
   end
 
   describe "interface" do
-    it "translates the header and keeps the links in Portuguese" do
+    it "translates the byline and the footer's About link and keeps them in Portuguese" do
       html get GEMS_PT
 
-      links = document.query_selector_all(".site-nav a").to_h { [it.text.strip, it[:href]] }
+      byline = document.query_selector(".site-byline")
+      about = document.query_selector(".site-footer-about")
 
-      assert_equal({ "Tags" => "/pt/tags", "Sobre" => "/pt/about" }, links)
+      assert_equal "por Alberto Rocha", byline.text.split.join(" ")
+      assert_equal "/pt/about", byline.query_selector("a")[:href]
+      assert_equal ["Sobre", "/pt/about"], [about.text.strip, about[:href]]
       assert_equal "/pt/", document.query_selector(".site-masthead .site-name")[:href]
     end
 
@@ -95,11 +98,11 @@ class TestPortuguese < Bridgetown::Test
   end
 
   describe "site pages" do
-    it "has the tags page in Portuguese" do
+    it "has the Topics page in Portuguese" do
       html get "/pt/tags"
 
       assert_equal "pt-BR", document.query_selector("html")[:lang]
-      assert_equal "/pt/tag/ruby/", document.query_selector("a.tag-cloud[href$='/ruby/']")[:href]
+      refute_nil document.query_selector(".topic-index a[href='/pt/tag/ruby/']")
     end
 
     it "has a page per tag in Portuguese, with the translated name" do

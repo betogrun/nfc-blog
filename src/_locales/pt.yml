@@ -7,9 +7,8 @@ pt:
   tagline:
     rolled: tirou {roll} num d{sides}
   nav:
-    tags: Tags
     about: Sobre
-    site: Site
+    by: por
     language: Idioma
   theme:
     switch: Alternar tema
@@ -39,8 +38,8 @@ pt:
       other: "%{count} posts"
     empty: Ainda não há posts em %{name}.
   tags:
-    title: Tags
-    see_all: Ver todos os posts com a tag %{name}
+    title: Assuntos
+    summary: "%{topics} assuntos em %{posts} posts"
   not_found:
     lost: Parece que você se perdeu.
     back_html: Vamos voltar pra <a href="%{home}">página inicial</a>!
