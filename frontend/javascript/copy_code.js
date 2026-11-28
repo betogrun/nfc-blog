@@ -40,11 +40,16 @@ export function setupCopyButtons() {
   })
 }
 
+// Shell scripts in posts often show a `$ ` before commands, mixed with lines that have none
+// (`touch file` then `$ git add file`), so these lose the prompt and keep every line.
+const SHELLS = ["bash", "shell", "sh", "zsh"]
+
 function textToCopy(block, code) {
   const text = code.textContent.replace(/\n$/, "")
-  if (!block.classList.contains("language-console")) return text
+  if (block.classList.contains("language-console")) return commands(code) ?? text
+  if (SHELLS.some((shell) => block.classList.contains(`language-${shell}`))) return text.replace(/^\$ /gm, "")
 
-  return commands(code) ?? text
+  return text
 }
 
 // A shell prompt, `$` or `%`, maybe after a `user@host:path` with no spaces. Rouge guesses

@@ -121,6 +121,7 @@ Work is issue-driven, and Ruby code is written test-first.
 - Code blocks in posts get a copy button from `frontend/javascript/copy_code.js` (#143), with
   labels from `data-copy*` attributes on `.article-content`. `console` blocks copy only the
   commands after a `$` or `%` prompt; Rouge also marks some output as a prompt (`.gp`).
+  `bash`, `shell`, `sh` and `zsh` blocks lose a leading `$ ` on each line and keep every line.
 - Icons: `render Icon.new("name")` inlines `frontend/icons/name.svg`.
 - `<head>` metadata (Open Graph, Twitter card, canonical) comes from bridgetown-seo-tag
   via the `seo_metadata` helper (`plugins/builders/seo_metadata.rb`); don't hand-write
