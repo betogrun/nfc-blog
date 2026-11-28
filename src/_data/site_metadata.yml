@@ -28,13 +28,13 @@ twitter:
   card: summary
 # The Portuguese description and taglines, for the pages under /pt/. Same rules as above.
 pt:
-  description: Um diário de aventura sobre software, ofício e IA.
+  description: Um diário de aventuras sobre software, ofício e IA.
   taglines:
-    - Um diário de aventura sobre software, ofício e IA.
+    - Um diário de aventuras sobre software, ofício e IA.
     - Notas de sessão de uma longa campanha em software e IA.
     - "Software, ofício e IA: a campanha até aqui."
     - Subindo de nível num ofício que vive mudando as regras.
     - O Mestre agora é um modelo de linguagem.
-    - As regras mudaram no meio da campanha. Software, ofício e IA.
+    - As regras mudaram no meio do jogo. Software, ofício e IA.
     - Software, ofício e IA, uma sessão de cada vez.
-    - A campanha de um engenheiro por software, ofício e IA.
+    - A campanha de um engenheiro em software, ofício e IA.

@@ -12,11 +12,11 @@ pt:
     site: Site
     language: Idioma
   theme:
-    switch: Mudar o tema
-    to_dark: Mudar para o tema escuro
-    to_light: Mudar para o tema claro
+    switch: Alternar tema
+    to_dark: Mudar pro tema escuro
+    to_light: Mudar pro tema claro
   footer:
-    elsewhere: Em outros lugares
+    elsewhere: Redes e contato
     email: E-mail
     rss: Feed RSS
   post:
@@ -29,7 +29,7 @@ pt:
     enable_javascript: Ative o JavaScript para ver os comentários.
   pagination:
     label: Paginação
-    older: Posts anteriores
+    older: Posts mais antigos
     newer: Posts mais recentes
     count: página %{page} de %{total}
   tag:
@@ -42,7 +42,7 @@ pt:
     see_all: Ver todos os posts com a tag %{name}
   not_found:
     lost: Parece que você se perdeu.
-    back_html: Vamos voltar para a <a href="%{home}">página inicial</a>!
+    back_html: Vamos voltar pra <a href="%{home}">página inicial</a>!
   # Tag names that differ from src/_data/tags.yml.
   tag_names:
     automation: Automação

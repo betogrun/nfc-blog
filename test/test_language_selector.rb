@@ -127,7 +127,7 @@ class TestLanguageSelector < Bridgetown::Test
     it "describes the Portuguese home in Portuguese" do
       html get "/pt/"
 
-      assert_equal ["Um diário de aventura sobre software, ofício e IA."], meta("og:description")
+      assert_equal ["Um diário de aventuras sobre software, ofício e IA."], meta("og:description")
     end
   end
 end
