@@ -38,3 +38,32 @@ class TestHeadingAnchors < Minitest::Test
     end
   end
 end
+
+class TestHeadingAnchorsInPosts < Bridgetown::Test
+  describe "post body" do
+    it "links every h2 to h4 heading to itself, keeping Kramdown's ids" do
+      html get "/posts/overwriting-pagy-navigation-helper"
+
+      headings = document.query_selector_all(".article-content :is(h2, h3, h4)")
+
+      assert_equal(%w[introduction example daisyui-pagination-component the-pagy-object
+                      overwriting-the-pagy-navigation-helper conclusion references], headings.map { it[:id] })
+      headings.each do |heading|
+        link = heading.query_selector("a.heading-anchor:last-child")
+
+        assert_equal ["##{heading[:id]}", "Link to this section", "#"],
+                     [link[:href], link["aria-label"], link.query_selector("span[aria-hidden='true']").text]
+      end
+    end
+
+    it "labels the anchors in Portuguese on a translation, and leaves h6 labels alone" do
+      html get "/pt/posts/publishing-ruby-gems-with-github-actions"
+
+      link = document.query_selector(".article-content h3[id='conclusão'] a.heading-anchor")
+
+      assert_equal "#conclusão", link[:href]
+      assert_equal "Link pra esta seção", link["aria-label"]
+      assert_empty document.query_selector_all(".article-content h6 a.heading-anchor")
+    end
+  end
+end
