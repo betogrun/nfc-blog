@@ -2,6 +2,8 @@
 // system share sheet, falling back to copying the post's URL. Everywhere else it shows and
 // hides the row of share links under it (the ShareLinks component), where "copy link"
 // copies the URL. Hidden in the HTML, so it only shows when JavaScript runs.
+import { shareMode } from "./share_mode"
+
 const MESSAGE_FOR = 2000
 
 // Shows a message in place of a button's label for a moment.
@@ -23,7 +25,8 @@ async function copy(button) {
   }
 }
 
-const usesShareSheet = () => navigator.share && matchMedia("(pointer: coarse)").matches
+const usesShareSheet = () =>
+  shareMode({ webShare: Boolean(navigator.share), coarsePointer: matchMedia("(pointer: coarse)").matches }) === "sheet"
 
 export function setupShareButtons() {
   document.querySelectorAll("[data-share-copy]").forEach((button) => {
