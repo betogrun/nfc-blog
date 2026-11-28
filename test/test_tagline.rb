@@ -3,7 +3,7 @@ require "minitest_helper"
 require_relative "../src/_components/tagline"
 
 class TestTagline < Minitest::Test
-  def render(taglines) = Nokolexbor::DocumentFragment.parse(Tagline.new(taglines:).template)
+  def render(taglines, **) = Nokolexbor::DocumentFragment.parse(Tagline.new(taglines:, **).template)
 
   # The list as the script sees it: the JSON literal assigned in the script.
   def embedded_list(fragment)
@@ -44,6 +44,12 @@ class TestTagline < Minitest::Test
     script = render(%w[A B]).at_css("script").text
 
     assert_includes script, "sessionStorage"
-    assert_includes script, "rolled a ${roll} on a d${taglines.length}"
+    assert_includes script, '"rolled a {roll} on a d{sides}"'
+  end
+
+  def test_says_the_roll_in_the_page_language
+    script = render(%w[A B], rolled: "tirou {roll} num d{sides}").at_css("script").text
+
+    assert_includes script, '"tirou {roll} num d{sides}"'
   end
 end

@@ -24,7 +24,7 @@
   <div class="site-masthead">
     <a href="<%= home %>" class="site-name"><% first, last = name_parts %><%= first %><% if last %> <span class="site-name-amp">&amp;</span> <%= last %><% end %></a>
     <% if @tagline %>
-      <%= render Tagline.new(taglines:) %>
+      <%= render Tagline.new(taglines:, rolled: t("tagline.rolled")) %>
     <% end %>
     <div class="site-dinkus" aria-hidden="true">· · ·</div>
   </div>

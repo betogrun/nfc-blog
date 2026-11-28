@@ -3,6 +3,8 @@ pt:
   lang: pt-BR
   og_locale: pt_BR
   language_name: Português
+  tagline:
+    rolled: tirou {roll} num d{sides}
   nav:
     tags: Tags
     about: Sobre
