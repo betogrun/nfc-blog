@@ -40,7 +40,7 @@ class TestTagPages < Bridgetown::Test
     it "exist for tags without posts, as on Jekyll" do
       html get "/tag/design/"
 
-      assert_includes document.query_selector("body").text, "There are no posts in design."
+      assert_includes document.query_selector("body").text, "There are no posts in Design."
     end
 
     it "exists for every tag used by a post" do

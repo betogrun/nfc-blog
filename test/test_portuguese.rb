@@ -67,7 +67,7 @@ class TestPortuguese < Bridgetown::Test
     it "shows the Portuguese subtitle on the Portuguese home" do
       html get "/pt/"
 
-      assert_equal "Um diário de aventura sobre software, ofício e IA.",
+      assert_equal "Um diário de aventuras sobre software, ofício e IA.",
                    document.query_selector(".site-tagline").text
     end
 
@@ -119,7 +119,7 @@ class TestPortuguese < Bridgetown::Test
     it "says a tag has no posts yet in Portuguese" do
       html get "/pt/tag/design/"
 
-      assert_includes document.query_selector(".article-empty").text, "Ainda não há posts em design."
+      assert_includes document.query_selector(".article-empty").text, "Ainda não há posts em Design."
     end
 
     it "has the About page in Portuguese" do
