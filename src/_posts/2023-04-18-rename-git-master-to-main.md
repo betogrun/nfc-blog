@@ -14,13 +14,13 @@ This post provides a simple guide for how to rename the branch in your own Git r
 
 First we need to rename the master branch to main using the command below:
 
-```console
+```console?prompt=$
  git branch --move master main
 ```
 
 Then we need to push the main branch to the remote repository
 
-```console
+```console?prompt=$
 git push -u origin main
 ```
 
@@ -43,7 +43,7 @@ Starting with Git version 2.28, you can define the default branch name for new p
 
 Once you have confirmed your Git version, you can use the following command to set 'main' as the default branch for all new Git repositories:
 
-```console
+```console?prompt=$
 git config --global init.defaultBranch main
 ```
 

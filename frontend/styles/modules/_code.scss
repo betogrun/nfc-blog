@@ -36,13 +36,67 @@ div.highlight {
   }
 }
 
+// Phones run blocks edge to edge. The margins go on the wrapper, so the copy button
+// keeps to the block's corner.
 @include breakpoint(small) {
-  div.highlight {
-    padding: 16px;
+  div.highlighter-rouge {
     margin-right: -$gutter-small;
     margin-left: -$gutter-small;
+  }
+
+  div.highlight {
+    padding: 16px;
     font-size: 13px;
     border-radius: 0;
+  }
+}
+
+// Copy button
+// =============================================================================
+
+// Added by copy_code.js (#143) on the wrapper rather than on div.highlight, so it stays
+// in the corner while the code scrolls sideways. Always visible, for touch screens. The
+// code starts below it, since a long first line would otherwise run under it.
+div.highlighter-rouge {
+  position: relative;
+}
+
+div.highlighter-rouge:has(> .code-copy) div.highlight {
+  padding-top: 46px;
+}
+
+.code-copy {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  padding: 3px 9px;
+  font-family: $mono-font-family;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--meta);
+  cursor: pointer;
+  background: var(--code-background);
+  border: 1px solid var(--rule);
+  border-radius: $base-border-radius;
+  transition: color $base-transition-speed linear, border-color $base-transition-speed linear;
+
+  // The box is small; this stretches what a finger can hit to the touch target.
+  &::after {
+    position: absolute;
+    inset: 50% 50% auto auto;
+    width: max(100%, #{$touch-target});
+    height: $touch-target;
+    content: "";
+    transform: translate(50%, -50%);
+  }
+
+  &:hover {
+    color: var(--ink-strong);
+    border-color: var(--meta);
+  }
+
+  &:focus-visible {
+    color: var(--ink-strong);
   }
 }
 

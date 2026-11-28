@@ -8,7 +8,7 @@ tags: [git, github]
 Atention: Make sure you have a configured remote pointing to the remote upstream.
 
 #### 1. Fetch branches and commits from upstream
-```console
+```console?prompt=$
 $ git fetch upstream 
 
 remote: Counting objects: 6, done.
@@ -21,14 +21,14 @@ From github.com:hacker-sessions/mySelfie
 ```
 
 #### 2. Make sure to checkout to your fork's local brach
-```console
+```console?prompt=$
 $ git checkout master
 
 Switched to branch 'master'
 ```
 
 #### 3. Merge changes from `upstream/master` to local master
-```console
+```console?prompt=$
 $ git merge upstream/master
 
 Updating 7c208d3..588a4df

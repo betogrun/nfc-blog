@@ -10,14 +10,14 @@ How about run rubocop before each `git push` operation?
 
 ### Setup the pre-push hook
 Create the file below and save it as `pre-push` in your project's hook directory:<br> `your-project/.git/hooks/`
-```console
+```console?prompt=$
 #!/bin/sh
 
 rubocop
 ```
 
 Then make it executable:
-```console
+```console?prompt=$
 $ chmod +x pre-push
 ```
 
@@ -27,7 +27,7 @@ From now on Rubocop will run before `git push` operation.
 Make sure you have rubocop installed before proceed.<br>
 The push action will be cancelled once a violation is detected, as shown in the example below:
 
-```console
+```console?prompt=$
 $ git push origin test-branch
 Inspecting 41 files
 .....C...................................
@@ -45,7 +45,7 @@ error: failed to push some refs to 'git@github.com:hacker-sessions/remember-the-
 
 After fix the violations you will be able to push the code without problems.
 
-```console
+```console?prompt=$
 $ git push origin test-branch
 Inspecting 41 files
 .........................................

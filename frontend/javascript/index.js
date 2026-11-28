@@ -3,11 +3,13 @@ import Zooming from "zooming"
 
 import { setupThemeToggle } from "./theme"
 import { setupShareButtons } from "./share"
+import { setupCopyButtons } from "./copy_code"
 import { setupDisqus } from "./disqus"
 import { setupLanguageChoice } from "./language"
 
 setupThemeToggle()
 setupShareButtons()
+setupCopyButtons()
 setupDisqus()
 setupLanguageChoice()
 

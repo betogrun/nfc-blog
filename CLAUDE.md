@@ -30,7 +30,10 @@ https://blog.albertorocha.me.
   `template_engine: none`, so ERB or Liquid in a post renders as text. That keeps
   code samples (`<%= ... %>`, `${{ secrets.X }}`) safe without escaping. Don't
   add template tags or components to posts.
-- Code: fenced blocks with a language (```` ```ruby ````). Images:
+- Code: fenced blocks with a language (```` ```ruby ````). Shell sessions (commands after a
+  `$`, with their output) are ```` ```console?prompt=$ ````: the option stops Rouge from
+  reading output such as `<file>` or `->` as a prompt, and the class stays `language-console`.
+  Images:
   `![alt](/images/<folder>/<file>.png){: .zooming}` with the file in `src/images/`.
   Links opening a new tab: `[text](url){:target="_blank"}`.
 - Every tag in a post's `tags:` needs an entry in `src/_data/tags.yml` (slug →
@@ -118,6 +121,11 @@ Work is issue-driven, and Ruby code is written test-first.
   (`plugins/opening_phrase.rb`), called from the post layout.
 - `@include theme(light|dark) { ... }` (in `_mixins.scss`) scopes styles to a theme:
   an explicit `data-theme` on `<html>` wins, otherwise the OS preference applies.
+- Code blocks in posts get a copy button from `frontend/javascript/copy_code.js` (#143), with
+  labels from `data-copy*` attributes on `.article-content`, in a strip above the code. What it
+  copies is decided in `code_text.js`, a pure module tested with `npm test` (`node --test`). `console` blocks copy only the
+  commands after a `$` or `%` prompt; Rouge also marks some output as a prompt (`.gp`).
+  `bash`, `shell`, `sh` and `zsh` blocks lose a leading `$ ` on each line and keep every line.
 - Icons: `render Icon.new("name")` inlines `frontend/icons/name.svg`.
 - `<head>` metadata (Open Graph, Twitter card, canonical) comes from bridgetown-seo-tag
   via the `seo_metadata` helper (`plugins/builders/seo_metadata.rb`); don't hand-write
@@ -160,6 +168,7 @@ Work is issue-driven, and Ruby code is written test-first.
 | New draft post              | `bin/bt new_post "Title"` |
 | Console                     | `bin/bt console` |
 | Run tests                   | `bin/bt test`    |
+| Run JavaScript tests        | `npm test`       |
 | Lint (autofix: `-a`)        | `bin/rubocop`    |
 | Link check (`--external` adds outside links) | `bin/bt check_links` |
 | Full CI gate                | `bin/ci`         |
