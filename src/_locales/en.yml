@@ -43,8 +43,8 @@ en:
       other: "%{count} posts"
     empty: There are no posts in %{name}.
   tags:
-    title: Tags
-    see_all: See all posts by %{name} tag
+    title: Topics
+    summary: "%{topics} topics across %{posts} posts"
   not_found:
     lost: Looks like you got lost.
     back_html: Let's get you back to the <a href="%{home}">homepage</a>!

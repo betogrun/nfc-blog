@@ -38,8 +38,8 @@ pt:
       other: "%{count} posts"
     empty: Ainda não há posts em %{name}.
   tags:
-    title: Tags
-    see_all: Ver todos os posts com a tag %{name}
+    title: Assuntos
+    summary: "%{topics} assuntos em %{posts} posts"
   not_found:
     lost: Parece que você se perdeu.
     back_html: Vamos voltar pra <a href="%{home}">página inicial</a>!

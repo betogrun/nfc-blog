@@ -5,15 +5,18 @@
 @use "../variables" as *;
 @use "../mixins" as *;
 
-// The cloud's inline sizes are percentages of this size.
+// The Topics page (src/tags.erb): the title, how many topics and posts there are, then
+// the topic index.
 .tags-page {
   margin: 48px 0 0;
-  font-size: 12px;
   text-align: center;
   h1 {
-    margin-bottom: 32px;
     font-size: 50px;
     line-height: 1.1;
+  }
+  .topic-index {
+    margin-top: 40px;
+    text-align: left;
   }
 }
 
@@ -28,43 +31,80 @@
   }
 }
 
-.tag-count {
+.tag-count,
+.tags-page-count {
   margin-top: 12px;
   font-family: $mono-font-family;
   font-size: 13px;
   color: var(--meta);
 }
 
-// Each tag's size grows with its post count (set inline in src/tags.erb).
-// A tag never breaks across lines ("DAISY" / "UI (1)" on phones).
-.tag-cloud {
-  font-family: $mono-font-family;
-  white-space: nowrap;
-  line-height: 2;
-  color: var(--ink-strong);
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
-  small {
-    margin-left: 2px;
-    font-size: .7em;
+// The topics in alphabetical order, like a book's index: the name, a dotted leader and
+// the post count, in columns (src/_components/topic_index.erb). It closes the home pages,
+// under a heading in the header's spaced caps.
+.topic-index {
+  margin-top: 72px;
+  h2 {
+    margin-bottom: 14px;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: $caps-letter-spacing;
+    text-align: center;
+    text-transform: uppercase;
     color: var(--meta);
+  }
+  ul {
+    padding: 0;
+    margin: 0;
+    font-family: $mono-font-family;
+    font-size: 13px;
+    line-height: 1.9;
+    list-style: none;
+    columns: 3;
+    column-gap: 32px;
+  }
+  li {
+    break-inside: avoid;
+  }
+  a {
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+    color: var(--ink-strong);
+    text-decoration: none;
+    text-transform: lowercase;
+    &:hover .topic-index-name {
+      text-decoration: underline;
+      text-decoration-color: var(--rule);
+    }
   }
 }
 
+.topic-index-leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--rule);
+  transform: translateY(-4px);
+}
+
+.topic-index-count {
+  color: var(--meta);
+  font-variant-numeric: tabular-nums;
+}
+
 @include breakpoint(small) {
-  .tag-header {
+  .tag-header,
+  .tags-page {
     margin-top: 32px;
     h1 {
       font-size: 34px;
     }
   }
 
-  .tags-page {
-    margin-top: 32px;
-    h1 {
-      font-size: 34px;
+  .topic-index {
+    margin-top: 56px;
+    ul {
+      columns: 2;
+      column-gap: 24px;
     }
   }
 }

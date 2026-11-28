@@ -98,11 +98,11 @@ class TestPortuguese < Bridgetown::Test
   end
 
   describe "site pages" do
-    it "has the tags page in Portuguese" do
+    it "has the Topics page in Portuguese" do
       html get "/pt/tags"
 
       assert_equal "pt-BR", document.query_selector("html")[:lang]
-      assert_equal "/pt/tag/ruby/", document.query_selector("a.tag-cloud[href$='/ruby/']")[:href]
+      refute_nil document.query_selector(".topic-index a[href='/pt/tag/ruby/']")
     end
 
     it "has a page per tag in Portuguese, with the translated name" do
